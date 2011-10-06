@@ -2,9 +2,8 @@ require "spec_helper"
 
 describe Organization do
     before(:each) do
-        @owner = Factory(:user)
+        @owner = Factory(:user, :is_organization => true)
 
-        @owner.toggle!(:is_organization)
         @attr = {
             :name       => "Panda Kingdom",
             :mission    => "To save all pandas",

@@ -2,6 +2,7 @@ class Organization < ActiveRecord::Base
     attr_accessible :name, :mission, :website
 
     belongs_to  :owner, :class_name => "User", :foreign_key => "user_id"
+    has_many    :projects
 
     validates   :user_id, :name, :mission, :presence => true
 

@@ -10,13 +10,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110924043051) do
+ActiveRecord::Schema.define(:version => 20111005031334) do
+
+  create_table "contribute_relationships", :force => true do |t|
+    t.integer  "contributor_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contribute_relationships", ["contributor_id", "project_id"], :name => "index_contribute_relationships_on_contributor_id_and_project_id", :unique => true
+  add_index "contribute_relationships", ["contributor_id"], :name => "index_contribute_relationships_on_contributor_id"
+  add_index "contribute_relationships", ["project_id"], :name => "index_contribute_relationships_on_project_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "mission"
     t.string   "website"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "title"
+    t.decimal  "savings",           :precision => 10, :scale => 0
+    t.integer  "total_time"
+    t.text     "description"
+    t.text     "short_description"
+    t.text     "deliverables"
+    t.text     "steps"
+    t.text     "meeting"
+    t.text     "pro_requirements"
+    t.text     "org_requirements"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

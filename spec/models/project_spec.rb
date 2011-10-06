@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
     before(:each) do
         @organization = Factory(:organization)
-
+        
         @attr = {
             :title => "Motion Graphics Video",
             :savings => "10,000", # Dollars
@@ -13,10 +13,9 @@ describe Project do
             :deliverables => "item thats needs to be completed", # HTML
             :steps => "these are the project steps", # HTML
             :meeting => "1 meeting, 2 meeting, 3 meeting, 4", # HTML
-            :pro_prerequisits => "Needs to be smart", # HTML
-            :org_prerequisits => "Needs to be needy", # HTML
+            :pro_requirements => "Needs to be smart", # HTML
+            :org_requirements => "Needs to be needy", # HTML
             :status => "open"
-
         }
     end
     
@@ -26,13 +25,11 @@ describe Project do
 
     describe "project associations" do
         before(:each) do
-            @project = @organization.porjects.create(@attr)
+            @project = @organization.projects.create(@attr)
         end
-
         it "should have an organization attribute" do
             @project.should respond_to(:organization)
         end
-
         it "should have the right associated organization" do
             @project.organization_id.should == @organization.id
             @project.organization.should == @organization
@@ -43,57 +40,43 @@ describe Project do
         it "should require an organization id" do
             Project.new(@attr).should_not be_valid
         end 
-        
+
         describe "nonblank" do
-
-            it "should require nonblank name" do
-                @organization.projects.build(@attr.merge(:name => "  ")).should_not be_valid
+            it "should require nonblank title" do
+                @organization.projects.build(@attr.merge(:title => "  ")).should_not be_valid
             end
-
             it "should require nonblank savings" do
                 @organization.projects.build(@attr.merge(:savings => "  ")).should_not be_valid
             end
-
             it "should require nonblank total_time" do
                 @organization.projects.build(@attr.merge(:total_time => "  ")).should_not be_valid
             end
-
             it "should require nonblank description" do
                 @organization.projects.build(@attr.merge(:description => "  ")).should_not be_valid
             end
-
             it "should require nonblank short_description" do
                 @organization.projects.build(@attr.merge(:short_description => "  ")).should_not be_valid
             end
-            
             it "should require nonblank deliverables" do
                 @organization.projects.build(@attr.merge(:deliverables => "  ")).should_not be_valid
             end
-            
             it "should require nonblank steps" do
                 @organization.projects.build(@attr.merge(:steps => "  ")).should_not be_valid
             end
-            
             it "should require nonblank meeting" do
                 @organization.projects.build(@attr.merge(:meeting => "  ")).should_not be_valid
             end
-            
-            it "should require nonblank pro_prerequisites" do
-                @organization.projects.build(@attr.merge(:pro_prerequisites => "  ")).should_not be_valid
+            it "should require nonblank pro_requirements" do
+                @organization.projects.build(@attr.merge(:pro_requirements => "  ")).should_not be_valid
             end
-            
             it "should require nonblank org_prerequisites" do
-                @organization.projects.build(@attr.merge(:org_prerequisites => "  ")).should_not be_valid
+                @organization.projects.build(@attr.merge(:org_requirements => "  ")).should_not be_valid
             end
-
             it "should require nonblank status" do
                 @organization.projects.build(@attr.merge(:status => "  ")).should_not be_valid
             end
-
         end
 
-        describe "range" do
-            
-        end
     end
+
 end

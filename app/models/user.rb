@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
     has_many :organizations
 
+    has_many :contribute_relationships, :foreign_key => "contributor_id", :dependent => :destroy
+
     email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
     validates   :name, 
