@@ -5,7 +5,9 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2', '~> 0.2.6'
+gem 'mysql2'
+gem 'execjs'
+gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -41,12 +43,11 @@ gem 'jquery-rails'
 # end
 
 group :test do
-    gem "rspec"
+    gem "rspec-rails"
     gem "capybara"
     gem 'factory_girl_rails'
 end
 
 group :development do
     gem "rspec-rails"
-    gem "capybara"
 end
