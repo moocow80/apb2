@@ -1,11 +1,21 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2', '~> 0.2.6'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', " ~> 3.1.0"
+  gem 'coffee-rails', " ~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -32,11 +42,11 @@ gem 'mysql2', '~> 0.2.6'
 
 group :test do
     gem "rspec"
-    gem "webrat"
+    gem "capybara"
     gem 'factory_girl_rails'
 end
 
 group :development do
     gem "rspec-rails"
-    gem "webrat"
+    gem "capybara"
 end
