@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005031334) do
+ActiveRecord::Schema.define(:version => 20111019015929) do
 
   create_table "contribute_relationships", :force => true do |t|
     t.integer  "contributor_id"
@@ -32,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20111005031334) do
     t.datetime "updated_at"
   end
 
+  create_table "project_tags", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_tags", ["project_id", "tag_id"], :name => "index_project_tags_on_project_id_and_tag_id", :unique => true
+  add_index "project_tags", ["project_id"], :name => "index_project_tags_on_project_id"
+  add_index "project_tags", ["tag_id"], :name => "index_project_tags_on_tag_id"
+
   create_table "projects", :force => true do |t|
     t.integer  "organization_id"
     t.string   "title"
@@ -49,8 +61,42 @@ ActiveRecord::Schema.define(:version => 20111005031334) do
     t.datetime "updated_at"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "tags", :force => true do |t|
     t.string   "name"
+    t.string   "tag_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name", "tag_type"], :name => "index_tags_on_name_and_tag_type", :unique => true
+  add_index "tags", ["name"], :name => "index_tags_on_name"
+  add_index "tags", ["tag_type"], :name => "index_tags_on_tag_type"
+
+  create_table "user_profile_tags", :force => true do |t|
+    t.integer  "user_profile_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_profile_tags", ["tag_id"], :name => "index_user_profile_tags_on_tag_id"
+  add_index "user_profile_tags", ["user_profile_id", "tag_id"], :name => "index_user_profile_tags_on_user_profile_id_and_tag_id", :unique => true
+  add_index "user_profile_tags", ["user_profile_id"], :name => "index_user_profile_tags_on_user_profile_id"
+
+  create_table "user_profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "website"
+    t.boolean  "available"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_profiles", ["name"], :name => "index_user_profiles_on_name"
+  add_index "user_profiles", ["user_id"], :name => "index_user_profiles_on_user_id", :unique => true
+
+  create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "encrypted_password"
     t.string   "salt"

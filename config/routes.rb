@@ -1,4 +1,19 @@
 Apb2::Application.routes.draw do
+
+  resources :users
+  resources :user_profiles
+  resources :organizations
+  resources :sessions, :only => [:new, :create, :destroy]
+
+  match '/register', :to => 'users#new', :as => 'register'
+  match '/login', :to => 'sessions#new'
+  match '/logout', :to => 'sessions#destroy'
+  match '/volunteers/new', :to => 'user_profiles#new', :as => 'new_volunteer'
+
+
+  root :to => 'users#new'
+    
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

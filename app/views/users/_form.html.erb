@@ -1,0 +1,30 @@
+<%= form_for @user do |f| %>
+  <%= f.error_messages %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmation" %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :type, "organization" %>
+    <%= f.label :type_organzation, "Non-Profit Organization" %>
+    <%= f.radio_button :type, "volunteer" %>
+    <%= f.label :type_volunteer, "Volunteer" %>
+  </div>
+  <% unless current_user %>
+  <div class="field">
+    <%= f.check_box :terms %>
+    <%= f.label :terms, "I have read the terms of service and privacy policy" %>
+  </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit "Register" %>
+  </div>
+<% end %>
