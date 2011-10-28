@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Tag do
   before(:each) do
+    Tag.destroy_all
     @attr = {
       :name => "accounting",
       :tag_type => "category"

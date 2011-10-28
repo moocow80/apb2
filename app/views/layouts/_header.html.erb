@@ -1,11 +1,21 @@
 <div id="header">
-  <ul>
+  <a id="logo" href="#">Austin Pro Bono</a>
+	<ul class="navigation">
+		<li><a href="home">Home</a></li>
+		<li><a href="projects">Projects</a></li>
+		<li><a href="volunteers">Volunteers</a></li>
+		<li><a href="organizations">Organizations</a></li>
+		<li class="last"><a href="how-it-works">How It Works</a></li>
+	</ul>
+  <ul class="login">
     <% if current_user %>
       <li><strong><%= current_user.email %></strong></li>
       <li><%= link_to "Log Out", logout_path %></li>
     <% else %>
       <li><%= link_to "Log In", login_path %></li>
+      <li>|</li>
       <li><%= link_to "Register", register_path %></li>
     <% end %>
   </ul>
+  <div class="clear"></div>
 </div>

@@ -1,92 +1,76 @@
 require 'spec_helper'
 
-describe "When a user signs up" do
-    let(:user) { User.new(:email => "test@example.com", :password => "secret", :password_confirmation => "secret")  }
+describe "When a @user.creates an organization", :type => :request do
+  let(:user) { Factory(:user, :is_organization => true, :type => "organization") }
+  let(:organization) { user.organizations.build(
+    :name => "Sample Organization",
+    :contact => "Test Person",
+    :contact_email => "test@example.com",
+    :website => "http://google.com",
+    :phone => "555-555-5555",
+    :mission => "We are on a mission",
+    :details => "These are some details"
+  ) }
 
-    before do
-      @count = User.count
+  before do
+    Organization.destroy_all
+    @count = Organization.count
 
-      visit register_path
-      fill_in "user_email", :with => user.email
-      fill_in "user_password", :with => user.password
-      fill_in "user_password_confirmation", :with => user.password
-    end
-
-    context "with valid credentials" do
-      before do
-        choose "user_type_volunteer"
-        check "terms"
-        click_button "Register"
-      end
-      
-      it "a new user is created" do
-        User.count.should eq(@count + 1)
-      end
-      it "the correct user is created" do
-        User.find_by_email(user.email).should_not be_nil
-      end
-      it "the user is signed in" do
-        page.should have_xpath("//a", :content => "Log Out")
-      end
-      it "the user is notified that an account was create" do
-        page.should have_xpath("//div", :id => "flash_notice", :content => "created")
-      end
-      it "the user is not an admin" do
-        User.find_by_email(user.email).should_not be_is_admin
-      end
-    end
-
-    context "with valid volunteer credentials" do
-      before do
-        choose "user_type_volunteer"
-        check "terms"
-        click_button "Register"
-      end
-      it "an organization user is not created" do
-        User.find_by_email(user.email).should_not be_is_organization
-      end
-      it "the user is sent to create a volunteer profile" do
-        current_path.should eq("/volunteers/new")
-      end
-    end
-
-    context "with valid organization credentials" do
-      before do
-        choose "user_type_organization"
-        check "terms"
-        click_button "Register"
-      end
-      it "an organization user is created" do
-        User.find_by_email(user.email).should be_is_organization
-      end
-      it "the user is sent to create an organization" do
-        current_path.should eq("/organizations/new")
-      end
-    end
-
-    context "with invalid credentials (no user type, no terms)" do
-      it "error messages are shown" do
-        click_button "Register"
-        page.should have_xpath("//div", :class => "error_messages")
-      end
-      it "the user will be redirected back to the register page" do
-        click_button "Register"
-        current_path.should eq("/users")
-      end
-      it "a user is not created unless they have accepted the terms" do
-        check "terms"
-        click_button "Register"
-        page.should have_xpath("//div", :class => "error_messages")
-        User.count.should eq(@count)
-      end
-      it "a user is not created unless they have selected a user type" do
-        choose "user_type_volunteer"
-        click_button "Register"
-        page.should have_xpath("//div", :class => "error_messages")
-        User.count.should eq(@count)
-      end
+    visit login_path
+    fill_in "Email", :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Log In"
+    fill_in "Name of the organization/non-profit", :with => organization.name
+    fill_in "Name of the contact person", :with => organization.contact
+    fill_in "Email address of the contact person", :with => organization.contact_email
+    fill_in "Organization website", :with => organization.website
+    fill_in "Phone number", :with => organization.phone
+    fill_in "Mission statement", :with => organization.mission
+    fill_in "Organization details", :with => organization.details
+    click_on "Next Step: Create a project"
   end
 
+  it "a new orgaization should be created" do
+    Organization.count.should eq(@count + 1)
+  end
+
+  it "another organization with the same name cannot be created" do
+    visit new_organization_path
+    fill_in "Name of the organization/non-profit", :with => organization.name
+    fill_in "Name of the contact person", :with => organization.contact
+    fill_in "Email address of the contact person", :with => organization.contact_email
+    fill_in "Organization website", :with => organization.website
+    fill_in "Phone number", :with => organization.phone
+    fill_in "Mission statement", :with => organization.mission
+    fill_in "Organization details", :with => organization.details
+    click_on "Next Step: Create a project"
+    page.should have_content("already exists")
+  end
+
+  it "the new organization should be owned by the @user.who created it" do
+    Organization.find_by_name("Sample Organization").owner.should == @user
+  end
+
+  it "the new organization should have the right details" do
+    @organization = Organization.where("user_id = ? AND name = ?", @user.id, organization.name)
+    visit organization_path(@organization)
+    page.should have_content(organization.name)
+    page.should have_content(organization.contact)
+    page.should have_content(organization.contact_email)
+    page.should have_content(organization.website)
+    page.should have_content(organization.phone)
+    page.should have_content(organization.mission)
+    page.should have_content(organization.details)
+  end
+
+  it "the @user.should be notified that the organization was created" do
+    page.should have_content("created")
+  end
+
+  it "the @user.should be directed to create a new project for the organization" do
+    current_path.should eq("/sample-organization/projects/new")
+  end
+  
 
 
 end

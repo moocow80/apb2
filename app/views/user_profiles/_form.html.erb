@@ -2,8 +2,8 @@
   <%= f.error_messages %>
   <div class="field">
     <% Tag.where(:tag_type => "category").each do |tag| %>
-      <%= check_box_tag :tag_ids, tag.id, @user_profile.tags.include?(tag), :name => 'user_profile[tag_ids][]' %>
-      <%= label_tag :tag_ids, tag.name.titleize %>
+      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag) %>
+      <%= label_tag "user_profile[tag_ids][]", tag.name.titleize %>
     <% end %>
   </div>
   <div class="field">

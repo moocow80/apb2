@@ -25,7 +25,6 @@ describe "When a user creates their profile" do
     before do
       check "Accounting"
       check "Web Design"
-      check "Public Relations"
       check "Customer Service"
       choose "user_profile_available_1"
       click_button "Next"
@@ -35,7 +34,8 @@ describe "When a user creates their profile" do
       UserProfile.find_by_user_id(user.id).should_not be_nil
     end
     it "the appropriate tags are added to the user" do
-      UserProfile.find_by_user_id(user.id).tags.should_not be_nil
+      profile = UserProfile.find_by_user_id(user.id)
+      profile.tags.should_not eq([])
     end
     it "the user is sent to the project matches page" do
       current_path.should eq(project_matches_path)

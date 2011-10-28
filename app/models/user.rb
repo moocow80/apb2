@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end  
 
   def tag_with!(tag)
-    self.user_profiles.first.tags.create!(:tag_id => tag.id) unless self.user_profiles.first == nil
+    self.user_profiles.first.user_profile_tags.create!(:tag_id => tag.id) unless self.user_profiles.first == nil
   end
 
   private

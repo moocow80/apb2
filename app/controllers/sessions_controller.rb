@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       elsif user.user_profiles.nil?
         redirect_to new_volunteer_path
       else
-        redirect_back_or user
+        redirect_to user
       end
     end
 

@@ -1,8 +1,9 @@
 class UserProfile < ActiveRecord::Base
-  attr_accessible :name, :description, :website, :available
+  attr_accessible :name, :description, :website, :available, :tag_ids
 
   belongs_to :user
-  has_many :tags, :class_name => "UserProfileTag", :foreign_key => "user_profile_id"
+  has_many :user_profile_tags, :dependent => :destroy
+  has_many :tags, :through => :user_profile_tags
 
   validates :user_id,
             :presence => true,

@@ -4,6 +4,7 @@ describe "When a user signs up" do
     let(:user) { User.new(:email => "test@example.com", :password => "secret", :password_confirmation => "secret")  }
 
     before do
+      User.destroy_all
       @count = User.count
 
       visit register_path

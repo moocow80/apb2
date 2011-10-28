@@ -5,7 +5,7 @@ describe UserProfileTag do
     @user_profile = Factory(:user_profile)
     @tag = Factory(:tag)
 
-    @profile_tag = @user_profile.tags.build(:tag_id => @tag.id)
+    @profile_tag = @user_profile.user_profile_tags.build(:tag_id => @tag.id)
   end
 
   it "should create an instance given valid attributes" do
