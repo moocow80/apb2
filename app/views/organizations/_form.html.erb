@@ -1,0 +1,34 @@
+<%= form_for @organization do |f| %>
+  <%= f.error_messages %>
+  <div class="field">
+    <%= f.label :name, "Name of the organization/non-profit" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :contact, "Name of the contact person" %><br />
+    <%= f.text_field :contact %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_email, "Email address of the contact person" %><br />
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="field">
+    <%= f.label :website, "Organization website" %><br />
+    <%= f.text_field :website %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, "Phone number" %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :mission, "Mission statement" %><br />
+    <%= f.text_area :mission %>
+  </div>
+  <div class="field">
+    <%= f.label :details, "Organization details" %><br />
+    <%= f.text_area :details %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Next Step: Create a project" %>
+  </div>
+<% end %>
