@@ -1,0 +1,41 @@
+<%= form_for @project do |f| %>
+  <%= f.error_messages %>
+  <div class="field">
+    <% Tag.where(:tag_type => "category").each do |tag| %>
+      <%= check_box_tag "project[tag_ids][]", tag.id, @project.tags.include?(tag) %>
+      <%= label_tag "project[tag_ids][]", tag.name.titleize %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :details %><br />
+    <%= f.text_area :details %>
+  </div>
+  <div class="field">
+    <%= f.label :deliverables %><br />
+    <%= f.text_area :deliverables %>
+  </div>
+  <div class="field">
+    <%= f.label :steps %><br />
+    <%= f.text_area :steps %>
+  </div>
+  <div class="field">
+    <%= f.label :meetings %><br />
+    <%= f.text_area :meetings %>
+  </div>
+  <div class="field">
+    <%= f.label :pro_requirements %><br />
+    <%= f.text_area :pro_requirements %>
+  </div>
+  <div class="field">
+    <%= f.label :time_frame %><br />
+    <%= f.text_area :time_frame %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create Your Project" %>
+  </div>
+<% end %>
+

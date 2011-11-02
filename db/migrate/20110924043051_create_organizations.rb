@@ -12,6 +12,8 @@ class CreateOrganizations < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :organizations, :name, :unique => true
   end
 
   def self.down

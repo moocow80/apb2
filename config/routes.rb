@@ -1,22 +1,56 @@
 Apb2::Application.routes.draw do
 
-  resources :users
-  resources :user_profiles
-  resources :organizations
+  # Sessions
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :projects
-
-  match '/register', :to => 'users#new', :as => 'register'
   match '/login', :to => 'sessions#new'
   match '/logout', :to => 'sessions#destroy'
-  match '/volunteers/new', :to => 'user_profiles#new', :as => 'new_volunteer'
 
+  # Pages
+  match '/home', :to => 'pages#home'
+
+  # Users
+  resources :users
+  match '/register', :to => 'users#new', :as => 'register'
+ 
+  # Volunteers (UserProfiles)
+  resources :user_profiles
+  match '/volunteers/new', :to => 'user_profiles#new', :as => 'new_volunteer'
   match '/matches', :to => "projects#matches", :as => 'project_matches'
 
-  match '/home', :to => 'pages#home'
+  # Organizations & Projects
+  match '/organizations/new', :to => 'organizations#new', :as => 'new_organization'
+  match '/organizations', :to => 'organizations#create', :via => :post
+  match '/organizations', :to => 'organizations#update', :via => :put
+  match '/organizations', :to => 'organizations#destroy', :via => :delete
+
+  # scope "/:organization", :contraints => {:organization => /((?!volunteer|login|logout|register|home).)*/ } do
+  scope "/:organization", do
+    scope "/:project" do
+      match '/' => "projects#show", :via => :get, :as => 'organization_project'
+      match '/' => "projects#update", :via => :put
+      match '/' => "projects#destroy", :via => :delete
+      match '/edit' => "projects#edit", :via => :get, :as => 'edit_organization_project'
+    end
+    match '/' => 'organizations#show', :via => :get, :as => 'organization'
+    match '/edit' => 'organizations#edit', :via => :get, :as => 'edit_organization'
+    match '/projects' => "projects#create", :via => :post
+    match '/projects/new' => "projects#new", :via => :get, :as => 'new_organization_project'
+  end
+
+
 
   root :to => 'pages#home'
     
+
+
+  # /sample-organization
+  # /sample-organization/projects/new
+  # /sample-organization/sample-project
+  # /sample-organization/sample-project/edit
+  # /sample-organization/sample-project/delete
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

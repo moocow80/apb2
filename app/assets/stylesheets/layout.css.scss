@@ -26,6 +26,11 @@ a {
 	text-decoration: none;
 	color: $blue;
 }
+h1 {
+  span {
+    float: right;
+  }
+}
 p {
 	line-height: 1.3em;
 }

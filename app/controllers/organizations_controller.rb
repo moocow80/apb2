@@ -5,6 +5,7 @@ class OrganizationsController < ApplicationController
   end
 
   def show
+    @organization = Organization.find_by_name(params[:organization].titleize)
   end
 
   def new
@@ -14,8 +15,8 @@ class OrganizationsController < ApplicationController
   def create
     @organization = current_user.organizations.build(params[:organization])
     if @organization.save
-      flash[:success] = "Congratulations, your organization was create!"
-      redirect_to organizations_new_project_path(@organization)
+      flash[:success] = "Congratulations, your organization was created!"
+      redirect_to new_organization_project_path(@organization)
     else
       render 'new'
     end

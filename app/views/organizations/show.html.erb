@@ -1,0 +1,26 @@
+<h1>
+  <%= @organization.name %>
+  <% if @organization.owner == current_user %>
+  <span><%= link_to "New Project", new_organization_project_path(@organization), :class => "button" %></span>
+  <% end %>
+</h1>
+<ul>
+  <li><strong>Contact: </strong><%= @organization.contact %></li>
+  <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
+  <li><strong>Website: </strong><%= @organization.website %></li>
+  <li><strong>Phone: </strong><%= @organization.phone %></li>
+  <li><strong>Mission: </strong><%= @organization.mission %></li>
+  <li><strong>Details: </strong><%= @organization.details %></li>
+</ul>
+<% if @organization.projects %>
+<ul id="projects">
+  <% @organization.projects.each do |project| %>
+    <li>
+      <%= project.title %>
+      <% if @organization.owner == current_user %>
+      <%= link_to "Edit", edit_organization_project_path(@organization, project) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>

@@ -27,7 +27,7 @@ describe "When a user creates their profile" do
       check "Web Design"
       check "Customer Service"
       choose "user_profile_available_1"
-      click_button "Next"
+      click_button "Next Step: Match me up with a project"
     end
     it "a new user profile is created for that user" do
       UserProfile.count.should eq(@count + 1)

@@ -19,24 +19,25 @@ Factory.sequence :email do |n|
 end
 
 Factory.define :organization do |organization|
-  organization.name "Sample Organization"
-  organization.mission "Our sample mission"
-  organization.website "http://www.example.com"
   organization.association :owner
+  organization.name "Sample Organization"
+  organization.contact "Test Contact"
+  organization.contact_email "test@example.com"
+  organization.website "http://www.example.com"
+  organization.phone "555-555-5555"
+  organization.mission "Our sample mission"
+  organization.details "Our sample details"
 end
 
 Factory.define :project do |project|
   project.association :organization
   project.title "Motion Graphics Video"
-  project.savings "10,000"
-  project.total_time "50"
-  project.description "Some long text description"
-  project.short_description "Some short text description"
+  project.details "Sample project details"
   project.deliverables "item thats needs to be completed"
   project.steps "these are the project steps"
-  project.meeting "1 meeting, 2 meeting, 3 meeting, 4"
+  project.meetings "1 meeting, 2 meeting, 3 meeting, 4"
   project.pro_requirements "Needs to be smart"
-  project.org_requirements "Needs to be needy"
+  project.time_frame "This is a time frame"
   project.status "open"
 end
 

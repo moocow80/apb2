@@ -19,7 +19,16 @@ class Organization < ActiveRecord::Base
     validates :phone,
               :format => { :with => phone_regex }
 
+    validates :name,
+              :uniqueness => { :case_sensitive => false }
+  
     validate :require_organization_user
+
+    before_save :sanitize_name
+
+    def to_param
+      self.name.parameterize      
+    end
 
     private
 
@@ -30,4 +39,9 @@ class Organization < ActiveRecord::Base
             end
         end
     end
+
+    def sanitize_name
+      self.name = self.name.titleize
+    end
+
 end

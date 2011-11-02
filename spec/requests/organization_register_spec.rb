@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "When a @user.creates an organization", :type => :request do
+describe "When a  user creates an organization", :type => :request do
   let(:user) { Factory(:user, :is_organization => true, :type => "organization") }
   let(:organization) { user.organizations.build(
     :name => "Sample Organization",
@@ -44,15 +44,15 @@ describe "When a @user.creates an organization", :type => :request do
     fill_in "Mission statement", :with => organization.mission
     fill_in "Organization details", :with => organization.details
     click_on "Next Step: Create a project"
-    page.should have_content("already exists")
+    page.should have_content("already been taken")
   end
 
-  it "the new organization should be owned by the @user.who created it" do
-    Organization.find_by_name("Sample Organization").owner.should == @user
+  it "the new organization should be owned by the user who created it" do
+    Organization.find_by_name("Sample Organization").owner.should == user
   end
 
   it "the new organization should have the right details" do
-    @organization = Organization.where("user_id = ? AND name = ?", @user.id, organization.name)
+    @organization = user.organizations.find_by_name(organization.name)
     visit organization_path(@organization)
     page.should have_content(organization.name)
     page.should have_content(organization.contact)
@@ -63,11 +63,11 @@ describe "When a @user.creates an organization", :type => :request do
     page.should have_content(organization.details)
   end
 
-  it "the @user.should be notified that the organization was created" do
+  it "the user should be notified that the organization was created" do
     page.should have_content("created")
   end
 
-  it "the @user.should be directed to create a new project for the organization" do
+  it "the user should be directed to create a new project for the organization" do
     current_path.should eq("/sample-organization/projects/new")
   end
   

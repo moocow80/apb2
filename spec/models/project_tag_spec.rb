@@ -5,7 +5,7 @@ describe ProjectTag do
     @project = Factory(:project)
     @tag = Factory(:tag)
 
-    @project_tag = @project.tags.build(:tag_id => @tag.id)
+    @project_tag = @project.project_tags.build(:tag_id => @tag.id)
   end
 
   it "should create an instance given valid attributes" do

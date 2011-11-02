@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     else
       sign_in user
       if user.is_organization?
-        redirect_to organizations_path
+        redirect_to new_organization_path
       elsif user.user_profiles.nil?
         redirect_to new_volunteer_path
       else

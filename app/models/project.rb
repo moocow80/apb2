@@ -1,36 +1,23 @@
 class Project < ActiveRecord::Base
-  attr_accessible :title, :savings, :total_time, :description, :short_description, :deliverables, :steps, :meeting, :pro_requirements, :org_requirements, :status
+  attr_accessible :title, :details, :deliverables, :steps, :meetings, :pro_requirements, :time_frame, :status, :tag_ids
   
   belongs_to  :organization
-  has_many :tags, :class_name => "ProjectTag", :foreign_key => "project_id"
+  has_many :project_tags, :dependent => :destroy
+  has_many :tags, :through => :project_tags
 
-  validates   :organization_id,
-              :presence => true
-  validates   :title,
-              :presence =>true
-  validates   :savings,
-              :presence =>true
-  validates   :total_time,
-              :presence =>true
-  validates   :description,
-              :presence =>true
-  validates   :short_description,
-              :presence =>true
-  validates   :deliverables,
-              :presence =>true
-  validates   :steps,
-              :presence =>true
-  validates   :meeting,
-              :presence =>true
-  validates   :pro_requirements,
-              :presence =>true
-  validates   :org_requirements,
-              :presence =>true
-  validates   :status,
-              :presence =>true
-
+  validates_presence_of :organization_id, :title, :details, :deliverables, :steps, :pro_requirements, :time_frame
+  validates_inclusion_of :status, :in => %w( open closed )
+  
+  before_create :set_open_status 
+  
   def tag_with!(tag)
-    tags.create!(:tag_id => tag.id)
+    project_tags.create!(:tag_id => tag.id)
   end
+
+  private
+
+    def set_open_status
+      self.status = "open"
+    end
 
 end
