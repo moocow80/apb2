@@ -57,7 +57,7 @@ describe Tag do
     end
     it "should have the right users" do
       user = Factory(:user)
-      user2 = Factory(:user, :email => Factory.next(:email))
+      user2 = Factory(:user)
       
       profile = Factory(:user_profile, :user => user)
       profile2 = Factory(:user_profile, :user => user2)

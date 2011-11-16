@@ -9,16 +9,23 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user
-      if user.is_organization?
-        redirect_to new_organization_path
-      elsif user.user_profiles.nil?
-        redirect_to new_volunteer_path
-      else
-        redirect_to user
+      
+      if user.is_admin?
+        redirect_back_or user
+      elsif user.is_organization?
+        if user.organizations.empty?
+          redirect_to new_organization_path
+        else
+          redirect_back_or user_organizations_path(user)
+        end
+      elsif !user.is_organization?
+        if user.user_profiles.empty?
+          redirect_to new_volunteer_path
+        else
+          redirect_back_or project_matches_path
+        end
       end
     end
-
-
   end
 
   def destroy

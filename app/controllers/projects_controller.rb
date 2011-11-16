@@ -35,6 +35,10 @@ class ProjectsController < ApplicationController
   end
 
   def matches
+    if !current_user.verified?
+      flash[:error] = "Sorry, you can't see your matches until your email address has been verified."
+      redirect_to user_path(current_user)
+    end
   end
 
   private

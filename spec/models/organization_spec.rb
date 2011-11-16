@@ -86,7 +86,12 @@ describe Organization do
     it "should require a phone" do
       @owner.organizations.build(@attr.merge(:phone => "  ")).should_not be_valid
     end
-    it "should not allow invalid phone numbers"
+    it "should not allow invalid phone numbers" do
+      phones = %w[999 bart 99ext 999&999&9997]
+      phones.each do |phone|
+        @owner.organizations.build(@attr.merge(:phone => phone)).should_not be_valid
+      end
+    end
     it "should require a mission" do
       @owner.organizations.build(@attr.merge(:mission => "  ")).should_not be_valid
     end
@@ -104,6 +109,14 @@ describe Organization do
     end
     it "should no allow long details" do
       @owner.organizations.build(@attr.merge(:details => "a" * 1001)).should_not be_valid
+    end
+    it "should not be verfied by default" do
+      organization = @owner.organizations.create!(@attr)
+      organization.should_not be_verified
+    end
+    it "should create a random email token when created" do
+      organization = @owner.organizations.create!(@attr)
+      organization.verification_token.should_not be_nil
     end
 
   end

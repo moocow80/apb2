@@ -48,6 +48,16 @@ describe User do
     user_with_same_email.should_not be_valid
   end
 
+  it "should not be verfied by default" do
+    user = User.create!(@attr)
+    user.should_not be_verified
+  end
+
+  it "should create a random email token when created" do
+    user = User.create!(@attr)
+    user.email_token.should_not be_nil
+  end
+
   describe "password validations" do
     it "should require a password" do
       User.new(@attr.merge(:password => "", :password_confirmation => "")).should_not be_valid

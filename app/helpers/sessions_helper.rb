@@ -39,6 +39,10 @@ module SessionsHelper
     clear_return_to
   end
 
+  def is_admin
+    deny_access unless current_user.is_admin?
+  end
+
   private
 
     def user_from_remember_token

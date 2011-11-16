@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of :terms
   validates_inclusion_of :type, :in => ["organization", "volunteer"]
 
+  before_create { generate_token(:email_token) }
   before_save :encrypt_password
 
   def type
@@ -59,7 +60,7 @@ class User < ActiveRecord::Base
   private
     def encrypt_password
       self.salt = make_salt if new_record?
-      self.encrypted_password = encrypt(password)
+      self.encrypted_password = encrypt(password) unless password.nil?
     end
 
     def encrypt(string)
@@ -73,4 +74,11 @@ class User < ActiveRecord::Base
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end
+
+    def generate_token(column)
+      begin
+        self[column] = SecureRandom.urlsafe_base64
+      end while User.exists?(column => self[column])
+    end
+
 end

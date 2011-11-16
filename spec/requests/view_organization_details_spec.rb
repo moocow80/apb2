@@ -30,7 +30,7 @@ describe "View Organization Details" do
 
   context "as a volunteer" do
     before(:each) do
-      @volunteer = Factory(:user, :email => Factory.next(:email), :is_organization => false, :type => "volunteer")
+      @volunteer = Factory(:user)
       visit login_path
       fill_in "Email", :with => @volunteer.email
       fill_in "Password", :with => @volunteer.password

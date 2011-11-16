@@ -1,0 +1,24 @@
+Greetings!
+
+We need you to verify the organization <%= @organization.name %>.  The organizations details are as follows:
+
+User / Owner: <%= @organization.owner.email %>
+Organization: <%= @organization.name %>
+Contact: <%= @organization.contact %>
+Contact Email: <%= @organization.contact_email %>
+Website: <%= @organization.website || "Not provided" %>
+Phone: <%= @organization.phone %>
+Mission: <%= @organization.mission %>
+Details: <%= @organization.details %>
+
+Please contact the organization and verify that they are a 501(c)3 compliant organization, or otherwise able to post on AustinProBono.org.
+
+If this organization is valid, you can verify them by clicking the link below:
+
+<%= organization_verify_url(@organization.verification_token) %>
+
+Once verified, <%= @organization.name %> will appear on the public-facing AustinProBono.org website at <%= organization_url(@organization) %>
+
+
+Sincerely,
+The AustinProBono.org Website

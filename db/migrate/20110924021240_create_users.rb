@@ -6,6 +6,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :salt
       t.boolean :is_admin
       t.boolean :is_organization
+      t.string :email_token
+      t.boolean :verified, :default => false
 
       t.timestamps
     end

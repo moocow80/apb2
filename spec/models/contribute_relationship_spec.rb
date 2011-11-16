@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ContributeRelationship do
     before(:each) do
-        @contributor = Factory(:user, :email => Factory.next(:email))
+        @contributor = Factory(:user)
         @project = Factory(:project)
 
         @relationship = @contributor.contribute_relationships.build(:project_id => @project.id)

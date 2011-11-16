@@ -24,7 +24,9 @@ class Organization < ActiveRecord::Base
   
     validate :require_organization_user
 
+    before_create { generate_token(:verification_token) }
     before_save :sanitize_name
+    after_save :check_verification
 
     def to_param
       self.name.parameterize      
@@ -43,5 +45,16 @@ class Organization < ActiveRecord::Base
     def sanitize_name
       self.name = self.name.titleize
     end
+
+    def generate_token(column)
+      begin
+        self[column] = SecureRandom.urlsafe_base64
+      end while Organization.exists?(column => self[column])
+    end
+
+    def check_verification
+      notify_observers(:after_verified) if verified_changed? && verified?
+    end
+
 
 end

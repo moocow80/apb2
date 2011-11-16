@@ -1,7 +1,13 @@
 Apb2::Application.routes.draw do
 
-  # Sessions
+  # Resourceful Routes
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :users do
+    resources :organizations, :only => [:index]
+  end
+  resources :user_profiles
+  
+  # Sessions
   match '/login', :to => 'sessions#new'
   match '/logout', :to => 'sessions#destroy'
 
@@ -9,15 +15,16 @@ Apb2::Application.routes.draw do
   match '/home', :to => 'pages#home'
 
   # Users
-  resources :users
   match '/register', :to => 'users#new', :as => 'register'
+  match '/verify/:id', :to => 'users#verify', :as => 'email_verification'
  
   # Volunteers (UserProfiles)
-  resources :user_profiles
   match '/volunteers/new', :to => 'user_profiles#new', :as => 'new_volunteer'
   match '/matches', :to => "projects#matches", :as => 'project_matches'
 
   # Organizations & Projects
+  match '/verify_organization/:id' => 'organizations#verify', :as => :organization_verify
+
   match '/organizations/new', :to => 'organizations#new', :as => 'new_organization'
   match '/organizations', :to => 'organizations#create', :via => :post
   match '/organizations', :to => 'organizations#update', :via => :put

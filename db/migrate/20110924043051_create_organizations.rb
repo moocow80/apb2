@@ -9,6 +9,8 @@ class CreateOrganizations < ActiveRecord::Migration
       t.text :mission
       t.text :details
       t.integer :user_id
+      t.string :verification_token
+      t.boolean :verified, :default => false
 
       t.timestamps
     end

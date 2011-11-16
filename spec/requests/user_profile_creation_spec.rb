@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "When a user creates their profile" do
   let(:user) { Factory(:user, :is_organization => false, :type => "volunteer") }
   let(:user_profile) { user.user_profiles.build(:name => "Test User", :description => "This is a great description of me.", :website => "http://www.google.com") }
+  let(:project) { Factory(:project) }
 
   before do
     @tag1 = Tag.create(:name => "Accounting", :tag_type => "category")
@@ -27,21 +28,55 @@ describe "When a user creates their profile" do
       check "Web Design"
       check "Customer Service"
       choose "user_profile_available_1"
-      click_button "Next Step: Match me up with a project"
     end
     it "a new user profile is created for that user" do
+      click_button "Next Step: Match me up with a project"
       UserProfile.count.should eq(@count + 1)
       UserProfile.find_by_user_id(user.id).should_not be_nil
     end
     it "the appropriate tags are added to the user" do
+      click_button "Next Step: Match me up with a project"
       profile = UserProfile.find_by_user_id(user.id)
       profile.tags.should_not eq([])
     end
-    it "the user is sent to the project matches page" do
-      current_path.should eq(project_matches_path)
-    end
     it "the user is notified that their profile was added" do
+      click_button "Next Step: Match me up with a project"
       page.should have_xpath("//div", :id => "flash_notice", :content => "added")
+    end
+
+    context "for verified email addresses" do
+      before(:each) do
+        visit email_verification_path(user.email_token)
+        fill_in "Name", :with => user_profile.name
+        fill_in "Description", :with => user_profile.description
+        fill_in "Website", :with => user_profile.website
+        check "Accounting"
+        check "Web Design"
+        check "Customer Service"
+        choose "user_profile_available_1"
+        click_button "Next Step: Match me up with a project"
+      end
+      it "the user is sent to the project matches page" do
+        current_path.should eq(project_matches_path)
+      end
+    end
+
+    context "for unverified email addresses" do
+      before(:each) do
+        click_button "Next Step: Match me up with a project"
+      end
+      it "the users is sent to their own profile page" do
+        current_path.should eq(user_path(user))
+      end
+      it "the user should not able to apply to a project" do
+        visit organization_project_path(project.organization, project)
+        page.should_not have_selector("a", :text => "Apply")
+      end
+      it "the user should not be able to see any project matches" do
+        visit project_matches_path
+        page.should have_content("has been verified")
+      end
+
     end
   end
 

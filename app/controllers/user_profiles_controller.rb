@@ -15,7 +15,11 @@ class UserProfilesController < ApplicationController
     @user_profile = current_user.user_profiles.create(params[:user_profile])
     if @user_profile.save
       flash[:success] = "Your profile was created!"
-      redirect_to project_matches_path
+      if current_user.verified?
+        redirect_to project_matches_path
+      else
+        redirect_to user_path(current_user) 
+      end
     else
       render 'new'
     end

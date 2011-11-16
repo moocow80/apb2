@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20111019015929) do
     t.text     "mission"
     t.text     "details"
     t.integer  "user_id"
+    t.string   "verification_token"
+    t.boolean  "verified",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -107,6 +109,8 @@ ActiveRecord::Schema.define(:version => 20111019015929) do
     t.string   "salt"
     t.boolean  "is_admin"
     t.boolean  "is_organization"
+    t.string   "email_token"
+    t.boolean  "verified",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -35,6 +35,10 @@ describe "When a user signs up" do
       it "the user is not an admin" do
         User.find_by_email(user.email).should_not be_is_admin
       end
+      it "the user should get an email requesting they verify their email address" do
+        page.should have_content("click the link")
+        last_email.to.should include(user.email)
+      end
     end
 
     context "with valid volunteer credentials" do
