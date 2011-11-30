@@ -1,8 +1,10 @@
 class OrganizationsController < ApplicationController
-  before_filter :authenticate, :except => [:index, :show]
-  before_filter :has_organization, :only => [:index]
+  before_filter :authenticate, :except => [:index, :show, :showall]
   before_filter :is_admin, :only => [:verify]
+
   def index
+    per_page = params[:per_page] || 20
+    @organizations = Organization.where(:verified => true).paginate(:page => params[:page], :per_page => per_page)
   end
 
   def show
@@ -30,6 +32,11 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def showall
+   # @users = User.paginate(:page => params[:page], :per_page => 10 )
+    @organizations = Organization.paginate(:page => params[:page], :per_page => 10)
   end
 
   def verify

@@ -8,6 +8,7 @@ gem 'rails', '3.1.0'
 gem 'mysql2'
 gem 'execjs'
 gem 'therubyracer'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -50,4 +51,5 @@ end
 
 group :development do
     gem "rspec-rails"
+    gem "faker"
 end

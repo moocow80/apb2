@@ -41,13 +41,9 @@ FactoryGirl.define do
 
   factory :project do
     association :organization
-    sequence(:title) { |n| "Test Project #{n}" }
+    sequence(:name) { |n| "Test Project #{n}" }
     details "Sample project details"
-    deliverables "item thats needs to be completed"
-    steps "these are the project steps"
-    meetings "1 meeting, 2 meeting, 3 meeting, 4"
-    pro_requirements "Needs to be smart"
-    time_frame "This is a time frame"
+    goals "Sample project goals"
     status "open"
   end
 

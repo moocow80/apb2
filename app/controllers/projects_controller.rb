@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate
-  before_filter :find_organization, :except => [:index, :matches]
+  before_filter :find_organization, :except => [:index, :matches, :verify]
+  before_filter :is_admin, :only => [:verify]
+
   def index
   end
 
@@ -38,6 +40,16 @@ class ProjectsController < ApplicationController
     if !current_user.verified?
       flash[:error] = "Sorry, you can't see your matches until your email address has been verified."
       redirect_to user_path(current_user)
+    end
+  end
+
+  def verify
+    @project = Project.find_by_verification_token(params[:id])
+    if @project
+      @project.toggle!(:verified)
+      flash.now[:success] = "#{@project.name} has been verified!"
+    else
+      flash.now[:error] = "The project could not be found"
     end
   end
 

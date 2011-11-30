@@ -16,7 +16,7 @@
 <ul id="projects">
   <% @organization.projects.each do |project| %>
     <li>
-      <%= project.title %>
+      <%= project.name %>
       <% if @organization.owner == current_user %>
       <%= link_to "Edit", edit_organization_project_path(@organization, project) %>
       <% end %>

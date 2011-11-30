@@ -16,4 +16,10 @@ class UserMailer < ActionMailer::Base
     @user = organization.owner
     mail :to => @user.email, :subject => "#{organization.name} has been verified!"
   end
+
+  def project_verified(project)
+    @project = project
+    @user = project.organization.owner
+    mail :to => @user.email, :subject => "#{project.name} has been verified!"
+  end
 end

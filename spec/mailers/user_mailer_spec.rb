@@ -10,7 +10,6 @@ describe UserMailer do
       mail.to.should eq([user.email])
       mail.from.should eq(["noreply@austinprobono.org"])
     end
-
     it "renders the body" do
       mail.body.encoded.should match(email_verification_path(user.email_token))
     end
@@ -25,11 +24,23 @@ describe UserMailer do
       mail.to.should eq([organization.owner.email])
       mail.from.should eq(["noreply@austinprobono.org"])
     end
-
     it "renders the body" do
       mail.body.encoded.should match(organization_url(organization))
     end
-    
+  end
+
+  describe "project_verified" do
+    let(:project) { create(:project, :verified => true) }
+    let(:mail) { UserMailer.project_verified(project) }
+
+    it "renders the headers" do
+      mail.subject.should eq("#{project.name} has been verified!")
+      mail.to.should eq([project.organization.owner.email])
+      mail.from.should eq(["noreply@austinprobono.org"])
+    end
+    it "renders the body" do
+      mail.body.encoded.should match(organization_project_url(project.organization, project))
+    end
   end
 
 end

@@ -1,0 +1,41 @@
+<div class="search"></div>
+<div class="filters"></div>
+<div class="view_per_page">
+  <strong>
+    <%= link_to "20", organizations_path(:per_page => 20) %> | 
+    <%= link_to "50", organizations_path(:per_page => 50) %> | 
+    <%= link_to "All", organizations_path(:per_page => 100000) %> 
+  </strong>
+</div>
+
+<%= will_paginate %>
+<h1>Non-Profits</h1>
+<div class="organizations">
+  <ul>
+    <% @organizations.each do |organization| %>
+    <li>
+      <div class="organization">
+        <div class="thumb"></div>
+        <div class="details">
+          <h3 class="title allcaps"><%= link_to organization.name, organization %></h3>
+          <div class="causes"></div>
+          <p><%= organization.details %></p>
+          <div class="more_info">
+            <h4 class="allcaps">Mission Statement</h4>
+            <p><%= organization.mission %></p>
+            <h4 class="allcaps">Available Projects</h4>
+            <ul>
+              <% organization.projects.each do |project| %>
+              <li><%= project.name %> <%= link_to organization_project_path(organization, project) %><li>
+              <% end %>
+            </ul>
+          </div>
+          <a href="#" id="show_info">More Info</a>
+          <%= link_to "#{organization.projects.count} available projects", "#" %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+</div>
+<%= will_paginate %>

@@ -20,7 +20,7 @@ describe OrganizationObserver do
     it "should not send an email when an owner edits a verified organization" do
       organization = create(:organization, :verified => true)
       reset_email
-      organization.name = "Some New Name"
+      organization.update_attribute(:name, "Some New Name")
       last_email.should be_nil
     end
   end

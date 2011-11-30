@@ -54,14 +54,12 @@ ActiveRecord::Schema.define(:version => 20111019015929) do
 
   create_table "projects", :force => true do |t|
     t.integer  "organization_id"
-    t.string   "title"
+    t.string   "name"
     t.text     "details"
-    t.text     "deliverables"
-    t.text     "steps"
-    t.text     "meetings"
-    t.text     "pro_requirements"
-    t.text     "time_frame"
+    t.text     "goals"
     t.string   "status"
+    t.string   "verification_token"
+    t.boolean  "verified",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

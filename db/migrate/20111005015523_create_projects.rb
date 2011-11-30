@@ -2,14 +2,12 @@ class CreateProjects < ActiveRecord::Migration
   def self.up
     create_table :projects do |t|
       t.integer :organization_id
-      t.string :title
+      t.string :name
       t.text :details
-      t.text :deliverables
-      t.text :steps
-      t.text :meetings
-      t.text :pro_requirements
-      t.text :time_frame
+      t.text :goals
       t.string :status
+      t.string :verification_token
+      t.boolean :verified, :default => false
 
       t.timestamps
     end

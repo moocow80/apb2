@@ -11,4 +11,9 @@ class AdminMailer < ActionMailer::Base
     @organization = organization
     mail subject: "Please verify #{organization.name}"
   end
+
+  def project_verification(project)
+    @project = project
+    mail subject: "Please verify #{project.name}"
+  end
 end

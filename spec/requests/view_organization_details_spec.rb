@@ -18,7 +18,7 @@ describe "View Organization Details" do
       page.should have_content(organization.details) 
     end
     it "should show the organizations projects" do
-      page.should have_content(project.title)
+      page.should have_content(project.name)
     end
     it "should not show a new project link" do
       page.should_not have_selector("a[href=\"#{new_organization_project_path(organization)}\"]")

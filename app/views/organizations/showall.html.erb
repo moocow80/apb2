@@ -1,0 +1,15 @@
+<div class="OrganizationListing">
+  <h2>All Non-Profit Organizations</h2>
+  <p>This is the Non-Profit Organization listing page</p>
+
+  <%= will_paginate %>
+  <ul class="organizations">
+    <% @organizations.each do |o| %>
+      <li><%= o.name %></li>
+    <% end %>
+  </ul>
+  <%= will_paginate %>
+
+</div>
+
+<div class="clear"></div>

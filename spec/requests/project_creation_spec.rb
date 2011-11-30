@@ -3,13 +3,9 @@ require 'spec_helper'
 describe "When a user creates a new project" do
   let(:organization) { Factory(:organization) }
   let(:project) { organization.projects.build(
-    :title => "Sample Project", 
+    :name => "Sample Project", 
     :details => "Sample details", 
-    :deliverables => "Sample deliverables", 
-    :steps => "Sample steps", 
-    :meetings => "Sample meetings", 
-    :pro_requirements => "Sample pro requirements", 
-    :time_frame => "Sample time frame") }
+    :goals => "Sample deliverables") } 
 
   before do
     @tag1 = Tag.create(:name => "Accounting", :tag_type => "category")
@@ -25,13 +21,9 @@ describe "When a user creates a new project" do
     click_button "Log In"
     visit organization_path(organization)
     click_link "New Project"
-    fill_in "project_title", :with => project.title 
+    fill_in "project_name", :with => project.name 
     fill_in "Details", :with => project.details 
-    fill_in "Deliverables", :with => project.deliverables 
-    fill_in "Steps", :with => project.steps
-    fill_in "Meetings", :with => project.meetings 
-    fill_in "Pro requirements", :with => project.pro_requirements
-    fill_in "Time frame", :with => project.time_frame
+    fill_in "Goals", :with => project.goals 
   end
 
   context "with valid information" do
@@ -47,7 +39,7 @@ describe "When a user creates a new project" do
     end
     it "the appropriate tags are added to the project" do
       click_button "Create Your Project"
-      new_project = Project.find_by_organization_id_and_title(organization.id, project.title)
+      new_project = Project.find_by_organization_id_and_name(organization.id, project.name)
       new_project.tags.should_not eq([])
     end
     it "the user is sent to the organization detail page" do
@@ -62,7 +54,7 @@ describe "When a user creates a new project" do
 
   context "with invalid information" do
     before do
-      fill_in "project_title", :with => ""
+      fill_in "project_name", :with => ""
     end
     it "a project is not created" do
       lambda do

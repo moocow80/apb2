@@ -16,4 +16,18 @@ describe AdminMailer do
     end
   end
 
+  describe "project_verification" do
+    let(:project) { create(:project) }
+    let(:mail) { AdminMailer.project_verification(project) }
+
+    it "renders the headers" do
+      mail.subject.should eq("Please verify #{project.name}")
+      mail.to.should eq(["t.barho@gmail.com"])
+      mail.from.should eq(["noreply@austinprobono.org"])
+    end
+
+    it "renders the body" do
+      mail.body.encoded.should match(project_verify_url(project.verification_token))
+    end
+  end
 end

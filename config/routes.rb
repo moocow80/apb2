@@ -3,7 +3,7 @@ Apb2::Application.routes.draw do
   # Resourceful Routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users do
-    resources :organizations, :only => [:index]
+    resources :organizations, :controller => "user_organizations", :only => [:index]
   end
   resources :user_profiles
   
@@ -13,6 +13,11 @@ Apb2::Application.routes.draw do
 
   # Pages
   match '/home', :to => 'pages#home'
+  match '/aboutus', :to => 'pages#aboutus'
+  match '/contactus', :to => 'pages#contactus'
+  match '/non-profit_testimonials', :to => 'pages#org_testimonials'
+  match '/volunteer_testimonials', :to => 'pages#vol_testimonials'
+  match '/contactus', :to => 'pages#contactus'
 
   # Users
   match '/register', :to => 'users#new', :as => 'register'
@@ -24,7 +29,9 @@ Apb2::Application.routes.draw do
 
   # Organizations & Projects
   match '/verify_organization/:id' => 'organizations#verify', :as => :organization_verify
+  match '/verify_project/:id' => 'projects#verify', :as => :project_verify
 
+  match '/organizations', :to => "organizations#index", :via => :get
   match '/organizations/new', :to => 'organizations#new', :as => 'new_organization'
   match '/organizations', :to => 'organizations#create', :via => :post
   match '/organizations', :to => 'organizations#update', :via => :put

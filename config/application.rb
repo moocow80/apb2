@@ -49,6 +49,6 @@ module Apb2
     config.assets.version = '1.0'
 
     # Register observers
-    config.active_record.observers = :user_observer, :organization_observer
+    config.active_record.observers = :user_observer, :organization_observer, :project_observer
   end
 end

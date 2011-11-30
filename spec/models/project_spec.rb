@@ -4,13 +4,9 @@ describe Project do
   before(:each) do
     @organization = Factory(:organization)
     @attr = {
-      :title => "Sample Project",
-      :details => "Some project details",
-      :deliverables => "Some project deliverables",
-      :steps => "Step 1, Step 2",
-      :meetings => "Here are the meetings we will have",
-      :pro_requirements => "Sample Requirements",
-      :time_frame => "These are our deadlines",
+      :name => "Sample Project",
+      :details => "Sample project details",
+      :goals => "Sample project goals",
       :status => "open"
     }
   end
@@ -20,29 +16,28 @@ describe Project do
   end
 
   describe "validations" do
-    it "should require a title" do
-      @organization.projects.build(@attr.merge(:title => "  ")).should_not be_valid
+    it "should require a name" do
+      @organization.projects.build(@attr.merge(:name => "  ")).should_not be_valid
     end
     it "should require details" do
       @organization.projects.build(@attr.merge(:details => "  ")).should_not be_valid
     end
-    it "should require deliverables" do
-      @organization.projects.build(@attr.merge(:deliverables => "  ")).should_not be_valid
-    end
-    it "should require steps" do
-      @organization.projects.build(@attr.merge(:steps => "  ")).should_not be_valid
-    end
-    it "should require pro_requirements" do
-      @organization.projects.build(@attr.merge(:pro_requirements => "  ")).should_not be_valid
-    end
-    it "should require time_frame" do
-      @organization.projects.build(@attr.merge(:time_frame => "  ")).should_not be_valid
+    it "should require goals" do
+      @organization.projects.build(@attr.merge(:goals => "  ")).should_not be_valid
     end
     it "should require status" do
       @organization.projects.build(@attr.merge(:status => "  ")).should_not be_valid
     end
     it "should require a valid status" do
       @organization.projects.build(@attr.merge(:status => "invalidstatus")).should_not be_valid
+    end
+    it "should not be verfied by default" do
+      project = @organization.projects.create!(@attr)
+      project.should_not be_verified
+    end
+    it "should create a random email token when created" do
+      project = @organization.projects.create!(@attr)
+      project.verification_token.should_not be_nil
     end
   end
 
