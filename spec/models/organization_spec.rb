@@ -120,4 +120,37 @@ describe Organization do
     end
 
   end
+
+
+  describe "tags" do
+    let(:organization) { create(:organization) }
+    let(:tag1) { create(:cause_tag, :name => "Cause 1") }
+    let(:tag2) { create(:cause_tag, :name => "Cause 2") }
+    let(:tag3) { create(:tag) }
+
+    before(:each) do
+      organization.tag_with!(tag1, tag2)
+    end
+    it "respond to tags" do
+      organization.should respond_to(:tags)
+    end
+    it "should have the right tags" do
+      organization.tags.should eq([tag1, tag2])
+    end
+    it "should only have 'Cause' typed tags" do
+      organization.tag_with!(tag3)
+      organization.tags.each do |tag|
+        tag.tag_type.should eq "Cause"
+      end
+    end
+    it "should allow new 'Cause' type tags to be added" do
+      new_tag = create(:cause_tag, :name => "New Cause")
+      organization.tag_with!(new_tag)
+      organization.tags.should include(new_tag)
+    end
+    it "should allow tags to be removed" do
+      organization.drop_tags!(tag2)
+      organization.tags.should_not include(tag2)
+    end
+  end
 end

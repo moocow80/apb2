@@ -1,18 +1,40 @@
 <%= form_for @user_profile do |f| %>
   <%= f.error_messages %>
   <div class="field">
-    <% Tag.where(:tag_type => "category").each do |tag| %>
-      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag) %>
-      <%= label_tag "user_profile[tag_ids][]", tag.name.titleize %>
-    <% end %>
-  </div>
-  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <% tags_by_type("Skill").each do |tag| %>
+      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+  <div class="field">
+    <% tags_by_type("Cause").each do |tag| %>
+      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :current_employer %><br />
+    <%= f.text_field :current_employer %>
+  </div>
+  <div class="field">
+    <%= f.label :job_title %><br />
+    <%= f.text_field :job_title %>
+  </div>
+  <div class="field">
+    <%= f.label :degrees %><br />
+    <%= f.text_area :degrees %>
+  </div>
+  <div class="field">
+    <%= f.label :experience %><br />
+    <%= f.text_area :experience %>
   </div>
   <div class="field">
     <%= f.label :website %><br />

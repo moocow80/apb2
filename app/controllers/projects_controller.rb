@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
   def new
     organization = Organization.find_by_name(params[:organization].titleize)
     @project = organization.projects.new
-    @tags = Tag.where(:tag_type => "category")
   end
 
   def create

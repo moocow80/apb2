@@ -4,9 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :organizations
 
-  has_many :user_profiles, :dependent => :destroy
-  has_many :user_profile_tags, :through => :user_profiles
-  has_many :tags, :through => :user_profile_tags, :source => :tag
+  has_one :user_profile, :dependent => :destroy
 
   has_many :contribute_relationships, :foreign_key => "contributor_id", :dependent => :destroy
 
@@ -53,8 +51,8 @@ class User < ActiveRecord::Base
     return user if user.salt == cookie_salt
   end  
 
-  def tag_with!(tag)
-    self.user_profiles.first.user_profile_tags.create!(:tag_id => tag.id) unless self.user_profiles.first == nil
+  def profile
+    user_profile unless user_profile.nil?
   end
 
   private

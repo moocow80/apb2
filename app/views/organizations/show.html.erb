@@ -4,6 +4,13 @@
   <span><%= link_to "New Project", new_organization_project_path(@organization), :class => "button" %></span>
   <% end %>
 </h1>
+<div class="causes">
+	<ul>
+    <% @organization.tags.each do |tag| %>
+		<li><%= tag.name %></li>
+    <% end %>
+	</ul>
+</div>
 <ul>
   <li><strong>Contact: </strong><%= @organization.contact %></li>
   <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
@@ -17,6 +24,11 @@
   <% @organization.projects.each do |project| %>
     <li>
       <%= project.name %>
+      <ul>
+        <% project.tags.each do |tag| %>
+      	<li><%= tag.name %></li>
+        <% end %>
+      </ul>
       <% if @organization.owner == current_user %>
       <%= link_to "Edit", edit_organization_project_path(@organization, project) %>
       <% end %>

@@ -46,33 +46,46 @@ describe Tag do
   end
 
   describe "associations" do
-    before(:each) do
-      @tag = Tag.create(@attr)
-    end
-    it "should have a users attribute" do
-      @tag.should respond_to(:users)
-    end
-    it "should have a projects attribute" do
-      @tag.should respond_to(:projects)
-    end
-    it "should have the right users" do
-      user = Factory(:user)
-      user2 = Factory(:user)
-      
-      profile = Factory(:user_profile, :user => user)
-      profile2 = Factory(:user_profile, :user => user2)
+    describe "user_profiles" do
+      let(:tag) { create(:skill_tag) }
+      let(:up1) { create(:user_profile) }
+      let(:up2) { create(:user_profile) }
 
-      user.tag_with!(@tag)
-      user2.tag_with!(@tag)
-      @tag.users.should include(user, user2)
+      before(:each) do
+        up1.tag_with!(tag)
+        up2.tag_with!(tag)
+      end
+      it "should return the user profiles for that tag" do
+        tag.user_profiles.should eq([up1, up2])
+      end
     end
-    it "should have the right projects" do
-      project = Factory(:project)
-      project2 = Factory(:project, :organization => project.organization)
 
-      project.tag_with!(@tag)
-      project2.tag_with!(@tag)
-      @tag.projects.should include(project, project2)
+    describe "projects" do
+      let(:tag) { create(:skill_tag) }
+      let(:p1) { create(:project) }
+      let(:p2) { create(:project) }
+
+      before(:each) do
+        p1.tag_with!(tag)
+        p2.tag_with!(tag)
+      end
+      it "should return the projects for that tag" do
+        tag.projects.should eq([p1, p2])
+      end
+    end
+
+    describe "organizations" do
+      let(:tag) { create(:cause_tag) }
+      let(:o1) { create(:organization) }
+      let(:o2) { create(:organization) }
+
+      before(:each) do
+        o1.tag_with!(tag)
+        o2.tag_with!(tag)
+      end
+      it "should return the organizations for that tag" do
+        tag.organizations.should eq([o1, o2])
+      end
     end
   end
 

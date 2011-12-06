@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019015929) do
+ActiveRecord::Schema.define(:version => 20111203203855) do
 
   create_table "contribute_relationships", :force => true do |t|
     t.integer  "contributor_id"
@@ -41,17 +41,6 @@ ActiveRecord::Schema.define(:version => 20111019015929) do
 
   add_index "organizations", ["name"], :name => "index_organizations_on_name", :unique => true
 
-  create_table "project_tags", :force => true do |t|
-    t.integer  "project_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "project_tags", ["project_id", "tag_id"], :name => "index_project_tags_on_project_id_and_tag_id", :unique => true
-  add_index "project_tags", ["project_id"], :name => "index_project_tags_on_project_id"
-  add_index "project_tags", ["tag_id"], :name => "index_project_tags_on_tag_id"
-
   create_table "projects", :force => true do |t|
     t.integer  "organization_id"
     t.string   "name"
@@ -66,6 +55,16 @@ ActiveRecord::Schema.define(:version => 20111019015929) do
 
   add_index "projects", ["organization_id"], :name => "index_projects_on_organization_id"
 
+  create_table "taggeds", :force => true do |t|
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "taggeds", ["taggable_id", "taggable_type", "tag_id"], :name => "index_taggeds_on_taggable_id_and_taggable_type_and_tag_id", :unique => true
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "tag_type"
@@ -77,21 +76,14 @@ ActiveRecord::Schema.define(:version => 20111019015929) do
   add_index "tags", ["name"], :name => "index_tags_on_name"
   add_index "tags", ["tag_type"], :name => "index_tags_on_tag_type"
 
-  create_table "user_profile_tags", :force => true do |t|
-    t.integer  "user_profile_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_profile_tags", ["tag_id"], :name => "index_user_profile_tags_on_tag_id"
-  add_index "user_profile_tags", ["user_profile_id", "tag_id"], :name => "index_user_profile_tags_on_user_profile_id_and_tag_id", :unique => true
-  add_index "user_profile_tags", ["user_profile_id"], :name => "index_user_profile_tags_on_user_profile_id"
-
   create_table "user_profiles", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.text     "description"
+    t.string   "phone"
+    t.string   "current_employer"
+    t.string   "job_title"
+    t.text     "degrees"
+    t.text     "experience"
     t.string   "website"
     t.boolean  "available"
     t.datetime "created_at"

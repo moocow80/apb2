@@ -6,7 +6,7 @@ describe "View Organizations" do
       5.times { create(:organization) }
       5.times { create(:organization, :verified => true) }
       visit organizations_path
-      page.should have_xpath("//div[@class='organization']", :count => 5)
+      page.should have_xpath("//div[@class='project']", :count => 5)
     end
 
     it "should allow the user to filter by cause" 
@@ -47,19 +47,19 @@ describe "View Organizations" do
       51.times { create(:organization, :verified => true) }
       visit organizations_path
       click_link "20"
-      page.should have_selector(".organization .title", :count => 20)
+      page.should have_xpath("//div[@class='project']", :count => 20)
     end
     it "should allow the user to view all of the organizations at once" do
       51.times { create(:organization, :verified => true) }
       visit organizations_path
       click_link "50"
-      page.should have_selector(".organization .title", :count => 50)
+      page.should have_xpath("//div[@class='project']", :count => 50)
     end
     it "should allow the user to view all of the organizations at once" do
       51.times { create(:organization, :verified => true) }
       visit organizations_path
       click_link "All"
-      page.should have_selector(".organization .title", :count => 51)
+      page.should have_xpath("//div[@class='project']", :count => 51)
     end
   end
 end

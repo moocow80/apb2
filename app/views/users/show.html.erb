@@ -1,0 +1,43 @@
+
+<% if @user.profile %>
+<div class="user">
+	<ul>
+		<li>
+			<strong>Name</strong>
+      <%= @user.profile.name %>
+		</li>
+		<li>
+			<strong>Phone</strong>
+      <%= @user.profile.phone %>
+		</li>
+		<li>
+			<strong>Current Employer</strong>
+      <%= @user.profile.current_employer %>
+		</li>
+		<li>
+			<strong>Job Title</strong>
+      <%= @user.profile.job_title %>
+		</li>
+		<li>
+			<strong>Degrees</strong>
+      <%= @user.profile.degrees %>
+		</li>
+		<li>
+			<strong>Experience</strong>
+      <%= @user.profile.experience %>
+		</li>
+		<li>
+			<strong>Website</strong>
+      <%= @user.profile.website %>
+		</li>
+		<li>
+			<strong>Skills</strong>
+      <%= @user.profile.tags.where(:tag_type => "Skill").map { |t| t.name }.to_sentence %>
+		</li>
+		<li>
+			<strong>Causes</strong>
+      <%= @user.profile.tags.where(:tag_type => "Cause").map { |t| t.name }.to_sentence %>
+		</li>
+	</ul>
+</div>
+<% end %>

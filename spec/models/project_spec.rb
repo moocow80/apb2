@@ -19,6 +19,12 @@ describe Project do
     it "should require a name" do
       @organization.projects.build(@attr.merge(:name => "  ")).should_not be_valid
     end
+    it "should not allow short project names" do
+      @organization.projects.build(@attr.merge(:name => "a" * 2)).should_not be_valid
+    end
+    it "should not allow long names" do
+      @organization.projects.build(@attr.merge(:name => "a" * 101)).should_not be_valid
+    end
     it "should require details" do
       @organization.projects.build(@attr.merge(:details => "  ")).should_not be_valid
     end
@@ -55,4 +61,35 @@ describe Project do
     end
   end
 
+  describe "tags" do
+    let(:project) { create(:project) }
+    let(:tag1) { create(:skill_tag, :name => "Type 1") }
+    let(:tag2) { create(:skill_tag, :name => "Type 2") }
+    let(:tag3) { create(:cause_tag, :name => "Cause 1") }
+
+    before(:each) do
+      project.tag_with!(tag1, tag2)
+    end
+    it "respond to tags" do
+      project.should respond_to(:tags)
+    end
+    it "should have the right tags" do
+      project.tags.should eq([tag1, tag2])
+    end
+    it "should only have 'Skill' typed tags" do
+      project.tag_with!(tag3)
+      project.tags.each do |tag|
+        tag.tag_type.should eq "Skill"
+      end
+    end
+    it "should allow new 'Skill' type tags to be added" do
+      new_tag = create(:skill_tag, :name => "New Type")
+      project.tag_with!(new_tag)
+      project.tags.should include(new_tag)
+    end
+    it "should allow tags to be removed" do
+      project.drop_tags!(tag2)
+      project.tags.should_not include(tag2)
+    end
+  end
 end

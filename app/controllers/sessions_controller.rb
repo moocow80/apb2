@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
           redirect_back_or user_organizations_path(user)
         end
       elsif !user.is_organization?
-        if user.user_profiles.empty?
+        if user.user_profile.nil?
           redirect_to new_volunteer_path
         else
           redirect_back_or project_matches_path

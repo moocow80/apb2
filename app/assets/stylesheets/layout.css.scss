@@ -61,7 +61,7 @@ li {
 button, .button {
   display: block;
   vertical-align: middle;
-  background: -webkit-linear-gradient(#00b1d5, #00b1d5, #0090bf, #0090bf);
+  @include box-gradient(#00b1d5, #0090bf);
   padding: 6px 20px;
   border: 0px;
   color: #FFF;
@@ -75,6 +75,7 @@ button, .button {
 
 #search-form {
   float: right; 
+  margin-bottom: 1em;
 }
 
 #search-form input {
@@ -269,6 +270,11 @@ form label.group-title {
 .section .group.last {
   border: 0px;
   margin-right: 0px; 
+
+  div .button {
+    float: right;
+    margin: 20px 30px 0 0;
+  }
 }
 
 .section .group .column {

@@ -7,12 +7,12 @@ class UserProfilesController < ApplicationController
   end
 
   def new
-    @user_profile = current_user.user_profiles.new
+    @user_profile = current_user.build_user_profile
     @tags = Tag.where(:tag_type => "category")
   end
 
   def create
-    @user_profile = current_user.user_profiles.create(params[:user_profile])
+    @user_profile = current_user.create_user_profile(params[:user_profile])
     if @user_profile.save
       flash[:success] = "Your profile was created!"
       if current_user.verified?

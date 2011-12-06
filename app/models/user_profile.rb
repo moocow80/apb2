@@ -1,19 +1,18 @@
 class UserProfile < ActiveRecord::Base
-  attr_accessible :name, :description, :website, :available, :tag_ids
+  include HasTags
+  TAG_TYPES = %w(Cause Skill)
+
+  attr_accessible :name, :phone, :current_employer, :job_title, :degrees, :experience, :website, :available
 
   belongs_to :user
-  has_many :user_profile_tags, :dependent => :destroy
-  has_many :tags, :through => :user_profile_tags
 
-  validates :user_id,
-            :presence => true,
-            :uniqueness => true
-  validates :name,
-            :presence => true,
-            :length => { :within => 3..60 }
-  validates :description,
-            :length => { :maximum => 500 }
-  validates :website,
-            :length => { :maximum => 60 }
+  phone_regex = /^[\(\)0-9\- \+\.]{10,20} *[extension\.]{0,9} *[0-9]{0,5}$/i
   
+  validates_presence_of :user_id, :name, :phone
+
+  validates :name, :length => { :within => 3..60 }
+  validates :phone, :format => { :with => phone_regex }
+  validates :current_employer, :job_title, :website, :length => { :maximum => 60 }
+  validates :degrees, :experience, :length => { :maximum => 1000 }
+ 
 end

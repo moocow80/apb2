@@ -3,7 +3,11 @@ class CreateUserProfiles < ActiveRecord::Migration
     create_table :user_profiles do |t|
       t.integer :user_id
       t.string :name
-      t.text :description
+      t.string :phone
+      t.string :current_employer
+      t.string :job_title
+      t.text :degrees
+      t.text :experience
       t.string :website
       t.boolean :available
 

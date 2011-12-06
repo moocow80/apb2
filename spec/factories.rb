@@ -23,7 +23,11 @@ FactoryGirl.define do
   factory :user_profile do
     association :user
     sequence(:name) { |n| "Test Volunteer #{n}" }
-    description "This is a description"
+    phone "555-555-5555"
+    current_employer "Sample Company"
+    job_title "Sample Job Title"
+    degrees "Sample Degree 1, Sample Cerification"
+    experience "Sample additional experience"
     website "google.com"
     available true
   end
@@ -49,7 +53,15 @@ FactoryGirl.define do
 
   factory :tag do
     sequence(:name) { |n| "Test Tag #{n}" }
-    sequence(:tag_type) { |n| "Test Tag Type #{n}" }
+    tag_type "Test"
+
+    factory :cause_tag do
+      tag_type "Cause"
+    end
+
+    factory :skill_tag do
+      tag_type "Skill"
+    end
   end
 end
 

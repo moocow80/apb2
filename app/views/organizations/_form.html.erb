@@ -1,6 +1,12 @@
 <%= form_for @organization do |f| %>
   <%= f.error_messages %>
   <div class="field">
+    <% tags_by_type("Cause").each do |tag| %>
+      <%= check_box_tag "organization[tag_ids][]", tag.id, @organization.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+  <div class="field">
     <%= f.label :name, "Name of the organization/non-profit" %><br />
     <%= f.text_field :name %>
   </div>
