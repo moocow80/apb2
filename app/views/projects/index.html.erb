@@ -1,2 +1,79 @@
-<h1>Projects#index</h1>
-<p>Find me in app/views/projects/index.html.erb</p>
+<form id="search-form" action="#">
+  <input id="search" type="text" placeholder="Search for projects by type or cause." />
+  <button class="button">Search</button>
+</form>
+
+<div class="clear"></div>
+
+<%= form_tag('', :method => :get, :class => "section") do %>
+	<div class="group">
+    <label class="group-title block">Filter By Type</label>
+    <% tags_by_type("Skill").each do |tag| %>
+      <%= check_box_tag "skill_tag_ids[]", tag.id, params[:skill_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+	<div class="group last">
+    <label class="group-title block">Filter By Cause</label>
+    <% tags_by_type("Cause").each do |tag| %>
+      <%= check_box_tag "cause_tag_ids[]", tag.id, params[:cause_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+    <div> 
+      <%= submit_tag "Apply", :class => "button" %>
+    </div>
+  </div>
+<% end %>
+<div class="clear"></div>
+
+
+<div class="content">
+	<ul class="pagination controls">
+    <%= will_paginate %>
+  </ul>
+	<ul class="page-view controls">
+    <li>
+    	<b>View</b>
+    </li>
+    <li>
+      <%= link_to "20", projects_path(:per_page => 20) %> <b>|</b> 
+    </li>
+    <li>
+      <%= link_to "50", projects_path(:per_page => 50) %> <b>|</b> 
+    </li>
+    <li>
+      <%= link_to "All", projects_path(:per_page => 10000) %> 
+    </li>
+  </ul>
+	
+  <div class="clear"></div>
+	
+  <h2>Projects</h2>
+
+  <% @projects.each do |project| %>
+	<div class="project">
+    <div class="image"></div>
+    <h3><%= link_to project.name, organization_project_path(project.organization, project) %></h3>
+    <div class="info">
+      <div class="organization">
+        <%= project.organization.name %>
+      </div>
+    	<div class="categories"></div>
+    	<p><%= project.details %></p>
+    	<h3>Project Goals</h3>
+    	<p><%= project.goals %></p>
+    	<h3>Available Projects</h3>
+      <a href="#" id="more-info" class="more">More Info &raquo;</a>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <% end %>
+
+	<ul class="pagination controls">
+    <%= will_paginate %>
+  </ul>
+
+</div>
+
+<div class="clear"></div>
+

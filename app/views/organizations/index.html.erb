@@ -5,77 +5,25 @@
 
 <div class="clear"></div>
 
-<form id="filter-form" action="#" class="section">
+<%= form_tag('', :method => :get, :class => "section") do %>
 	<div class="group">
     <label class="group-title block">Filter By Type</label>
-    <input type="checkbox" name="project-all" />
-    <label for="project-all">All</label>
+    <% tags_by_type("Skill").each do |tag| %>
+      <%= check_box_tag "skill_tag_ids[]", tag.id, params[:skill_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
   </div>
 	<div class="group last">
-                                        <label class="group-title block">Filter By Cause</label>
-                                        <div class="column">
-                                                <input type="checkbox" name="cause-all" id="cause-all" />
-                                                <label for="cause-all"><b>All</b></label><br/>
-                                                <input type="checkbox" name="cause1" id="cause1" />
-                                                <label for="cause1">Cause 1</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause2" />
-                                                <label for="cause2">Cause 2</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause3" />
-                                                <label for="cause3">Cause 3</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause4" />
-                                                <label for="cause4">Cause 4</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause5" />
-                                                <label for="cause5">Cause 5</label><br/>
-                                        </div>
-                                        <div class="column">
-                                                <input type="checkbox" name="cause1" id="cause6" />
-                                                <label for="cause6">Cause 6</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause7" />
-                                                <label for="cause7">Cause 7</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause8" />
-                                                <label for="cause8">Cause 8</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause9" />
-                                                <label for="cause9">Cause 9</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause10" />
-                                                <label for="cause10">Cause 10</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause11" />
-                                                <label for="cause11">Cause 11</label><br/>
-                                        </div>
-                                        <div class="column">
-                                                <input type="checkbox" name="cause1" id="cause12" />
-                                                <label for="cause12">Cause 12</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause13" />
-                                                <label for="cause13">Cause 13</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause14" />
-                                                <label for="cause14">Cause 14</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause15" />
-                                                <label for="cause15">Cause 15</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause16" />
-                                                <label for="cause16">Cause 16</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause17" />
-                                                <label for="cause17">Cause 17</label><br/>
-                                        </div>
-                                        <div class="column">
-                                                <input type="checkbox" name="cause1" id="cause8" />
-                                                <label for="cause18">Cause 18</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause19" />
-                                                <label for="cause19">Cause 19</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause20" />
-                                                <label for="cause20">Cause 20</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause21" />
-                                                <label for="cause21">Cause 21</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause22" />
-                                                <label for="cause22">Cause 22</label><br/>
-                                                <input type="checkbox" name="cause1" id="cause23" />
-                                                <label for="cause23">Cause 23</label><br/>
-                                        </div>
- 
+    <label class="group-title block">Filter By Cause</label>
+    <% tags_by_type("Cause").each do |tag| %>
+      <%= check_box_tag "cause_tag_ids[]", tag.id, params[:cause_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
     <div> 
-      <button class="button">Apply</button>
+      <%= submit_tag "Apply", :class => "button" %>
     </div>
   </div>
-</form>
-
+<% end %>
 <div class="clear"></div>
 
 
@@ -88,13 +36,13 @@
     	<b>View</b>
     </li>
     <li>
-      <%= link_to "20", organizations_path(:per_page => 20) %> <b>|</b> 
+      <%= link_to "20", pagination_link(20) %> <b>|</b> 
     </li>
     <li>
-      <%= link_to "50", organizations_path(:per_page => 50) %> <b>|</b> 
+      <%= link_to "50", pagination_link(50) %> <b>|</b> 
     </li>
     <li>
-      <%= link_to "All", organizations_path(:per_page => 10000) %> 
+      <%= link_to "All", pagination_link(10000) %> 
     </li>
   </ul>
 	
@@ -107,7 +55,9 @@
     <div class="image"></div>
     <h3><%= link_to organization.name, organization %></h3>
     <div class="info">
-    	<div class="categories"></div>
+    	<div class="categories">
+        (<%= organization.tags.map(&:name).join(", ") %>)
+      </div>
     	<p><%= organization.details %></p>
     	<h3>Mission Statement</h3>
     	<p><%= organization.mission %></p>

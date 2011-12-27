@@ -1,0 +1,2586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+
+function addClass(element_id, classname) {
+  document.getElementById(element_id).className += (" " + classname);
+}
+
+function removeClass(element_id, classname) {
+  var elem = document.getElementById(element_id);
+  var classlist = elem.className.replace(classname,'');
+  elem.className = classlist;
+}
+
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+
+function makeRed(element_id) {
+  removeClass(element_id, 'passed');
+  removeClass(element_id, 'not_implemented');
+  addClass(element_id,'failed');
+}
+
+function makeYellow(element_id) {
+  var elem = document.getElementById(element_id);
+  if (elem.className.indexOf("failed") == -1) {  // class doesn't includes failed
+    if (elem.className.indexOf("not_implemented") == -1) { // class doesn't include not_implemented
+      removeClass(element_id, 'passed');
+      addClass(element_id,'not_implemented');
+    }
+  }
+}
+
+function apply_filters() {
+  var passed_filter = document.getElementById('passed_checkbox').checked;
+  var failed_filter = document.getElementById('failed_checkbox').checked;
+  var pending_filter = document.getElementById('pending_checkbox').checked;
+
+  assign_display_style("example passed", passed_filter);
+  assign_display_style("example failed", failed_filter);
+  assign_display_style("example not_implemented", pending_filter);
+
+  assign_display_style_for_group("example_group passed", passed_filter);
+  assign_display_style_for_group("example_group not_implemented", pending_filter, pending_filter || passed_filter);
+  assign_display_style_for_group("example_group failed", failed_filter, failed_filter || pending_filter || passed_filter);
+}
+
+function get_display_style(display_flag) {
+  var style_mode = 'none';
+  if (display_flag == true) {
+    style_mode = 'block';
+  }
+  return style_mode;
+}
+
+function assign_display_style(classname, display_flag) {
+  var style_mode = get_display_style(display_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    elems[i].style.display = style_mode;
+  }
+}
+
+function assign_display_style_for_group(classname, display_flag, subgroup_flag) {
+  var display_style_mode = get_display_style(display_flag);
+  var subgroup_style_mode = get_display_style(subgroup_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    var style_mode = display_style_mode;
+    if ((display_flag != subgroup_flag) && (elems[i].getElementsByTagName('dt')[0].innerHTML.indexOf(", ") != -1)) {
+      elems[i].style.display = subgroup_style_mode;
+    } else {
+      elems[i].style.display = display_style_mode;
+    }
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#label {
+  float:left;
+}
+
+#display-filters {
+  float:left;
+  padding: 28px 0 0 40%;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+
+#summary {
+  float:right;
+  padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+
+dd.example.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.example.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.example.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+dd.example.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+
+dt.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+dt.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+dt.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+#rspec-header.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+#rspec-header.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+#rspec-header.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="display-filters">
+    <input id="passed_checkbox" name="passed_checkbox" type="checkbox" checked onchange="apply_filters()" value="1"> <label for="passed_checkbox">Passed</label>
+    <input id="failed_checkbox" name="failed_checkbox" type="checkbox" checked onchange="apply_filters()" value="2"> <label for="failed_checkbox">Failed</label>
+    <input id="pending_checkbox" name="pending_checkbox" type="checkbox" checked onchange="apply_filters()" value="3"> <label for="pending_checkbox">Pending</label>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&nbsp;</p>
+    <p id="duration">&nbsp;</p>
+  </div>
+</div>
+
+
+<div class="results">
+<div id="div_group_1" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_1" class="passed">View Organizations</dt>
+  </dl>
+</div>
+<div id="div_group_2" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_2" class="passed">for all users</dt>
+    <script type="text/javascript">moveProgressBar('0.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should list all of the approved organizations</span></dd>
+    <script type="text/javascript">moveProgressBar('0.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a link to view the organization details</span></dd>
+    <script type="text/javascript">moveProgressBar('1.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show how many projects are available for each organization</span></dd>
+    <script type="text/javascript">moveProgressBar('1.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should list the projects for each organization with a link to view the project details</span></dd>
+    <script type="text/javascript">moveProgressBar('2.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a pagination interface</span></dd>
+    <script type="text/javascript">moveProgressBar('2.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the organizations at 20 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('3.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the organizations at 50 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('3.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to view all of the organizations at once</span></dd>
+  </dl>
+</div>
+<div id="div_group_3" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_3" class="passed">filtering and searching</dt>
+    <script type="text/javascript">moveProgressBar('3.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by organization cause</span></dd>
+    <script type="text/javascript">moveProgressBar('4.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill</span></dd>
+    <script type="text/javascript">moveProgressBar('4.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill or cause</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_3');</script>
+    <script type="text/javascript">makeYellow('example_group_3');</script>
+    <script type="text/javascript">moveProgressBar('5.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should allow the user to search for projects by skill or cause (PENDING: Not Yet Implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_4" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_4" class="passed">Signins</dt>
+    <script type="text/javascript">moveProgressBar('5.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should sign the user in if they have good credentials</span></dd>
+    <script type="text/javascript">moveProgressBar('6.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not sign the user in if they have bad credentials</span></dd>
+  </dl>
+</div>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_5" class="passed">redirects</dt>
+  </dl>
+</div>
+<div id="div_group_6" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_6" class="passed">for organizations</dt>
+    <script type="text/javascript">moveProgressBar('6.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to create an organization if they dont have one</span></dd>
+    <script type="text/javascript">moveProgressBar('7.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to the page they requested, or their organizations index page if they werent requesting another page</span></dd>
+  </dl>
+</div>
+<div id="div_group_7" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_7" class="passed">for volunteers</dt>
+    <script type="text/javascript">moveProgressBar('7.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to create a profile if they don't have one</span></dd>
+    <script type="text/javascript">moveProgressBar('7.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to the page they requested, or their project matches if they werent requesting another page</span></dd>
+  </dl>
+</div>
+<div id="div_group_8" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_8" class="passed">for admins</dt>
+    <script type="text/javascript">moveProgressBar('8.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect the admin to the page they were requesting, or their user page</span></dd>
+  </dl>
+</div>
+<div id="div_group_9" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_9" class="passed">When a user visits the website</dt>
+    <script type="text/javascript">moveProgressBar('8.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">they should see the home page</span></dd>
+  </dl>
+</div>
+<div id="div_group_10" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_10" class="passed">When a user signs up</dt>
+  </dl>
+</div>
+<div id="div_group_11" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_11" class="passed">with valid credentials</dt>
+    <script type="text/javascript">moveProgressBar('9.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">a new user is created</span></dd>
+    <script type="text/javascript">moveProgressBar('9.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">the correct user is created</span></dd>
+    <script type="text/javascript">moveProgressBar('10.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is signed in</span></dd>
+    <script type="text/javascript">moveProgressBar('10.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is notified that an account was created</span></dd>
+    <script type="text/javascript">moveProgressBar('11.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is not an admin</span></dd>
+    <script type="text/javascript">moveProgressBar('11.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user should get an email requesting they verify their email address</span></dd>
+  </dl>
+</div>
+<div id="div_group_12" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_12" class="passed">with valid volunteer credentials</dt>
+    <script type="text/javascript">moveProgressBar('11.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">an organization user is not created</span></dd>
+    <script type="text/javascript">moveProgressBar('12.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is sent to create a volunteer profile</span></dd>
+  </dl>
+</div>
+<div id="div_group_13" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_13" class="passed">with valid organization credentials</dt>
+    <script type="text/javascript">moveProgressBar('12.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">an organization user is created</span></dd>
+    <script type="text/javascript">moveProgressBar('13.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is sent to create an organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_14" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_14" class="passed">with invalid credentials (no user type, no terms)</dt>
+    <script type="text/javascript">moveProgressBar('13.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">error messages are shown</span></dd>
+    <script type="text/javascript">moveProgressBar('14.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user will be redirected back to the register page</span></dd>
+    <script type="text/javascript">moveProgressBar('14.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">a user is not created unless they have accepted the terms</span></dd>
+    <script type="text/javascript">moveProgressBar('15.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">a user is not created unless they have selected a user type</span></dd>
+  </dl>
+</div>
+<div id="div_group_15" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_15" class="passed">Create Organization</dt>
+  </dl>
+</div>
+<div id="div_group_16" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_16" class="passed">page elements</dt>
+    <script type="text/javascript">moveProgressBar('15.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Cause' tags</span></dd>
+  </dl>
+</div>
+<div id="div_group_17" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_17" class="passed">with valid credentials</dt>
+    <script type="text/javascript">moveProgressBar('15.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new organization</span></dd>
+    <script type="text/javascript">moveProgressBar('16.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user to the create project page</span></dd>
+    <script type="text/javascript">moveProgressBar('16.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should notify the user that their organization was added in a flash message</span></dd>
+    <script type="text/javascript">moveProgressBar('17.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_18" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_18" class="passed">with invalid credentials</dt>
+    <script type="text/javascript">moveProgressBar('17.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create an organization</span></dd>
+    <script type="text/javascript">moveProgressBar('18.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show error messages</span></dd>
+    <script type="text/javascript">moveProgressBar('18.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create organization page</span></dd>
+  </dl>
+</div>
+<div id="div_group_19" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_19" class="passed">View Projects</dt>
+  </dl>
+</div>
+<div id="div_group_20" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_20" class="passed">for all users</dt>
+    <script type="text/javascript">moveProgressBar('19.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should list all of the approved projects</span></dd>
+    <script type="text/javascript">moveProgressBar('19.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a link to view the project details</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_20');</script>
+    <script type="text/javascript">makeYellow('example_group_20');</script>
+    <script type="text/javascript">moveProgressBar('19.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should show the organization assoicated to the listed project (PENDING: Not Yet Implemented)</span></dd>
+    <script type="text/javascript">moveProgressBar('20.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should provide a link to view the project details</span></dd>
+    <script type="text/javascript">moveProgressBar('20.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a pagination interface</span></dd>
+    <script type="text/javascript">moveProgressBar('21.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the projects at 20 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('21.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the projects at 50 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('22.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to view all of the projects at once</span></dd>
+  </dl>
+</div>
+<div id="div_group_21" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_21" class="passed">filtering and searching</dt>
+    <script type="text/javascript">moveProgressBar('22.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill</span></dd>
+    <script type="text/javascript">moveProgressBar('23.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by organization cause</span></dd>
+    <script type="text/javascript">moveProgressBar('23.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill or cause</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_21');</script>
+    <script type="text/javascript">makeYellow('example_group_21');</script>
+    <script type="text/javascript">moveProgressBar('23.8');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should allow the user to search for projects by skill or cause (PENDING: Not Yet Implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_22" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_22" class="passed">Organization Verifications</dt>
+    <script type="text/javascript">moveProgressBar('24.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow an admin to verify an organization and notify the organization that it has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('24.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should no allow anyone who isnt an admin to verify the organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_23" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_23" class="passed">Project Verifications</dt>
+    <script type="text/javascript">moveProgressBar('25.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow an admin to verify a project and notify the organization owner that it has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('25.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow anyone who isnt an admin to verify the project</span></dd>
+  </dl>
+</div>
+<div id="div_group_24" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_24" class="passed">Create Project</dt>
+  </dl>
+</div>
+<div id="div_group_25" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_25" class="passed">page elements</dt>
+    <script type="text/javascript">moveProgressBar('26.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Skill' tags</span></dd>
+  </dl>
+</div>
+<div id="div_group_26" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_26" class="passed">with valid credentials</dt>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('div_group_26');</script>
+    <script type="text/javascript">makeRed('example_group_26');</script>
+    <script type="text/javascript">moveProgressBar('26.5');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should create a new project</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>count should have been changed by 1, but was changed by 0</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:24:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">22</span>  describe "with valid credentials" do
+<span class="linenum">23</span>    it "should create a new project" do
+<span class="offending"><span class="linenum">24</span>      lambda do</span>
+<span class="linenum">25</span>        fill_in_details_and_submit
+<span class="linenum">26</span>      end.should change(Project, :count).by(1)
+<span class="linenum">27</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('26.9');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should send the user to organization details page</span>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>
+expected: &quot;/organizations/test-organization-470&quot;
+     got: &quot;/projects&quot;
+
+(compared using ==)
+</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:30:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">28</span>    it "should send the user to organization details page" do
+<span class="linenum">29</span>      fill_in_details_and_submit
+<span class="offending"><span class="linenum">30</span>      current_path.should eq(organization_path(project.organization))</span>
+<span class="linenum">31</span>    end
+<span class="linenum">32</span>    it "should notify the user that their project was added in a flash message" do
+<span class="linenum">33</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('27.4');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should notify the user that their project was added in a flash message</span>
+      <div class="failure" id="failure_3">
+        <div class="message"><pre>expected there to be content &quot;created&quot; in &quot;Apb2\n\n    \n  Austin Pro Bono\n\tHome\n\t\tProjects\n\t\tVolunteers\n\t\tOrganizations\n\t\tHow It Works\n\ttestuser_479@example.com\n      Log Out\n  \n\n\n\n    \n      \n  Search\n\n\n\n\n\n\t\n    Filter By Type\n      Test Tag 46\n      Test Tag 47\n  \n\t\n    Filter By Cause\n      Test Tag 48\n     \n      \n  \n\n\n\n\n\t\n    \tView\n    \n    \n      20 | \n    \n    \n      50 | \n    \n    \n      All \n    \n  \n\t\n  Projects\n\n\n\t\n\n\n\n\n    \n\n    \n\n    \n\t\t\n\t\t\t\n\t\t\t\t\tVolunteers\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\tBrowse Projects\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tOrganizations\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tHow It Works\n\t\t\t\t\t\tAbout Us\n\t\t\t\t\t\tBlog\n\t\t\t\t\t\tPrivacy Policy\n\t\t\t\t\t\n\t\t\t\tProjects\n\t\t\t\n\t\t\n\n\n&quot;</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:34:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">32</span>    it "should notify the user that their project was added in a flash message" do
+<span class="linenum">33</span>      fill_in_details_and_submit
+<span class="offending"><span class="linenum">34</span>      page.should have_content("created")</span>
+<span class="linenum">35</span>    end
+<span class="linenum">36</span>    it "should add the correct tags to the project" do
+<span class="linenum">37</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('27.8');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should add the correct tags to the project</span>
+      <div class="failure" id="failure_4">
+        <div class="message"><pre>expected content &quot;Test Tag 51&quot; not to return anything</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:40:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">38</span>      page.should have_content(tag1.name)
+<span class="linenum">39</span>      page.should have_content(tag2.name)
+<span class="offending"><span class="linenum">40</span>      page.should_not have_content(tag3.name)</span>
+<span class="linenum">41</span>    end
+<span class="linenum">42</span>  end
+<span class="linenum">43</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_27" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_27" class="passed">with invalid credentials</dt>
+    <script type="text/javascript">moveProgressBar('28.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create a project</span></dd>
+    <script type="text/javascript">makeRed('div_group_27');</script>
+    <script type="text/javascript">makeRed('example_group_27');</script>
+    <script type="text/javascript">moveProgressBar('28.7');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should show error messages</span>
+      <div class="failure" id="failure_5">
+        <div class="message"><pre>expected css &quot;div.error_messages&quot; to return something</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:52:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">50</span>    it "should show error messages" do
+<span class="linenum">51</span>      fill_in_details_and_submit("A" * 500)
+<span class="offending"><span class="linenum">52</span>      page.should have_selector("div.error_messages")</span>
+<span class="linenum">53</span>    end
+<span class="linenum">54</span>    it "should send the user back to the create project page" do
+<span class="linenum">55</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('29.2');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should send the user back to the create project page</span>
+      <div class="failure" id="failure_6">
+        <div class="message"><pre>
+expected: &quot;/test-organization-475/projects&quot;
+     got: &quot;/projects&quot;
+
+(compared using ==)
+</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:56:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">54</span>    it "should send the user back to the create project page" do
+<span class="linenum">55</span>      fill_in_details_and_submit("A" * 500)
+<span class="offending"><span class="linenum">56</span>      current_path.should eq("/#{project.organization.name.parameterize}/projects")</span>
+<span class="linenum">57</span>    end
+<span class="linenum">58</span>  end
+<span class="linenum">59</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_28" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_28" class="passed">Create User Profile</dt>
+  </dl>
+</div>
+<div id="div_group_29" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_29" class="passed">page elements</dt>
+    <script type="text/javascript">moveProgressBar('29.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Cause' and 'Skill' tags</span></dd>
+  </dl>
+</div>
+<div id="div_group_30" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_30" class="passed">with valid credentials</dt>
+    <script type="text/javascript">moveProgressBar('30.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new user_profile</span></dd>
+    <script type="text/javascript">moveProgressBar('30.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user to the project matches page</span></dd>
+    <script type="text/javascript">moveProgressBar('30.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should notify the user that their user_profile was added in a flash message</span></dd>
+    <script type="text/javascript">moveProgressBar('31.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the user_profile</span></dd>
+  </dl>
+</div>
+<div id="div_group_31" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_31" class="passed">with invalid credentials</dt>
+    <script type="text/javascript">moveProgressBar('31.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create an user_profile</span></dd>
+    <script type="text/javascript">moveProgressBar('32.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show error messages</span></dd>
+    <script type="text/javascript">moveProgressBar('32.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create user_profile page</span></dd>
+  </dl>
+</div>
+<div id="div_group_32" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_32" class="passed">When a  user creates an organization</dt>
+    <script type="text/javascript">moveProgressBar('33.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">a new orgaization should be created</span></dd>
+    <script type="text/javascript">moveProgressBar('33.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">an email should be sent to admin requesting verification of the organization</span></dd>
+    <script type="text/javascript">moveProgressBar('34.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">another organization with the same name cannot be created</span></dd>
+    <script type="text/javascript">moveProgressBar('34.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">the new organization should be owned by the user who created it</span></dd>
+    <script type="text/javascript">moveProgressBar('34.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user should be notified that the organization was created and an email was sent for verification</span></dd>
+    <script type="text/javascript">moveProgressBar('35.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">the organzation should not be verified</span></dd>
+    <script type="text/javascript">makeRed('div_group_32');</script>
+    <script type="text/javascript">makeRed('example_group_32');</script>
+    <script type="text/javascript">moveProgressBar('35.8');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">the user should be directed to create a new project for the organization</span>
+      <div class="failure" id="failure_7">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;new&quot;, :controller=&gt;&quot;projects&quot;, :organization_id=&gt;#&lt;Organization id: nil, name: &quot;Test Organization 482&quot;, contact: &quot;Test Contact&quot;, contact_email: &quot;test@example.com&quot;, website: &quot;http://www.example.com&quot;, phone: &quot;555-555-5555&quot;, mission: &quot;Our sample mission&quot;, details: &quot;Our sample details&quot;, user_id: 2799, verification_token: nil, verified: false, created_at: nil, updated_at: nil, slug: nil&gt;}</pre></div>
+        <div class="backtrace"><pre>./spec/requests/organization_register_spec.rb:59:in `block (2 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">57</span>
+<span class="linenum">58</span>  it "the user should be directed to create a new project for the organization" do
+<span class="offending"><span class="linenum">59</span>    current_path.should eq(new_organization_project_path(organization))</span>
+<span class="linenum">60</span>  end
+<span class="linenum">61</span>  
+<span class="linenum">62</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_33" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_33" class="passed">View Organization Details</dt>
+  </dl>
+</div>
+<div id="div_group_34" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_34" class="passed">as a visitor</dt>
+    <script type="text/javascript">moveProgressBar('36.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show the organizations details</span></dd>
+    <script type="text/javascript">moveProgressBar('36.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show the organizations projects</span></dd>
+    <script type="text/javascript">moveProgressBar('37.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show a new project link</span></dd>
+    <script type="text/javascript">moveProgressBar('37.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show project editing links</span></dd>
+  </dl>
+</div>
+<div id="div_group_35" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_35" class="passed">as a volunteer</dt>
+    <script type="text/javascript">moveProgressBar('38.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show a new project link</span></dd>
+    <script type="text/javascript">moveProgressBar('38.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show project editing links</span></dd>
+  </dl>
+</div>
+<div id="div_group_36" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_36" class="passed">as the organization owner</dt>
+    <script type="text/javascript">moveProgressBar('38.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show a new project link</span></dd>
+    <script type="text/javascript">moveProgressBar('39.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show project editing links</span></dd>
+  </dl>
+</div>
+<div id="div_group_37" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_37" class="passed">Tag</dt>
+  </dl>
+</div>
+<div id="div_group_38" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_38" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('39.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new tag instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('40.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a name</span></dd>
+    <script type="text/javascript">moveProgressBar('40.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a type</span></dd>
+    <script type="text/javascript">moveProgressBar('41.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names shorter than 3 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('41.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names longer than 30 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('42.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow types shorter than 4 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('42.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow types longer than 30 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('42.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate name and type</span></dd>
+    <script type="text/javascript">moveProgressBar('43.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow duplicate names of different types</span></dd>
+    <script type="text/javascript">moveProgressBar('43.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow duplicate types with different names</span></dd>
+  </dl>
+</div>
+<div id="div_group_39" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_39" class="passed">associations</dt>
+  </dl>
+</div>
+<div id="div_group_40" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_40" class="passed">user_profiles</dt>
+    <script type="text/javascript">moveProgressBar('44.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the user profiles for that tag</span></dd>
+  </dl>
+</div>
+<div id="div_group_41" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_41" class="passed">projects</dt>
+    <script type="text/javascript">moveProgressBar('44.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the projects for that tag</span></dd>
+  </dl>
+</div>
+<div id="div_group_42" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_42" class="passed">organizations</dt>
+    <script type="text/javascript">moveProgressBar('45.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the organizations for that tag</span></dd>
+  </dl>
+</div>
+<div id="div_group_43" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_43" class="passed">Organization</dt>
+    <script type="text/javascript">moveProgressBar('45.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div id="div_group_44" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_44" class="passed">behaves like it has a url slug</dt>
+  </dl>
+</div>
+<div id="div_group_45" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_45" class="passed">with an on_save that</dt>
+    <script type="text/javascript">moveProgressBar('46.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">converts the name of the entity to a url slug</span></dd>
+  </dl>
+</div>
+<div id="div_group_46" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_46" class="passed">owner associations</dt>
+    <script type="text/javascript">moveProgressBar('46.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have an owner attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('46.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right associated owner</span></dd>
+  </dl>
+</div>
+<div id="div_group_47" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_47" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('47.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require an owner id</span></dd>
+    <script type="text/javascript">moveProgressBar('47.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require nonblank name</span></dd>
+    <script type="text/javascript">moveProgressBar('48.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow long names</span></dd>
+    <script type="text/javascript">moveProgressBar('48.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate names</span></dd>
+    <script type="text/javascript">moveProgressBar('49.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require an 'organization' user to create</span></dd>
+    <script type="text/javascript">moveProgressBar('49.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow an 'admin' user to create</span></dd>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a contact</span></dd>
+    <script type="text/javascript">moveProgressBar('50.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short contact names</span></dd>
+    <script type="text/javascript">moveProgressBar('50.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow long contact names</span></dd>
+    <script type="text/javascript">moveProgressBar('51.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a contact email</span></dd>
+    <script type="text/javascript">moveProgressBar('51.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow valid emails</span></dd>
+    <script type="text/javascript">moveProgressBar('52.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow invalid emails</span></dd>
+    <script type="text/javascript">moveProgressBar('52.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a phone</span></dd>
+    <script type="text/javascript">moveProgressBar('53.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow invalid phone numbers</span></dd>
+    <script type="text/javascript">moveProgressBar('53.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a mission</span></dd>
+    <script type="text/javascript">moveProgressBar('53.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short missions</span></dd>
+    <script type="text/javascript">moveProgressBar('54.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should no allow long missions</span></dd>
+    <script type="text/javascript">moveProgressBar('54.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require details</span></dd>
+    <script type="text/javascript">moveProgressBar('55.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short details</span></dd>
+    <script type="text/javascript">moveProgressBar('55.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should no allow long details</span></dd>
+    <script type="text/javascript">moveProgressBar('56.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be verfied by default</span></dd>
+    <script type="text/javascript">moveProgressBar('56.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a random email token when created</span></dd>
+  </dl>
+</div>
+<div id="div_group_48" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_48" class="passed">tags</dt>
+    <script type="text/javascript">moveProgressBar('57.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">respond to tags</span></dd>
+    <script type="text/javascript">moveProgressBar('57.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right tags</span></dd>
+    <script type="text/javascript">moveProgressBar('57.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only have 'Cause' typed tags</span></dd>
+    <script type="text/javascript">moveProgressBar('58.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow new 'Cause' type tags to be added</span></dd>
+    <script type="text/javascript">moveProgressBar('58.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow tags to be removed</span></dd>
+  </dl>
+</div>
+<div id="div_group_49" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_49" class="passed">ProjectObserver</dt>
+  </dl>
+</div>
+<div id="div_group_50" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_50" class="passed">after_create</dt>
+    <script type="text/javascript">moveProgressBar('59.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">emails an admin asking them to verify the project</span></dd>
+  </dl>
+</div>
+<div id="div_group_51" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_51" class="passed">after_verified</dt>
+    <script type="text/javascript">moveProgressBar('59.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send an email to a project owner if their project has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('60.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not send an email when an owner edits a verified project</span></dd>
+  </dl>
+</div>
+<div id="div_group_52" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_52" class="passed">User</dt>
+    <script type="text/javascript">moveProgressBar('60.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('61.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require an email</span></dd>
+    <script type="text/javascript">moveProgressBar('61.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow valid email addresses</span></dd>
+    <script type="text/javascript">moveProgressBar('61.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow invalid email addresses</span></dd>
+    <script type="text/javascript">moveProgressBar('62.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate email addresses</span></dd>
+    <script type="text/javascript">moveProgressBar('62.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate email addresses with different cases</span></dd>
+    <script type="text/javascript">moveProgressBar('63.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be verfied by default</span></dd>
+    <script type="text/javascript">moveProgressBar('63.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a random email token when created</span></dd>
+  </dl>
+</div>
+<div id="div_group_53" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_53" class="passed">password validations</dt>
+    <script type="text/javascript">moveProgressBar('64.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a password</span></dd>
+    <script type="text/javascript">moveProgressBar('64.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a matching password</span></dd>
+    <script type="text/javascript">moveProgressBar('65.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should reject short passwords</span></dd>
+    <script type="text/javascript">moveProgressBar('65.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should reject long passwords</span></dd>
+  </dl>
+</div>
+<div id="div_group_54" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_54" class="passed">password encryption</dt>
+    <script type="text/javascript">moveProgressBar('65.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have an encrypted password attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('66.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should set the encrypted password</span></dd>
+  </dl>
+</div>
+<div id="div_group_55" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_55" class="passed">has_password? method</dt>
+    <script type="text/javascript">moveProgressBar('66.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be true if the passwords match</span></dd>
+    <script type="text/javascript">moveProgressBar('67.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be false if the passwords do not match</span></dd>
+  </dl>
+</div>
+<div id="div_group_56" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_56" class="passed">authenticate method</dt>
+    <script type="text/javascript">moveProgressBar('67.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return nil on email/password mismatch</span></dd>
+    <script type="text/javascript">moveProgressBar('68.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return nil on email does not exist</span></dd>
+    <script type="text/javascript">moveProgressBar('68.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the user on email/password match</span></dd>
+  </dl>
+</div>
+<div id="div_group_57" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_57" class="passed">admin attribute</dt>
+    <script type="text/javascript">moveProgressBar('69.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should respond to is_admin</span></dd>
+    <script type="text/javascript">moveProgressBar('69.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be an admin by default</span></dd>
+    <script type="text/javascript">moveProgressBar('69.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be convertible to an admin</span></dd>
+  </dl>
+</div>
+<div id="div_group_58" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_58" class="passed">organization attribute</dt>
+    <script type="text/javascript">moveProgressBar('70.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should respond to is_organization</span></dd>
+    <script type="text/javascript">moveProgressBar('70.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be organization by default</span></dd>
+    <script type="text/javascript">moveProgressBar('71.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be convertible to an organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_59" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_59" class="passed">.profile method</dt>
+    <script type="text/javascript">moveProgressBar('71.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should respond to .profile</span></dd>
+    <script type="text/javascript">moveProgressBar('72.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the user_profile if there is one</span></dd>
+    <script type="text/javascript">moveProgressBar('72.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return nil if there is not one</span></dd>
+  </dl>
+</div>
+<div id="div_group_60" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_60" class="passed">UserProfile</dt>
+  </dl>
+</div>
+<div id="div_group_61" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_61" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('73.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create in instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('73.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a user_id</span></dd>
+    <script type="text/javascript">moveProgressBar('73.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a name</span></dd>
+    <script type="text/javascript">moveProgressBar('74.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names longer than 60</span></dd>
+    <script type="text/javascript">moveProgressBar('74.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names shorter than 3</span></dd>
+    <script type="text/javascript">moveProgressBar('75.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a phone</span></dd>
+    <script type="text/javascript">moveProgressBar('75.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a valid phone</span></dd>
+    <script type="text/javascript">moveProgressBar('76.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow current employer longer than 60</span></dd>
+    <script type="text/javascript">moveProgressBar('76.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow job titles longer than 60</span></dd>
+    <script type="text/javascript">moveProgressBar('76.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow degree information longer than 1000</span></dd>
+    <script type="text/javascript">moveProgressBar('77.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow experience longer than 1000</span></dd>
+    <script type="text/javascript">moveProgressBar('77.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow websites longer than 60</span></dd>
+  </dl>
+</div>
+<div id="div_group_62" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_62" class="passed">associations</dt>
+    <script type="text/javascript">moveProgressBar('78.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a user attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('78.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right user</span></dd>
+  </dl>
+</div>
+<div id="div_group_63" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_63" class="passed">tags</dt>
+    <script type="text/javascript">moveProgressBar('79.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">respond to tags</span></dd>
+    <script type="text/javascript">moveProgressBar('79.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right tags</span></dd>
+    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow tags to be removed</span></dd>
+  </dl>
+</div>
+<div id="div_group_64" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_64" class="passed">Project</dt>
+    <script type="text/javascript">moveProgressBar('80.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create an instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div id="div_group_65" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_65" class="passed">behaves like it has a url slug</dt>
+  </dl>
+</div>
+<div id="div_group_66" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_66" class="passed">with an on_save that</dt>
+    <script type="text/javascript">moveProgressBar('80.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">converts the name of the entity to a url slug</span></dd>
+  </dl>
+</div>
+<div id="div_group_67" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_67" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('81.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a name</span></dd>
+    <script type="text/javascript">moveProgressBar('81.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short project names</span></dd>
+    <script type="text/javascript">moveProgressBar('82.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow long names</span></dd>
+    <script type="text/javascript">moveProgressBar('82.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require details</span></dd>
+    <script type="text/javascript">moveProgressBar('83.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require goals</span></dd>
+    <script type="text/javascript">moveProgressBar('83.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require status</span></dd>
+    <script type="text/javascript">moveProgressBar('84.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a valid status</span></dd>
+    <script type="text/javascript">moveProgressBar('84.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be verfied by default</span></dd>
+    <script type="text/javascript">moveProgressBar('84.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a random email token when created</span></dd>
+  </dl>
+</div>
+<div id="div_group_68" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_68" class="passed">associations</dt>
+    <script type="text/javascript">moveProgressBar('85.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have an organization attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('85.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_69" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_69" class="passed">tags</dt>
+    <script type="text/javascript">moveProgressBar('86.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">respond to tags</span></dd>
+    <script type="text/javascript">moveProgressBar('86.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right tags</span></dd>
+    <script type="text/javascript">moveProgressBar('87.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only have 'Skill' typed tags</span></dd>
+    <script type="text/javascript">moveProgressBar('87.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow new 'Skill' type tags to be added</span></dd>
+    <script type="text/javascript">moveProgressBar('88.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow tags to be removed</span></dd>
+  </dl>
+</div>
+<div id="div_group_70" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_70" class="passed">OrganizationObserver</dt>
+  </dl>
+</div>
+<div id="div_group_71" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_71" class="passed">after_create</dt>
+    <script type="text/javascript">moveProgressBar('88.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">emails an admin asking them to verify the organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_72" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_72" class="passed">after_verified</dt>
+    <script type="text/javascript">moveProgressBar('88.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send an email to an organization owner if their organization has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('89.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not send an email when an owner edits a verified organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_73" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_73" class="passed">UserObserver</dt>
+  </dl>
+</div>
+<div id="div_group_74" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_74" class="passed">after_create</dt>
+    <script type="text/javascript">moveProgressBar('89.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">emails a user asking them to verify their email account</span></dd>
+  </dl>
+</div>
+<div id="div_group_75" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_75" class="passed">ContributeRelationship</dt>
+    <script type="text/javascript">moveProgressBar('90.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div id="div_group_76" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_76" class="passed">contribute methods</dt>
+    <script type="text/javascript">moveProgressBar('90.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a contributor attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('91.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right contributor</span></dd>
+    <script type="text/javascript">moveProgressBar('91.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a project attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('92.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right project</span></dd>
+  </dl>
+</div>
+<div id="div_group_77" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_77" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('92.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should required a contributor_id</span></dd>
+    <script type="text/javascript">moveProgressBar('92.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a project_id</span></dd>
+  </dl>
+</div>
+<div id="div_group_78" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_78" class="passed">Tagged</dt>
+  </dl>
+</div>
+<div id="div_group_79" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_79" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('93.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create an instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('93.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a taggable_id</span></dd>
+    <script type="text/javascript">moveProgressBar('94.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a taggable_type</span></dd>
+    <script type="text/javascript">moveProgressBar('94.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a tag_id</span></dd>
+  </dl>
+</div>
+<div id="div_group_80" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_80" class="passed">PagesController</dt>
+  </dl>
+</div>
+<div id="div_group_81" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_81" class="passed">GET 'home'</dt>
+    <script type="text/javascript">moveProgressBar('95.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns http success</span></dd>
+  </dl>
+</div>
+<div id="div_group_82" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_82" class="passed">UserMailer</dt>
+  </dl>
+</div>
+<div id="div_group_83" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_83" class="passed">email_verification</dt>
+    <script type="text/javascript">moveProgressBar('95.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('96.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_84" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_84" class="passed">organization_verified</dt>
+    <script type="text/javascript">moveProgressBar('96.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('96.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_85" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_85" class="passed">project_verified</dt>
+    <script type="text/javascript">moveProgressBar('97.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('97.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_86" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_86" class="passed">AdminMailer</dt>
+  </dl>
+</div>
+<div id="div_group_87" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_87" class="passed">organization_verification</dt>
+    <script type="text/javascript">moveProgressBar('98.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('98.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_88" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_88" class="passed">project_verification</dt>
+    <script type="text/javascript">moveProgressBar('99.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('99.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_89" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_89" class="passed">UserOrganizationsHelper</dt>
+    <script type="text/javascript">makeYellow('div_group_89');</script>
+    <script type="text/javascript">makeYellow('example_group_89');</script>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">add some examples to (or delete) /var/www/apb2/spec/helpers/user_organizations_helper_spec.rb (PENDING: Not Yet Implemented)</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>103.252207357 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "226 examples, 7 failures, 4 pending";</script>
+</div>
+</div>
+</body>
+</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+
+function addClass(element_id, classname) {
+  document.getElementById(element_id).className += (" " + classname);
+}
+
+function removeClass(element_id, classname) {
+  var elem = document.getElementById(element_id);
+  var classlist = elem.className.replace(classname,'');
+  elem.className = classlist;
+}
+
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+
+function makeRed(element_id) {
+  removeClass(element_id, 'passed');
+  removeClass(element_id, 'not_implemented');
+  addClass(element_id,'failed');
+}
+
+function makeYellow(element_id) {
+  var elem = document.getElementById(element_id);
+  if (elem.className.indexOf("failed") == -1) {  // class doesn't includes failed
+    if (elem.className.indexOf("not_implemented") == -1) { // class doesn't include not_implemented
+      removeClass(element_id, 'passed');
+      addClass(element_id,'not_implemented');
+    }
+  }
+}
+
+function apply_filters() {
+  var passed_filter = document.getElementById('passed_checkbox').checked;
+  var failed_filter = document.getElementById('failed_checkbox').checked;
+  var pending_filter = document.getElementById('pending_checkbox').checked;
+
+  assign_display_style("example passed", passed_filter);
+  assign_display_style("example failed", failed_filter);
+  assign_display_style("example not_implemented", pending_filter);
+
+  assign_display_style_for_group("example_group passed", passed_filter);
+  assign_display_style_for_group("example_group not_implemented", pending_filter, pending_filter || passed_filter);
+  assign_display_style_for_group("example_group failed", failed_filter, failed_filter || pending_filter || passed_filter);
+}
+
+function get_display_style(display_flag) {
+  var style_mode = 'none';
+  if (display_flag == true) {
+    style_mode = 'block';
+  }
+  return style_mode;
+}
+
+function assign_display_style(classname, display_flag) {
+  var style_mode = get_display_style(display_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    elems[i].style.display = style_mode;
+  }
+}
+
+function assign_display_style_for_group(classname, display_flag, subgroup_flag) {
+  var display_style_mode = get_display_style(display_flag);
+  var subgroup_style_mode = get_display_style(subgroup_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    var style_mode = display_style_mode;
+    if ((display_flag != subgroup_flag) && (elems[i].getElementsByTagName('dt')[0].innerHTML.indexOf(", ") != -1)) {
+      elems[i].style.display = subgroup_style_mode;
+    } else {
+      elems[i].style.display = display_style_mode;
+    }
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#label {
+  float:left;
+}
+
+#display-filters {
+  float:left;
+  padding: 28px 0 0 40%;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+
+#summary {
+  float:right;
+  padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+
+dd.example.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.example.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.example.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+dd.example.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+
+dt.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+dt.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+dt.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+#rspec-header.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+#rspec-header.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+#rspec-header.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="display-filters">
+    <input id="passed_checkbox" name="passed_checkbox" type="checkbox" checked onchange="apply_filters()" value="1"> <label for="passed_checkbox">Passed</label>
+    <input id="failed_checkbox" name="failed_checkbox" type="checkbox" checked onchange="apply_filters()" value="2"> <label for="failed_checkbox">Failed</label>
+    <input id="pending_checkbox" name="pending_checkbox" type="checkbox" checked onchange="apply_filters()" value="3"> <label for="pending_checkbox">Pending</label>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&nbsp;</p>
+    <p id="duration">&nbsp;</p>
+  </div>
+</div>
+
+
+<div class="results">
+<div id="div_group_1" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_1" class="passed">View Organizations</dt>
+  </dl>
+</div>
+<div id="div_group_2" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_2" class="passed">for all users</dt>
+    <script type="text/javascript">moveProgressBar('0.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should list all of the approved organizations</span></dd>
+    <script type="text/javascript">moveProgressBar('0.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a link to view the organization details</span></dd>
+    <script type="text/javascript">moveProgressBar('1.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show how many projects are available for each organization</span></dd>
+    <script type="text/javascript">moveProgressBar('1.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should list the projects for each organization with a link to view the project details</span></dd>
+    <script type="text/javascript">moveProgressBar('2.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a pagination interface</span></dd>
+    <script type="text/javascript">moveProgressBar('2.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the organizations at 20 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('3.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the organizations at 50 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('3.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to view all of the organizations at once</span></dd>
+  </dl>
+</div>
+<div id="div_group_3" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_3" class="passed">filtering and searching</dt>
+    <script type="text/javascript">moveProgressBar('3.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by organization cause</span></dd>
+    <script type="text/javascript">moveProgressBar('4.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill</span></dd>
+    <script type="text/javascript">moveProgressBar('4.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill or cause</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_3');</script>
+    <script type="text/javascript">makeYellow('example_group_3');</script>
+    <script type="text/javascript">moveProgressBar('5.3');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should allow the user to search for projects by skill or cause (PENDING: Not Yet Implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_4" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_4" class="passed">Signins</dt>
+    <script type="text/javascript">moveProgressBar('5.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should sign the user in if they have good credentials</span></dd>
+    <script type="text/javascript">moveProgressBar('6.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not sign the user in if they have bad credentials</span></dd>
+  </dl>
+</div>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_5" class="passed">redirects</dt>
+  </dl>
+</div>
+<div id="div_group_6" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_6" class="passed">for organizations</dt>
+    <script type="text/javascript">moveProgressBar('6.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to create an organization if they dont have one</span></dd>
+    <script type="text/javascript">moveProgressBar('7.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to the page they requested, or their organizations index page if they werent requesting another page</span></dd>
+  </dl>
+</div>
+<div id="div_group_7" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_7" class="passed">for volunteers</dt>
+    <script type="text/javascript">moveProgressBar('7.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to create a profile if they don't have one</span></dd>
+    <script type="text/javascript">moveProgressBar('7.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect them to the page they requested, or their project matches if they werent requesting another page</span></dd>
+  </dl>
+</div>
+<div id="div_group_8" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_8" class="passed">for admins</dt>
+    <script type="text/javascript">moveProgressBar('8.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should redirect the admin to the page they were requesting, or their user page</span></dd>
+  </dl>
+</div>
+<div id="div_group_9" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_9" class="passed">When a user visits the website</dt>
+    <script type="text/javascript">moveProgressBar('8.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">they should see the home page</span></dd>
+  </dl>
+</div>
+<div id="div_group_10" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_10" class="passed">When a user signs up</dt>
+  </dl>
+</div>
+<div id="div_group_11" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_11" class="passed">with valid credentials</dt>
+    <script type="text/javascript">moveProgressBar('9.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">a new user is created</span></dd>
+    <script type="text/javascript">moveProgressBar('9.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">the correct user is created</span></dd>
+    <script type="text/javascript">moveProgressBar('10.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is signed in</span></dd>
+    <script type="text/javascript">moveProgressBar('10.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is notified that an account was created</span></dd>
+    <script type="text/javascript">moveProgressBar('11.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is not an admin</span></dd>
+    <script type="text/javascript">moveProgressBar('11.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user should get an email requesting they verify their email address</span></dd>
+  </dl>
+</div>
+<div id="div_group_12" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_12" class="passed">with valid volunteer credentials</dt>
+    <script type="text/javascript">moveProgressBar('11.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">an organization user is not created</span></dd>
+    <script type="text/javascript">moveProgressBar('12.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is sent to create a volunteer profile</span></dd>
+  </dl>
+</div>
+<div id="div_group_13" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_13" class="passed">with valid organization credentials</dt>
+    <script type="text/javascript">moveProgressBar('12.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">an organization user is created</span></dd>
+    <script type="text/javascript">moveProgressBar('13.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user is sent to create an organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_14" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_14" class="passed">with invalid credentials (no user type, no terms)</dt>
+    <script type="text/javascript">moveProgressBar('13.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">error messages are shown</span></dd>
+    <script type="text/javascript">moveProgressBar('14.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user will be redirected back to the register page</span></dd>
+    <script type="text/javascript">moveProgressBar('14.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">a user is not created unless they have accepted the terms</span></dd>
+    <script type="text/javascript">moveProgressBar('15.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">a user is not created unless they have selected a user type</span></dd>
+  </dl>
+</div>
+<div id="div_group_15" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_15" class="passed">Create Organization</dt>
+  </dl>
+</div>
+<div id="div_group_16" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_16" class="passed">page elements</dt>
+    <script type="text/javascript">moveProgressBar('15.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Cause' tags</span></dd>
+  </dl>
+</div>
+<div id="div_group_17" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_17" class="passed">with valid credentials</dt>
+    <script type="text/javascript">moveProgressBar('15.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new organization</span></dd>
+    <script type="text/javascript">moveProgressBar('16.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user to the create project page</span></dd>
+    <script type="text/javascript">moveProgressBar('16.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should notify the user that their organization was added in a flash message</span></dd>
+    <script type="text/javascript">moveProgressBar('17.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_18" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_18" class="passed">with invalid credentials</dt>
+    <script type="text/javascript">moveProgressBar('17.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create an organization</span></dd>
+    <script type="text/javascript">moveProgressBar('18.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show error messages</span></dd>
+    <script type="text/javascript">moveProgressBar('18.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create organization page</span></dd>
+  </dl>
+</div>
+<div id="div_group_19" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_19" class="passed">View Projects</dt>
+  </dl>
+</div>
+<div id="div_group_20" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_20" class="passed">for all users</dt>
+    <script type="text/javascript">moveProgressBar('19.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should list all of the approved projects</span></dd>
+    <script type="text/javascript">moveProgressBar('19.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a link to view the project details</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_20');</script>
+    <script type="text/javascript">makeYellow('example_group_20');</script>
+    <script type="text/javascript">moveProgressBar('19.9');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should show the organization assoicated to the listed project (PENDING: Not Yet Implemented)</span></dd>
+    <script type="text/javascript">moveProgressBar('20.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should provide a link to view the project details</span></dd>
+    <script type="text/javascript">moveProgressBar('20.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a pagination interface</span></dd>
+    <script type="text/javascript">moveProgressBar('21.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the projects at 20 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('21.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should paginate the projects at 50 per page</span></dd>
+    <script type="text/javascript">moveProgressBar('22.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to view all of the projects at once</span></dd>
+  </dl>
+</div>
+<div id="div_group_21" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_21" class="passed">filtering and searching</dt>
+    <script type="text/javascript">moveProgressBar('22.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill</span></dd>
+    <script type="text/javascript">moveProgressBar('23.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by organization cause</span></dd>
+    <script type="text/javascript">moveProgressBar('23.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill or cause</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
+    <script type="text/javascript">makeYellow('div_group_21');</script>
+    <script type="text/javascript">makeYellow('example_group_21');</script>
+    <script type="text/javascript">moveProgressBar('23.8');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should allow the user to search for projects by skill or cause (PENDING: Not Yet Implemented)</span></dd>
+  </dl>
+</div>
+<div id="div_group_22" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_22" class="passed">Organization Verifications</dt>
+    <script type="text/javascript">moveProgressBar('24.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow an admin to verify an organization and notify the organization that it has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('24.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should no allow anyone who isnt an admin to verify the organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_23" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_23" class="passed">Project Verifications</dt>
+    <script type="text/javascript">moveProgressBar('25.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow an admin to verify a project and notify the organization owner that it has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('25.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow anyone who isnt an admin to verify the project</span></dd>
+  </dl>
+</div>
+<div id="div_group_24" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_24" class="passed">Create Project</dt>
+  </dl>
+</div>
+<div id="div_group_25" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_25" class="passed">page elements</dt>
+    <script type="text/javascript">moveProgressBar('26.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Skill' tags</span></dd>
+  </dl>
+</div>
+<div id="div_group_26" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_26" class="passed">with valid credentials</dt>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('div_group_26');</script>
+    <script type="text/javascript">makeRed('example_group_26');</script>
+    <script type="text/javascript">moveProgressBar('26.5');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should create a new project</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>count should have been changed by 1, but was changed by 0</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:24:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">22</span>  describe "with valid credentials" do
+<span class="linenum">23</span>    it "should create a new project" do
+<span class="offending"><span class="linenum">24</span>      lambda do</span>
+<span class="linenum">25</span>        fill_in_details_and_submit
+<span class="linenum">26</span>      end.should change(Project, :count).by(1)
+<span class="linenum">27</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('26.9');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should send the user to organization details page</span>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>
+expected: &quot;/organizations/test-organization-470&quot;
+     got: &quot;/projects&quot;
+
+(compared using ==)
+</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:30:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">28</span>    it "should send the user to organization details page" do
+<span class="linenum">29</span>      fill_in_details_and_submit
+<span class="offending"><span class="linenum">30</span>      current_path.should eq(organization_path(project.organization))</span>
+<span class="linenum">31</span>    end
+<span class="linenum">32</span>    it "should notify the user that their project was added in a flash message" do
+<span class="linenum">33</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('27.4');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should notify the user that their project was added in a flash message</span>
+      <div class="failure" id="failure_3">
+        <div class="message"><pre>expected there to be content &quot;created&quot; in &quot;Apb2\n\n    \n  Austin Pro Bono\n\tHome\n\t\tProjects\n\t\tVolunteers\n\t\tOrganizations\n\t\tHow It Works\n\ttestuser_479@example.com\n      Log Out\n  \n\n\n\n    \n      \n  Search\n\n\n\n\n\n\t\n    Filter By Type\n      Test Tag 46\n      Test Tag 47\n  \n\t\n    Filter By Cause\n      Test Tag 48\n     \n      \n  \n\n\n\n\n\t\n    \tView\n    \n    \n      20 | \n    \n    \n      50 | \n    \n    \n      All \n    \n  \n\t\n  Projects\n\n\n\t\n\n\n\n\n    \n\n    \n\n    \n\t\t\n\t\t\t\n\t\t\t\t\tVolunteers\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\tBrowse Projects\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tOrganizations\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tHow It Works\n\t\t\t\t\t\tAbout Us\n\t\t\t\t\t\tBlog\n\t\t\t\t\t\tPrivacy Policy\n\t\t\t\t\t\n\t\t\t\tProjects\n\t\t\t\n\t\t\n\n\n&quot;</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:34:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">32</span>    it "should notify the user that their project was added in a flash message" do
+<span class="linenum">33</span>      fill_in_details_and_submit
+<span class="offending"><span class="linenum">34</span>      page.should have_content("created")</span>
+<span class="linenum">35</span>    end
+<span class="linenum">36</span>    it "should add the correct tags to the project" do
+<span class="linenum">37</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('27.8');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should add the correct tags to the project</span>
+      <div class="failure" id="failure_4">
+        <div class="message"><pre>expected content &quot;Test Tag 51&quot; not to return anything</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:40:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">38</span>      page.should have_content(tag1.name)
+<span class="linenum">39</span>      page.should have_content(tag2.name)
+<span class="offending"><span class="linenum">40</span>      page.should_not have_content(tag3.name)</span>
+<span class="linenum">41</span>    end
+<span class="linenum">42</span>  end
+<span class="linenum">43</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_27" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_27" class="passed">with invalid credentials</dt>
+    <script type="text/javascript">moveProgressBar('28.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create a project</span></dd>
+    <script type="text/javascript">makeRed('div_group_27');</script>
+    <script type="text/javascript">makeRed('example_group_27');</script>
+    <script type="text/javascript">moveProgressBar('28.7');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should show error messages</span>
+      <div class="failure" id="failure_5">
+        <div class="message"><pre>expected css &quot;div.error_messages&quot; to return something</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:52:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">50</span>    it "should show error messages" do
+<span class="linenum">51</span>      fill_in_details_and_submit("A" * 500)
+<span class="offending"><span class="linenum">52</span>      page.should have_selector("div.error_messages")</span>
+<span class="linenum">53</span>    end
+<span class="linenum">54</span>    it "should send the user back to the create project page" do
+<span class="linenum">55</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+    <script type="text/javascript">moveProgressBar('29.2');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">should send the user back to the create project page</span>
+      <div class="failure" id="failure_6">
+        <div class="message"><pre>
+expected: &quot;/test-organization-475/projects&quot;
+     got: &quot;/projects&quot;
+
+(compared using ==)
+</pre></div>
+        <div class="backtrace"><pre>./spec/requests/create_project_spec.rb:56:in `block (3 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">54</span>    it "should send the user back to the create project page" do
+<span class="linenum">55</span>      fill_in_details_and_submit("A" * 500)
+<span class="offending"><span class="linenum">56</span>      current_path.should eq("/#{project.organization.name.parameterize}/projects")</span>
+<span class="linenum">57</span>    end
+<span class="linenum">58</span>  end
+<span class="linenum">59</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_28" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_28" class="passed">Create User Profile</dt>
+  </dl>
+</div>
+<div id="div_group_29" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_29" class="passed">page elements</dt>
+    <script type="text/javascript">moveProgressBar('29.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Cause' and 'Skill' tags</span></dd>
+  </dl>
+</div>
+<div id="div_group_30" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_30" class="passed">with valid credentials</dt>
+    <script type="text/javascript">moveProgressBar('30.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new user_profile</span></dd>
+    <script type="text/javascript">moveProgressBar('30.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user to the project matches page</span></dd>
+    <script type="text/javascript">moveProgressBar('30.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should notify the user that their user_profile was added in a flash message</span></dd>
+    <script type="text/javascript">moveProgressBar('31.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the user_profile</span></dd>
+  </dl>
+</div>
+<div id="div_group_31" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_31" class="passed">with invalid credentials</dt>
+    <script type="text/javascript">moveProgressBar('31.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create an user_profile</span></dd>
+    <script type="text/javascript">moveProgressBar('32.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show error messages</span></dd>
+    <script type="text/javascript">moveProgressBar('32.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create user_profile page</span></dd>
+  </dl>
+</div>
+<div id="div_group_32" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_32" class="passed">When a  user creates an organization</dt>
+    <script type="text/javascript">moveProgressBar('33.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">a new orgaization should be created</span></dd>
+    <script type="text/javascript">moveProgressBar('33.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">an email should be sent to admin requesting verification of the organization</span></dd>
+    <script type="text/javascript">moveProgressBar('34.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">another organization with the same name cannot be created</span></dd>
+    <script type="text/javascript">moveProgressBar('34.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">the new organization should be owned by the user who created it</span></dd>
+    <script type="text/javascript">moveProgressBar('34.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">the user should be notified that the organization was created and an email was sent for verification</span></dd>
+    <script type="text/javascript">moveProgressBar('35.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">the organzation should not be verified</span></dd>
+    <script type="text/javascript">makeRed('div_group_32');</script>
+    <script type="text/javascript">makeRed('example_group_32');</script>
+    <script type="text/javascript">moveProgressBar('35.8');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">the user should be directed to create a new project for the organization</span>
+      <div class="failure" id="failure_7">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;new&quot;, :controller=&gt;&quot;projects&quot;, :organization_id=&gt;#&lt;Organization id: nil, name: &quot;Test Organization 482&quot;, contact: &quot;Test Contact&quot;, contact_email: &quot;test@example.com&quot;, website: &quot;http://www.example.com&quot;, phone: &quot;555-555-5555&quot;, mission: &quot;Our sample mission&quot;, details: &quot;Our sample details&quot;, user_id: 3456, verification_token: nil, verified: false, created_at: nil, updated_at: nil, slug: nil&gt;}</pre></div>
+        <div class="backtrace"><pre>./spec/requests/organization_register_spec.rb:59:in `block (2 levels) in <top (required)>'</pre></div>
+    <pre class="ruby"><code><span class="linenum">57</span>
+<span class="linenum">58</span>  it "the user should be directed to create a new project for the organization" do
+<span class="offending"><span class="linenum">59</span>    current_path.should eq(new_organization_project_path(organization))</span>
+<span class="linenum">60</span>  end
+<span class="linenum">61</span>  
+<span class="linenum">62</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_33" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_33" class="passed">View Organization Details</dt>
+  </dl>
+</div>
+<div id="div_group_34" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_34" class="passed">as a visitor</dt>
+    <script type="text/javascript">moveProgressBar('36.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show the organizations details</span></dd>
+    <script type="text/javascript">moveProgressBar('36.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show the organizations projects</span></dd>
+    <script type="text/javascript">moveProgressBar('37.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show a new project link</span></dd>
+    <script type="text/javascript">moveProgressBar('37.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show project editing links</span></dd>
+  </dl>
+</div>
+<div id="div_group_35" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_35" class="passed">as a volunteer</dt>
+    <script type="text/javascript">moveProgressBar('38.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show a new project link</span></dd>
+    <script type="text/javascript">moveProgressBar('38.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not show project editing links</span></dd>
+  </dl>
+</div>
+<div id="div_group_36" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_36" class="passed">as the organization owner</dt>
+    <script type="text/javascript">moveProgressBar('38.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show a new project link</span></dd>
+    <script type="text/javascript">moveProgressBar('39.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should show project editing links</span></dd>
+  </dl>
+</div>
+<div id="div_group_37" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_37" class="passed">Tag</dt>
+  </dl>
+</div>
+<div id="div_group_38" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_38" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('39.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new tag instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('40.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a name</span></dd>
+    <script type="text/javascript">moveProgressBar('40.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a type</span></dd>
+    <script type="text/javascript">moveProgressBar('41.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names shorter than 3 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('41.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names longer than 30 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('42.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow types shorter than 4 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('42.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow types longer than 30 characters</span></dd>
+    <script type="text/javascript">moveProgressBar('42.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate name and type</span></dd>
+    <script type="text/javascript">moveProgressBar('43.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow duplicate names of different types</span></dd>
+    <script type="text/javascript">moveProgressBar('43.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow duplicate types with different names</span></dd>
+  </dl>
+</div>
+<div id="div_group_39" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_39" class="passed">associations</dt>
+  </dl>
+</div>
+<div id="div_group_40" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_40" class="passed">user_profiles</dt>
+    <script type="text/javascript">moveProgressBar('44.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the user profiles for that tag</span></dd>
+  </dl>
+</div>
+<div id="div_group_41" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_41" class="passed">projects</dt>
+    <script type="text/javascript">moveProgressBar('44.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the projects for that tag</span></dd>
+  </dl>
+</div>
+<div id="div_group_42" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_42" class="passed">organizations</dt>
+    <script type="text/javascript">moveProgressBar('45.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the organizations for that tag</span></dd>
+  </dl>
+</div>
+<div id="div_group_43" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_43" class="passed">Organization</dt>
+    <script type="text/javascript">moveProgressBar('45.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div id="div_group_44" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_44" class="passed">behaves like it has a url slug</dt>
+  </dl>
+</div>
+<div id="div_group_45" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_45" class="passed">with an on_save that</dt>
+    <script type="text/javascript">moveProgressBar('46.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">converts the name of the entity to a url slug</span></dd>
+  </dl>
+</div>
+<div id="div_group_46" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_46" class="passed">owner associations</dt>
+    <script type="text/javascript">moveProgressBar('46.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have an owner attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('46.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right associated owner</span></dd>
+  </dl>
+</div>
+<div id="div_group_47" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_47" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('47.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require an owner id</span></dd>
+    <script type="text/javascript">moveProgressBar('47.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require nonblank name</span></dd>
+    <script type="text/javascript">moveProgressBar('48.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow long names</span></dd>
+    <script type="text/javascript">moveProgressBar('48.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate names</span></dd>
+    <script type="text/javascript">moveProgressBar('49.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require an 'organization' user to create</span></dd>
+    <script type="text/javascript">moveProgressBar('49.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow an 'admin' user to create</span></dd>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a contact</span></dd>
+    <script type="text/javascript">moveProgressBar('50.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short contact names</span></dd>
+    <script type="text/javascript">moveProgressBar('50.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow long contact names</span></dd>
+    <script type="text/javascript">moveProgressBar('51.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a contact email</span></dd>
+    <script type="text/javascript">moveProgressBar('51.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow valid emails</span></dd>
+    <script type="text/javascript">moveProgressBar('52.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow invalid emails</span></dd>
+    <script type="text/javascript">moveProgressBar('52.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a phone</span></dd>
+    <script type="text/javascript">moveProgressBar('53.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow invalid phone numbers</span></dd>
+    <script type="text/javascript">moveProgressBar('53.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a mission</span></dd>
+    <script type="text/javascript">moveProgressBar('53.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short missions</span></dd>
+    <script type="text/javascript">moveProgressBar('54.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should no allow long missions</span></dd>
+    <script type="text/javascript">moveProgressBar('54.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require details</span></dd>
+    <script type="text/javascript">moveProgressBar('55.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short details</span></dd>
+    <script type="text/javascript">moveProgressBar('55.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should no allow long details</span></dd>
+    <script type="text/javascript">moveProgressBar('56.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be verfied by default</span></dd>
+    <script type="text/javascript">moveProgressBar('56.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a random email token when created</span></dd>
+  </dl>
+</div>
+<div id="div_group_48" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_48" class="passed">tags</dt>
+    <script type="text/javascript">moveProgressBar('57.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">respond to tags</span></dd>
+    <script type="text/javascript">moveProgressBar('57.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right tags</span></dd>
+    <script type="text/javascript">moveProgressBar('57.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only have 'Cause' typed tags</span></dd>
+    <script type="text/javascript">moveProgressBar('58.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow new 'Cause' type tags to be added</span></dd>
+    <script type="text/javascript">moveProgressBar('58.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow tags to be removed</span></dd>
+  </dl>
+</div>
+<div id="div_group_49" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_49" class="passed">ProjectObserver</dt>
+  </dl>
+</div>
+<div id="div_group_50" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_50" class="passed">after_create</dt>
+    <script type="text/javascript">moveProgressBar('59.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">emails an admin asking them to verify the project</span></dd>
+  </dl>
+</div>
+<div id="div_group_51" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_51" class="passed">after_verified</dt>
+    <script type="text/javascript">moveProgressBar('59.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send an email to a project owner if their project has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('60.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not send an email when an owner edits a verified project</span></dd>
+  </dl>
+</div>
+<div id="div_group_52" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_52" class="passed">User</dt>
+    <script type="text/javascript">moveProgressBar('60.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('61.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require an email</span></dd>
+    <script type="text/javascript">moveProgressBar('61.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow valid email addresses</span></dd>
+    <script type="text/javascript">moveProgressBar('61.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow invalid email addresses</span></dd>
+    <script type="text/javascript">moveProgressBar('62.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate email addresses</span></dd>
+    <script type="text/javascript">moveProgressBar('62.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow duplicate email addresses with different cases</span></dd>
+    <script type="text/javascript">moveProgressBar('63.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be verfied by default</span></dd>
+    <script type="text/javascript">moveProgressBar('63.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a random email token when created</span></dd>
+  </dl>
+</div>
+<div id="div_group_53" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_53" class="passed">password validations</dt>
+    <script type="text/javascript">moveProgressBar('64.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a password</span></dd>
+    <script type="text/javascript">moveProgressBar('64.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a matching password</span></dd>
+    <script type="text/javascript">moveProgressBar('65.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should reject short passwords</span></dd>
+    <script type="text/javascript">moveProgressBar('65.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should reject long passwords</span></dd>
+  </dl>
+</div>
+<div id="div_group_54" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_54" class="passed">password encryption</dt>
+    <script type="text/javascript">moveProgressBar('65.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have an encrypted password attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('66.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should set the encrypted password</span></dd>
+  </dl>
+</div>
+<div id="div_group_55" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_55" class="passed">has_password? method</dt>
+    <script type="text/javascript">moveProgressBar('66.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be true if the passwords match</span></dd>
+    <script type="text/javascript">moveProgressBar('67.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be false if the passwords do not match</span></dd>
+  </dl>
+</div>
+<div id="div_group_56" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_56" class="passed">authenticate method</dt>
+    <script type="text/javascript">moveProgressBar('67.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return nil on email/password mismatch</span></dd>
+    <script type="text/javascript">moveProgressBar('68.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return nil on email does not exist</span></dd>
+    <script type="text/javascript">moveProgressBar('68.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the user on email/password match</span></dd>
+  </dl>
+</div>
+<div id="div_group_57" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_57" class="passed">admin attribute</dt>
+    <script type="text/javascript">moveProgressBar('69.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should respond to is_admin</span></dd>
+    <script type="text/javascript">moveProgressBar('69.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be an admin by default</span></dd>
+    <script type="text/javascript">moveProgressBar('69.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be convertible to an admin</span></dd>
+  </dl>
+</div>
+<div id="div_group_58" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_58" class="passed">organization attribute</dt>
+    <script type="text/javascript">moveProgressBar('70.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should respond to is_organization</span></dd>
+    <script type="text/javascript">moveProgressBar('70.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be organization by default</span></dd>
+    <script type="text/javascript">moveProgressBar('71.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be convertible to an organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_59" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_59" class="passed">.profile method</dt>
+    <script type="text/javascript">moveProgressBar('71.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should respond to .profile</span></dd>
+    <script type="text/javascript">moveProgressBar('72.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return the user_profile if there is one</span></dd>
+    <script type="text/javascript">moveProgressBar('72.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return nil if there is not one</span></dd>
+  </dl>
+</div>
+<div id="div_group_60" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_60" class="passed">UserProfile</dt>
+  </dl>
+</div>
+<div id="div_group_61" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_61" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('73.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create in instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('73.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a user_id</span></dd>
+    <script type="text/javascript">moveProgressBar('73.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a name</span></dd>
+    <script type="text/javascript">moveProgressBar('74.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names longer than 60</span></dd>
+    <script type="text/javascript">moveProgressBar('74.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow names shorter than 3</span></dd>
+    <script type="text/javascript">moveProgressBar('75.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a phone</span></dd>
+    <script type="text/javascript">moveProgressBar('75.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a valid phone</span></dd>
+    <script type="text/javascript">moveProgressBar('76.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow current employer longer than 60</span></dd>
+    <script type="text/javascript">moveProgressBar('76.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow job titles longer than 60</span></dd>
+    <script type="text/javascript">moveProgressBar('76.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow degree information longer than 1000</span></dd>
+    <script type="text/javascript">moveProgressBar('77.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow experience longer than 1000</span></dd>
+    <script type="text/javascript">moveProgressBar('77.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow websites longer than 60</span></dd>
+  </dl>
+</div>
+<div id="div_group_62" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_62" class="passed">associations</dt>
+    <script type="text/javascript">moveProgressBar('78.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a user attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('78.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right user</span></dd>
+  </dl>
+</div>
+<div id="div_group_63" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_63" class="passed">tags</dt>
+    <script type="text/javascript">moveProgressBar('79.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">respond to tags</span></dd>
+    <script type="text/javascript">moveProgressBar('79.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right tags</span></dd>
+    <script type="text/javascript">moveProgressBar('80.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow tags to be removed</span></dd>
+  </dl>
+</div>
+<div id="div_group_64" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_64" class="passed">Project</dt>
+    <script type="text/javascript">moveProgressBar('80.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create an instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div id="div_group_65" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_65" class="passed">behaves like it has a url slug</dt>
+  </dl>
+</div>
+<div id="div_group_66" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_66" class="passed">with an on_save that</dt>
+    <script type="text/javascript">moveProgressBar('80.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">converts the name of the entity to a url slug</span></dd>
+  </dl>
+</div>
+<div id="div_group_67" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_67" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('81.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a name</span></dd>
+    <script type="text/javascript">moveProgressBar('81.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow short project names</span></dd>
+    <script type="text/javascript">moveProgressBar('82.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not allow long names</span></dd>
+    <script type="text/javascript">moveProgressBar('82.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require details</span></dd>
+    <script type="text/javascript">moveProgressBar('83.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require goals</span></dd>
+    <script type="text/javascript">moveProgressBar('83.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require status</span></dd>
+    <script type="text/javascript">moveProgressBar('84.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a valid status</span></dd>
+    <script type="text/javascript">moveProgressBar('84.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be verfied by default</span></dd>
+    <script type="text/javascript">moveProgressBar('84.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a random email token when created</span></dd>
+  </dl>
+</div>
+<div id="div_group_68" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_68" class="passed">associations</dt>
+    <script type="text/javascript">moveProgressBar('85.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have an organization attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('85.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_69" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_69" class="passed">tags</dt>
+    <script type="text/javascript">moveProgressBar('86.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">respond to tags</span></dd>
+    <script type="text/javascript">moveProgressBar('86.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right tags</span></dd>
+    <script type="text/javascript">moveProgressBar('87.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should only have 'Skill' typed tags</span></dd>
+    <script type="text/javascript">moveProgressBar('87.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow new 'Skill' type tags to be added</span></dd>
+    <script type="text/javascript">moveProgressBar('88.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow tags to be removed</span></dd>
+  </dl>
+</div>
+<div id="div_group_70" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_70" class="passed">OrganizationObserver</dt>
+  </dl>
+</div>
+<div id="div_group_71" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_71" class="passed">after_create</dt>
+    <script type="text/javascript">moveProgressBar('88.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">emails an admin asking them to verify the organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_72" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_72" class="passed">after_verified</dt>
+    <script type="text/javascript">moveProgressBar('88.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should send an email to an organization owner if their organization has been verified</span></dd>
+    <script type="text/javascript">moveProgressBar('89.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not send an email when an owner edits a verified organization</span></dd>
+  </dl>
+</div>
+<div id="div_group_73" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_73" class="passed">UserObserver</dt>
+  </dl>
+</div>
+<div id="div_group_74" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_74" class="passed">after_create</dt>
+    <script type="text/javascript">moveProgressBar('89.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">emails a user asking them to verify their email account</span></dd>
+  </dl>
+</div>
+<div id="div_group_75" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_75" class="passed">ContributeRelationship</dt>
+    <script type="text/javascript">moveProgressBar('90.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create a new instance given valid attributes</span></dd>
+  </dl>
+</div>
+<div id="div_group_76" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_76" class="passed">contribute methods</dt>
+    <script type="text/javascript">moveProgressBar('90.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a contributor attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('91.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right contributor</span></dd>
+    <script type="text/javascript">moveProgressBar('91.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a project attribute</span></dd>
+    <script type="text/javascript">moveProgressBar('92.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have the right project</span></dd>
+  </dl>
+</div>
+<div id="div_group_77" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_77" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('92.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should required a contributor_id</span></dd>
+    <script type="text/javascript">moveProgressBar('92.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a project_id</span></dd>
+  </dl>
+</div>
+<div id="div_group_78" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_78" class="passed">Tagged</dt>
+  </dl>
+</div>
+<div id="div_group_79" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_79" class="passed">validations</dt>
+    <script type="text/javascript">moveProgressBar('93.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should create an instance given valid attributes</span></dd>
+    <script type="text/javascript">moveProgressBar('93.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a taggable_id</span></dd>
+    <script type="text/javascript">moveProgressBar('94.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a taggable_type</span></dd>
+    <script type="text/javascript">moveProgressBar('94.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should require a tag_id</span></dd>
+  </dl>
+</div>
+<div id="div_group_80" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_80" class="passed">PagesController</dt>
+  </dl>
+</div>
+<div id="div_group_81" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_81" class="passed">GET 'home'</dt>
+    <script type="text/javascript">moveProgressBar('95.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns http success</span></dd>
+  </dl>
+</div>
+<div id="div_group_82" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_82" class="passed">UserMailer</dt>
+  </dl>
+</div>
+<div id="div_group_83" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_83" class="passed">email_verification</dt>
+    <script type="text/javascript">moveProgressBar('95.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('96.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_84" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_84" class="passed">organization_verified</dt>
+    <script type="text/javascript">moveProgressBar('96.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('96.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_85" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_85" class="passed">project_verified</dt>
+    <script type="text/javascript">moveProgressBar('97.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('97.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_86" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_86" class="passed">AdminMailer</dt>
+  </dl>
+</div>
+<div id="div_group_87" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_87" class="passed">organization_verification</dt>
+    <script type="text/javascript">moveProgressBar('98.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('98.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_88" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_88" class="passed">project_verification</dt>
+    <script type="text/javascript">moveProgressBar('99.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the headers</span></dd>
+    <script type="text/javascript">moveProgressBar('99.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders the body</span></dd>
+  </dl>
+</div>
+<div id="div_group_89" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_89" class="passed">UserOrganizationsHelper</dt>
+    <script type="text/javascript">makeYellow('div_group_89');</script>
+    <script type="text/javascript">makeYellow('example_group_89');</script>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">add some examples to (or delete) /var/www/apb2/spec/helpers/user_organizations_helper_spec.rb (PENDING: Not Yet Implemented)</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>91.564632012 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "226 examples, 7 failures, 4 pending";</script>
+</div>
+</div>
+</body>
+</html>

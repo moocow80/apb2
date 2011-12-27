@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe Organization do
+  it_behaves_like "it has a url slug"
+
   before(:each) do
     @owner = Factory(:user, :is_organization => true)
 

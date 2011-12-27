@@ -6,6 +6,10 @@ Apb2::Application.routes.draw do
     resources :organizations, :controller => "user_organizations", :only => [:index]
   end
   resources :user_profiles
+  resources :organizations do
+    resources :projects
+  end
+  resources :newsletter_subscribers, :only => [:create]
   
   # Sessions
   match '/login', :to => 'sessions#new'
@@ -18,6 +22,7 @@ Apb2::Application.routes.draw do
   match '/non-profit_testimonials', :to => 'pages#org_testimonials'
   match '/volunteer_testimonials', :to => 'pages#vol_testimonials'
   match '/contactus', :to => 'pages#contactus'
+  match '/howitworks', :to => 'pages#howitworks'
 
   # Users
   match '/register', :to => 'users#new', :as => 'register'
@@ -31,11 +36,16 @@ Apb2::Application.routes.draw do
   match '/verify_organization/:id' => 'organizations#verify', :as => :organization_verify
   match '/verify_project/:id' => 'projects#verify', :as => :project_verify
 
+
+  match '/projects', :to => 'projects#index'
+
+=begin
   match '/organizations', :to => "organizations#index", :via => :get
   match '/organizations/new', :to => 'organizations#new', :as => 'new_organization'
   match '/organizations', :to => 'organizations#create', :via => :post
   match '/organizations', :to => 'organizations#update', :via => :put
   match '/organizations', :to => 'organizations#destroy', :via => :delete
+
 
   # scope "/:organization", :contraints => {:organization => /((?!volunteer|login|logout|register|home).)*/ } do
   scope "/:organization", do
@@ -50,7 +60,8 @@ Apb2::Application.routes.draw do
     match '/projects' => "projects#create", :via => :post
     match '/projects/new' => "projects#new", :via => :get, :as => 'new_organization_project'
   end
-
+=end
+  
 
 
   root :to => 'pages#home'

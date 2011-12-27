@@ -2,12 +2,14 @@ class Organization < ActiveRecord::Base
   include HasTags
   TAG_TYPES = %w(Cause)
 
-  attr_accessible :name, :contact, :contact_email, :website, :phone, :mission, :details
+  sluggable
+
+  attr_accessible :name, :contact, :contact_email, :website, :phone, :mission, :details, :slug
 
   belongs_to  :owner, :class_name => "User", :foreign_key => "user_id"
   has_many    :projects
 
-  validates   :user_id, :name, :contact, :contact_email, :phone, :mission, :details, :presence => true
+  validates   :user_id, :contact, :contact_email, :phone, :mission, :details, :presence => true
 
   validates   :name, :length => { :within => 4..50 }
   validates   :contact, :length => { :within => 4..50 }
@@ -22,17 +24,31 @@ class Organization < ActiveRecord::Base
   validates :phone,
             :format => { :with => phone_regex }
 
-  validates :name,
-            :uniqueness => { :case_sensitive => false }
-
   validate :require_organization_user
 
   before_create { generate_token(:verification_token) }
   before_save :sanitize_name
   after_save :check_verification
 
-  def to_param
-    self.name.parameterize      
+  scope :verified, where(:verified => true)
+  scope :with_causes, lambda { |*tag_ids| joins(:tags).where("tags.id IN (?) AND tags.tag_type = 'Cause'", tag_ids).group("`organizations`.`id`") }
+
+  def self.with_skills_sql(*tag_ids)
+    statement =   "SELECT `organizations`.* FROM organizations "
+    statement +=  "LEFT JOIN projects ON projects.organization_id = organizations.id "
+    statement +=  "INNER JOIN taggeds ON taggeds.taggable_type = 'Project' AND taggeds.taggable_id = projects.id "
+    statement +=  "INNER JOIN tags ON tags.id = taggeds.tag_id WHERE tags.id IN (#{tag_ids.join(",")}) GROUP BY organizations.id"
+    statement
+  end
+
+  def self.with_causes_and_skills_sql(cause_ids,skill_ids)
+    statement =   "SELECT organizations.* "
+    statement +=  "FROM taggeds, organizations " 
+    statement +=  "LEFT JOIN projects ON organizations.id = projects.organization_id " 
+    statement +=  "WHERE (taggeds.taggable_id = organizations.id AND taggeds.taggable_type = 'Organization' AND taggeds.tag_id IN (#{cause_ids})) " 
+    statement +=  "OR (taggeds.taggable_id = projects.id AND taggeds.taggable_type = 'Project' AND taggeds.tag_id IN (#{skill_ids})) "
+    statement +=  "GROUP BY organizations.id"
+    statement
   end
 
   private

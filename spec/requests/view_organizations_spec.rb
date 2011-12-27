@@ -8,11 +8,47 @@ describe "View Organizations" do
       visit organizations_path
       page.should have_xpath("//div[@class='project']", :count => 5)
     end
+    context "filtering and searching" do
+      let(:cause) { create(:cause_tag) }
+      let(:skill) { create(:skill_tag) }
+      
+      let(:o1)  { create(:organization, :verified => true) }
+      let(:o2)  { create(:organization, :verified => true) }
+      let(:o3)  { create(:organization, :verified => true) }
+      let!(:o4) { create(:organization, :verified => true) }
+      let(:p1)  { create(:project, :organization => o1, :verified => true) }
+      let(:p2)  { create(:project, :organization => o2, :verified => true) }
+      let(:p3)  { create(:project, :organization => o3, :verified => true) }
 
-    it "should allow the user to filter by cause" 
-    it "should allow the user to filter by project type"
-    it "should allow the user to search for organizations by type or cause"
+      before(:each) do
+        o1.tag_with!(cause)
+        p2.tag_with!(skill)
+        o3.tag_with!(cause)
+        p3.tag_with!(skill)
+        visit organizations_path
+      end
+      it "should allow the user to filter by organization cause" do
+        page.should have_xpath("//div[@class='project']", :count => 4)
+        check cause.name
+        click_button "Apply"
+        page.should have_xpath("//div[@class='project']", :count => 2)
+      end
+      it "should allow the user to filter by skill" do
+        page.should have_xpath("//div[@class='project']", :count => 4)
+        check skill.name
+        click_button "Apply"
+        page.should have_xpath("//div[@class='project']", :count => 2)
+      end
+      it "should allow the user to filter by skill or cause" do
+        page.should have_xpath("//div[@class='project']", :count => 4)
+        check cause.name
+        check skill.name
+        click_button "Apply"
+        page.should have_xpath("//div[@class='project']", :count => 3)
+      end
+      it "should allow the user to search for organization by skill or cause"
 
+    end
     it "should have a link to view the organization details" do
       organization = create(:organization, :verified => true)
       visit organizations_path
@@ -43,13 +79,13 @@ describe "View Organizations" do
       page.should have_selector("a", :text => "3")
       page.should have_selector("a", :text => "Next")
     end
-    it "should paginate the projects at 20 per page" do
+    it "should paginate the organizations at 20 per page" do
       51.times { create(:organization, :verified => true) }
       visit organizations_path
       click_link "20"
       page.should have_xpath("//div[@class='project']", :count => 20)
     end
-    it "should allow the user to view all of the organizations at once" do
+    it "should paginate the organizations at 50 per page" do
       51.times { create(:organization, :verified => true) }
       visit organizations_path
       click_link "50"

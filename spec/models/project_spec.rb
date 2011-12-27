@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Project do
+  it_behaves_like "it has a url slug"
+
   before(:each) do
     @organization = Factory(:organization)
     @attr = {

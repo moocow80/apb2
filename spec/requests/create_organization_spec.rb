@@ -6,6 +6,7 @@ describe "Create Organization" do
   let!(:tag3) { create(:skill_tag) }
 
   let(:organization) { build(:organization) }
+  let(:slug) { organization.name.parameterize }
 
   before(:each) do
     goto_new_organization
@@ -27,7 +28,7 @@ describe "Create Organization" do
     end
     it "should send the user to the create project page" do
       fill_in_details_and_submit
-      current_path.should eq(new_organization_project_path(organization))
+      current_path.should eq(new_organization_project_path(slug))
     end
     it "should notify the user that their organization was added in a flash message" do
       fill_in_details_and_submit
@@ -35,7 +36,7 @@ describe "Create Organization" do
     end
     it "should add the correct tags to the organization" do
       fill_in_details_and_submit
-      visit organization_path(organization)
+      visit organization_path(slug)
       page.should have_content(tag1.name)
       page.should have_content(tag2.name)
       page.should_not have_content(tag3.name)

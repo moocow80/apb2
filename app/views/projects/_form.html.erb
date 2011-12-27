@@ -1,5 +1,6 @@
-<%= form_for @project do |f| %>
+<%= form_for @project, :url => { :controller => "projects", :action => "create" } do |f| %>
   <%= f.error_messages %>
+  <%= f.hidden_field :organization_id %>
   <div class="field">
     <% tags_by_type("Skill").each do |tag| %>
       <%= check_box_tag "project[tag_ids][]", tag.id, @project.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>

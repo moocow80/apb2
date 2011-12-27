@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   before(:each) do
     @attr = {
-      :email => "user@example.com",
+      :email => "abc_user@example.com",
       :password => "testpassword",
       :password_confirmation => "testpassword",
       :type => "volunteer"

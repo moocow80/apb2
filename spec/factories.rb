@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:email) { |n| "testuser#{n}@example.com" }
+    sequence(:email) { |n| "testuser_#{n}@example.com" }
     password "secret"
     password_confirmation "secret"
     type "volunteer"
@@ -30,6 +30,10 @@ FactoryGirl.define do
     experience "Sample additional experience"
     website "google.com"
     available true
+  end
+
+  factory :newsletter_subscriber do
+    sequence(:email) { |n| "testsubscriber_#{n}@example.com" }
   end
 
   factory :organization do

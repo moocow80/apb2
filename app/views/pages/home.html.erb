@@ -18,10 +18,14 @@
 				<div class="newsletter-signup dark-section">
 					<h2>Newsletter <span>Signup</span></h2>
 					<p class="note">Sign up to receive important news and updates.</p>
-					<form id="newsletter-form">
+          <%= form_tag newsletter_subscribers_path, :method => :post, :id => "newsletter-form" do %>
+            <%= text_field_tag :email, nil, :name => "newsletter_subscriber[email]" %>
+            <%= submit_tag "Submit", :class => "button" %>
+          <% end %>
+					<!--<form id="newsletter-form">
 						<input type="text" name="email" placeholder="Email" />
 						<button>Submit</button>
-					</form>
+					</form>-->
 				</div>
 				<a href="projects" class="browse-projects">Browse Open Projects</a>
 			</div>

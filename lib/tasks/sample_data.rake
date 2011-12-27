@@ -6,6 +6,8 @@ namespace :db do
     Rake::Task['db:reset'].invoke
     make_organizations
     make_projects
+    make_cause_tags
+    make_skill_tags
   end
 end
 
@@ -48,4 +50,20 @@ def make_projects
       project.toggle!(:verified)
     end
   end
+end
+
+def make_cause_tags
+  Tag.create(:tag_type => "Cause", :name => "Animal Rights")
+  Tag.create(:tag_type => "Cause", :name => "Children")
+  Tag.create(:tag_type => "Cause", :name => "Environment")
+  Tag.create(:tag_type => "Cause", :name => "Health")
+  Tag.create(:tag_type => "Cause", :name => "Religion")
+end
+
+def make_skill_tags
+  Tag.create(:tag_type => "Skill", :name => "Accounting")
+  Tag.create(:tag_type => "Skill", :name => "Design")
+  Tag.create(:tag_type => "Skill", :name => "Online Marketing")
+  Tag.create(:tag_type => "Skill", :name => "Sales")
+  Tag.create(:tag_type => "Skill", :name => "Technology")
 end

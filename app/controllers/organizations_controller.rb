@@ -4,11 +4,20 @@ class OrganizationsController < ApplicationController
 
   def index
     per_page = params[:per_page] || 20
-    @organizations = Organization.where(:verified => true).paginate(:page => params[:page], :per_page => per_page)
+    if params[:cause_tag_ids] && params[:skill_tag_ids]
+      sql = Organization.with_causes_and_skills_sql(params[:cause_tag_ids].join(","), params[:skill_tag_ids].join(","))
+    elsif params[:cause_tag_ids]
+      sql = Organization.verified.with_causes(params[:cause_tag_ids].join(",")).to_sql
+    elsif params[:skill_tag_ids]
+      sql = Organization.with_skills_sql(params[:skill_tag_ids].join(","))
+    else
+      sql = Organization.verified.to_sql
+    end
+    @organizations = Organization.paginate_by_sql(sql, :page => params[:page], :per_page => per_page)
   end
 
   def show
-    @organization = Organization.find_by_name(params[:organization].titleize)
+    @organization = Organization.find_by_slug(params[:id])
   end
 
   def new

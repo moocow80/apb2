@@ -53,7 +53,7 @@ describe "Create Project" do
     end
     it "should send the user back to the create project page" do
       fill_in_details_and_submit("A" * 500)
-      current_path.should eq("/#{project.organization.name.parameterize}/projects")
+      current_path.should eq("/organizations/#{project.organization.name.parameterize}/projects")
     end
   end
 

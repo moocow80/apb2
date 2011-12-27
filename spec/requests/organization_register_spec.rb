@@ -56,7 +56,7 @@ describe "When a  user creates an organization", :type => :request do
   end
 
   it "the user should be directed to create a new project for the organization" do
-    current_path.should eq(new_organization_project_path(organization))
+    current_path.should eq(new_organization_project_path(organization.name.parameterize))
   end
   
 
