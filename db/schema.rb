@@ -11,18 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111221195801) do
+ActiveRecord::Schema.define(:version => 20120102210733) do
 
-  create_table "contribute_relationships", :force => true do |t|
-    t.integer  "contributor_id"
+  create_table "contributors", :force => true do |t|
+    t.integer  "user_id"
     t.integer  "project_id"
+    t.string   "status",     :default => "pending"
+    t.text     "reason"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "contribute_relationships", ["contributor_id", "project_id"], :name => "index_contribute_relationships_on_contributor_id_and_project_id", :unique => true
-  add_index "contribute_relationships", ["contributor_id"], :name => "index_contribute_relationships_on_contributor_id"
-  add_index "contribute_relationships", ["project_id"], :name => "index_contribute_relationships_on_project_id"
 
   create_table "newsletter_subscribers", :force => true do |t|
     t.string   "email"

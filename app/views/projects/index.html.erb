@@ -64,6 +64,7 @@
     	<p><%= project.goals %></p>
     	<h3>Available Projects</h3>
       <a href="#" id="more-info" class="more">More Info &raquo;</a>
+      <%= link_to "Volunteer for this Project", organization_project_contributors_path(project.organization, project), :method => :post %>
     </div>
     <div class="clear"></div>
   </div>

@@ -98,4 +98,14 @@ describe "View Projects" do
       page.should have_xpath("//div[@class='project']", :count => 51)
     end
   end
+   
+  context "for verified, logged-in users" do
+    it "should show them a link to apply for a project" do
+      project = create(:project, :verified => true)
+      user = create(:user, :verified => true)
+      request_login(user)
+      visit projects_path
+      page.should have_selector("a",:text => "Volunteer for this Project")
+    end
+  end
 end

@@ -1,0 +1,60 @@
+=== Total Hours: 33 hours
+=== Hours per day: 6 hours
+=== Total Days: 5.5
+
+== General Notes
+  Add .NeededBy. to Project
+  Allow Organizations to set status to .In Progress. or something like that
+
+== Guest (spec/request/guest/) 4 hours
+  view_home_page
+  browsing_organizations (filtered)
+  browsing_projects (filtered)
+  how_it_works_page
+  creating_organizations_accounts
+  creating_volunteer_accounts
+  newsletter_signups (should drop email into mail chimp)
+  viewing_blog_articles
+  viewing_project_details (canonical)
+  viewing_organization_details
+  testimonial_page
+  social_networking_links
+  contact_us_page
+  privacy_policy_page
+  about_us_page
+
+== Volunteers (spec/request/volunteers/) 12 hours
+  Browse Organizations / Projects (see .Guest.)
+  applying_to_projects
+  editing_user_profiles
+  uploading_resumes 3 hours
+  Ditch Available / Unavailable
+  viewing_project_applications (with status filters) 3 hours
+  quitting_projects 1 hours
+  subscribe_to_tags 4 hours
+  pseudo_deleting_volunteer_accounts 1 hours
+
+== Organizations (spec/request/organizations/) 7 hours
+  posting_projects
+  reviewing_applicants 0 hours
+  accepting_applicants, declining_applicants (collect_feedback) 2 hours
+  viewing_projects_with_status 2 hours
+  editing_projects 
+  pseudo_deleting_projects
+  reopening_projects
+  editing_organization_details
+  updating_project_statuses (pending open in_progress completed cancelled) 2 hours
+  NOTE: column for relationship status on contributions (e.g. project closes and reopens, and we want to see all users working on open projects)
+  completing_projects (collecting feedback) 1 hour
+
+== Admin (spec/request/admin/) 10 hours
+  pseudo_deleting_volunteers 1 hour
+  pseudo_deleting_organizations 1 hour
+  logging_in_as_any_user 2 hours
+  approving_organizations
+  approving_projects
+  viewing_projects (with filters) 2 hours
+  viewing_volunteers (with filters) 2 hours
+  viewing_declined_volunteer_reasons 2 hours
+
+

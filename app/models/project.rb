@@ -7,6 +7,8 @@ class Project < ActiveRecord::Base
   attr_accessible :name, :details, :goals, :status
   
   belongs_to  :organization
+  has_many :contributions, :class_name => "Contributor", :foreign_key => "project_id"
+  has_many :contributors, :through => :contributions, :source => :user
 
   validates_presence_of :organization_id, :details, :goals 
   validates :name,

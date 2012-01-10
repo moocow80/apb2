@@ -1,5 +1,11 @@
 Apb2::Application.routes.draw do
 
+  get "contributors/create"
+
+  get "contributors/edit"
+
+  get "contributors/update"
+
   # Resourceful Routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users do
@@ -7,7 +13,9 @@ Apb2::Application.routes.draw do
   end
   resources :user_profiles
   resources :organizations do
-    resources :projects
+    resources :projects do
+      resources :contributors, :only => [:create, :edit, :update]
+    end
   end
   resources :newsletter_subscribers, :only => [:create]
   

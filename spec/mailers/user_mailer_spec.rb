@@ -43,4 +43,51 @@ describe UserMailer do
     end
   end
 
+  describe "thanks_for_volunteering" do
+    let(:user) { create(:user, :verified => true) }
+    let(:project) { create(:project, :verified => true) }
+
+    before(:each) do
+      @contributor = project.contributions.create(:user_id => user.id)
+      @mail = UserMailer.thanks_for_volunteering(@contributor)
+    end
+
+    it "renders the headers" do
+      @mail.subject.should eq("Thanks for volunteering for #{project.name}!")
+      @mail.to.should eq([user.email])
+      @mail.from.should eq(["noreply@austinprobono.org"])
+    end
+  end
+
+  describe "new_project_volunteer" do
+    let(:user) { create(:user, :verified => true) }
+    let(:project) { create(:project, :verified => true) }
+
+    before(:each) do
+      @contributor = project.contributions.create(:user_id => user.id)
+      @mail = UserMailer.new_project_volunteer(@contributor)
+    end
+
+    it "renders the headers" do
+      @mail.subject.should eq("#{user.email} has volunteered for #{project.name}!")
+      @mail.to.should eq([project.organization.owner.email])
+      @mail.from.should eq(["noreply@austinprobono.org"])
+    end
+  end
+
+  describe "volunteer_status_update" do
+    let(:user) { create(:user, :verified => true) }
+    let(:project) { create(:project, :verified => true) }
+
+    before(:each) do
+      @contributor = project.contributions.create(:user_id => user.id)
+      @mail = UserMailer.volunteer_status_update(@contributor)
+    end
+
+    it "renders the headers" do
+      @mail.subject.should eq("Your status for #{project.name} is now #{@contributor.status}!")
+      @mail.to.should eq([user.email])
+      @mail.from.should eq(["noreply@austinprobono.org"])
+    end
+  end
 end

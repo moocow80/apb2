@@ -4,10 +4,10 @@ namespace :db do
   desc "Fill database with sample data"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke
-    make_organizations
-    make_projects
     make_cause_tags
     make_skill_tags
+    make_organizations
+    make_projects
   end
 end
 
