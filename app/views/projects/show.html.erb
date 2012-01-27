@@ -1,2 +1,39 @@
-<h1>Projects#show</h1>
-<p>Find me in app/views/projects/show.html.erb</p>
+<h1><%= @project.name %></h1>
+<p><%= @project.organization.name %></p>
+<p>
+  <%= @project.tags.map(&:name).join(", ") %>
+</p>
+<p><%= @project.details %></p>
+<p><%= @project.goals %></p>
+<p><%= @project.status %></p>
+<% if current_user && Contributor.find_by_user_id_and_project_id(current_user.id, @project.id).nil? %>
+  <p><%= link_to "Volunteer for this Project", organization_project_contributors_path(@project.organization, @project), :method => :post %></p>
+<% end %>
+<% if @project.organization.owner == current_user %>
+  <%= link_to "Edit Project", edit_organization_project_path(@project.organization, @project) %>
+  <% if @project.contributions %>
+    <ul class="contributors">
+    <% @project.contributions.each do |contribution| %>
+      <li>
+        <div class="user"><%= contribution.user.user_profile.name %></div>
+        <div class="contribution-actions">
+          <%= form_for contribution, :url => organization_project_contributor_path(@project.organization, @project, contribution) do |f| %>
+            <%= error_messages_for(contribution) %>
+            <div class="field">
+              <%= f.label :status %>
+              <%= f.select(:status, [["Pending", "pending"], ["Accepted", "accepted"], ["Declined", "declined"]]) %>
+            </div>
+            <div class="field">
+              <%= f.label :reason %>
+              <%= f.text_area :reason, :placeholder => "Reason (if declined)" %>
+            </div>
+            <div class="actions">
+              <%= f.submit "Save" %>
+            </div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>

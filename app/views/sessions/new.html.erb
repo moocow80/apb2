@@ -1,19 +1,19 @@
-<h1>Log In</h1>
-
-<%= form_for(:session, :url => sessions_path) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Log In" %>
-  </div>
-<% end %>
-
-<p>New user? <%= link_to "Register now!", register_path %></p>
-
-
+<div class="content">
+  <h2 class="page-title">Log In</h2>
+  <div class="clear"></div>
+  <%= form_for(:session, :url => sessions_path) do |f| %>
+    <div class="section off-white">
+      <h2 class="border-header">User Information</h2>
+      <p>
+        <%= f.label :email, :class => "block" %>
+        <%= f.text_field :email %>
+      </p>
+      <p>
+        <%= f.label :password, :class => "block" %>
+        <%= f.password_field :password %>
+      </p>
+      <p>New user? <%= link_to "Register now!", register_path %></p>
+    </div>
+    <%= f.submit "Log In", :class => "button large inline-block" %>
+  <% end %>
+</div>

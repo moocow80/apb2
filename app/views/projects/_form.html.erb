@@ -1,26 +1,27 @@
 <%= form_for @project, :url => { :controller => "projects", :action => "create" } do |f| %>
   <%= f.error_messages %>
   <%= f.hidden_field :organization_id %>
-  <div class="field">
-    <% tags_by_type("Skill").each do |tag| %>
-      <%= check_box_tag "project[tag_ids][]", tag.id, @project.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
-      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
-    <% end %>
+  <div class="section off-white">
+  	<h2 class="border-header">Project Information</h2>
+    <div class="group last">
+      <% tags_by_type("Skill").each do |tag| %>
+        <%= check_box_tag "project[tag_ids][]", tag.id, @project.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+        <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
+    <p>
+      <%= f.label :name, :class => "block" %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :details, :class => "block" %>
+      <%= f.text_area :details, :rows => 8 %>
+    </p>
+    <p>
+      <%= f.label :goals, :class => "block" %>
+      <%= f.text_area :goals, :rows => 8 %>
+    </p>
   </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :details %><br />
-    <%= f.text_area :details %>
-  </div>
-  <div class="field">
-    <%= f.label :goals %><br />
-    <%= f.text_area :goals %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Create Your Project" %>
-  </div>
+  <%= f.submit "Create Your Project", :class => "button large inline-block" %>
 <% end %>
-

@@ -1,17 +1,14 @@
 Apb2::Application.routes.draw do
 
-  get "contributors/create"
-
-  get "contributors/edit"
-
-  get "contributors/update"
-
   # Resourceful Routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users do
     resources :organizations, :controller => "user_organizations", :only => [:index]
   end
-  resources :user_profiles
+
+  resources :user_profiles, :only => [:new, :create, :destroy]
+  resource :profile, :controller => "user_profiles", :only => [:show, :edit, :update]
+
   resources :organizations do
     resources :projects do
       resources :contributors, :only => [:create, :edit, :update]
@@ -25,12 +22,14 @@ Apb2::Application.routes.draw do
 
   # Pages
   match '/home', :to => 'pages#home'
-  match '/aboutus', :to => 'pages#aboutus'
-  match '/contactus', :to => 'pages#contactus'
+  match '/about-us', :to => 'pages#aboutus'
+  match '/contact-us', :to => 'pages#contactus'
   match '/non-profit_testimonials', :to => 'pages#org_testimonials'
   match '/volunteer_testimonials', :to => 'pages#vol_testimonials'
   match '/contactus', :to => 'pages#contactus'
-  match '/howitworks', :to => 'pages#howitworks'
+  match '/how-it-works', :to => 'pages#howitworks'
+  match '/testimonials', :to => 'pages#testimonials'
+  match '/privacy-policy', :to => 'pages#privacypolicy'
 
   # Users
   match '/register', :to => 'users#new', :as => 'register'
@@ -43,7 +42,6 @@ Apb2::Application.routes.draw do
   # Organizations & Projects
   match '/verify_organization/:id' => 'organizations#verify', :as => :organization_verify
   match '/verify_project/:id' => 'projects#verify', :as => :project_verify
-
 
   match '/projects', :to => 'projects#index'
 

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate, :except => [:index]
+  before_filter :authenticate, :except => [:index, :show]
   before_filter :find_organization, :except => [:index, :matches, :verify]
   before_filter :is_admin, :only => [:verify]
 
@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = Project.find_by_slug(params[:id])
   end
 
   def new

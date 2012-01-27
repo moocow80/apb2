@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Create Organization" do
+describe "Creating Organization Accounts" do
   let!(:tag1) { create(:cause_tag) }
   let!(:tag2) { create(:cause_tag) }
   let!(:tag3) { create(:skill_tag) }

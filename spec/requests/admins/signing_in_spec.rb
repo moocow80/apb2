@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Signins" do
+describe "Signing In" do
   let(:user) { create(:user) }
 
   it "should sign the user in if they have good credentials" do

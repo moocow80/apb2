@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Project Verifications" do
+describe "Approving Projects" do
   let(:organization) { create(:organization, :verified => true) }
   let(:project) { create(:project, :organization => organization) }
   let(:admin) { create(:admin) }

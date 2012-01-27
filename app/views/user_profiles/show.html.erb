@@ -1,2 +1,13 @@
-<h1>UserProfiles#show</h1>
-<p>Find me in app/views/user_profiles/show.html.erb</p>
+<h1>My Profile</h1>
+<p><%= link_to "Edit", edit_profile_path %></p>
+<ul>
+  <li><%= @user_profile.name %></li>
+  <li><%= @user_profile.phone %></li>
+  <li><%= @user_profile.current_employer %></li>
+  <li><%= @user_profile.job_title %></li>
+  <li><%= @user_profile.degrees %></li>
+  <li><%= @user_profile.experience %></li>
+  <li><%= @user_profile.website %></li>
+  <li>Causes: <%= @user_profile.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
+  <li>Skills: <%= @user_profile.tags.where(:tag_type => "skill").map(&:name).join(", ") %></li>
+</ul>

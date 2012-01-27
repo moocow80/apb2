@@ -1,40 +1,46 @@
 <%= form_for @organization do |f| %>
   <%= f.error_messages %>
-  <div class="field">
-    <% tags_by_type("Cause").each do |tag| %>
-      <%= check_box_tag "organization[tag_ids][]", tag.id, @organization.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
-      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
-    <% end %>
+  <div class="section off-white">
+  	<h2 class="border-header">Contact Information</h2>
+    <p>
+      <%= f.label :name, "Name of the organization/non-profit", :class => "block" %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :contact, "Name of the contact person", :class => "block" %>
+      <%= f.text_field :contact %>
+    </p>
+    <p>
+      <%= f.label :contact_email, "Email address of the contact person", :class => "block" %>
+      <%= f.text_field :contact_email %>
+    </p>
+    <p>
+      <%= f.label :phone, "Phone number", :class => "block" %>
+      <%= f.text_field :phone %>
+    </p>
   </div>
-  <div class="field">
-    <%= f.label :name, "Name of the organization/non-profit" %><br />
-    <%= f.text_field :name %>
+  <div class="section off-white">
+  	<h2 class="border-header">Organization Details</h2>
+    <div class="group last">
+      <% tags_by_type("Cause").each do |tag| %>
+        <%= check_box_tag "organization[tag_ids][]", tag.id, @organization.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+        <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
+    <p>
+      <%= f.label :website, "Organization website", :class => "block" %>
+      <%= f.text_field :website, :placeholder => "http://" %>
+    </p>
+    <p>
+      <%= f.label :mission, "Mission statement", :class => "block" %>
+      <%= f.text_area :mission, :rows => 8 %>
+    </p>
+    <p>
+      <%= f.label :details, "Organization details", :class => "block" %>
+      <%= f.text_area :details, :rows => 8 %>
+    </p>
+    <div class="clear"></div>
   </div>
-  <div class="field">
-    <%= f.label :contact, "Name of the contact person" %><br />
-    <%= f.text_field :contact %>
-  </div>
-  <div class="field">
-    <%= f.label :contact_email, "Email address of the contact person" %><br />
-    <%= f.text_field :contact_email %>
-  </div>
-  <div class="field">
-    <%= f.label :website, "Organization website" %><br />
-    <%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <%= f.label :phone, "Phone number" %><br />
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :mission, "Mission statement" %><br />
-    <%= f.text_area :mission %>
-  </div>
-  <div class="field">
-    <%= f.label :details, "Organization details" %><br />
-    <%= f.text_area :details %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Next Step: Create a project" %>
-  </div>
+  <%= f.submit "Next Step: Create a project", :class => "button large inline-block" %>
 <% end %>

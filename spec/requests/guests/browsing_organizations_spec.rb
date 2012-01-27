@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "View Organizations" do
+describe "Browsing Organizations" do
   context "for all users" do
     it "should list all of the approved organizations" do
       5.times { create(:organization) }

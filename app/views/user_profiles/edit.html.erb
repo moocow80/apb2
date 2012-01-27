@@ -1,2 +1,57 @@
 <h1>UserProfiles#edit</h1>
-<%= render :partial => "form" %>
+<%= form_for @user_profile, :url => { :controller => "user_profiles", :action => :update } do |f| %>
+  <%= f.error_messages %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <% tags_by_type("Skill").each do |tag| %>
+      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+  <div class="field">
+    <% tags_by_type("Cause").each do |tag| %>
+      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :current_employer, "Current Employer" %><br />
+    <%= f.text_field :current_employer %>
+  </div>
+  <div class="field">
+    <%= f.label :job_title, "Job Title" %><br />
+    <%= f.text_field :job_title %>
+  </div>
+  <div class="field">
+    <%= f.label :degrees %><br />
+    <%= f.text_area :degrees %>
+  </div>
+  <div class="field">
+    <%= f.label :experience %><br />
+    <%= f.text_area :experience %>
+  </div>
+  <div class="field">
+    <%= f.label :website %><br />
+    <%= f.text_field :website %>
+  </div>
+  <div class="field">
+    <%= f.radio_button :available, "1" %>
+    <%= f.label :available_1, "I am available" %>
+    <%= f.radio_button :available, "0" %>
+    <%= f.label :available_0, "I am not available" %>
+  </div>
+  <div class="actions">
+    <% if @user_profile.new_record? %>
+    <%= f.submit "Next Step: Match me up with a project" %>
+    <% else %>
+    <%= f.submit "Save" %>
+    <% end %>
+  </div>
+<% end %>

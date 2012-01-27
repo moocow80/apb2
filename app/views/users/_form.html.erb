@@ -1,31 +1,40 @@
 <%= form_for @user do |f| %>
+  <div class="clear"></div>
   <%= f.error_messages %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+  <div class="section off-white">
+    <h2 class="border-header">
+      User Information
+    </h2>
+    <p>
+      <%= f.label :email, :class => "block" %>
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :password, :class => "block" %>
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation, :class => "block" %>
+      <%= f.password_field :password_confirmation %>
+    </p>
   </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirmation" %><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :type, "organization" %>
-    <%= f.label :type_organzation, "Non-Profit Organization" %>
-    <%= f.radio_button :type, "volunteer" %>
-    <%= f.label :type_volunteer, "Volunteer" %>
+  <div class="section off-white">
+  	<h2 class="border-header">What type of user are you?</h2>
+    <p>
+      <%= f.radio_button :type, "organization" %>
+      <%= f.label :type, "Non-Profit Organization" %><br />
+      <%= f.radio_button :type, "volunteer" %>
+      <%= f.label :type, "Volunteer" %>
+    </p>
   </div>
   <% unless current_user %>
-  <div class="field">
-    <%= f.check_box :terms %>
-    <%= f.label :terms, "I have read the terms of service and privacy policy" %>
+  <div class="section off-white">
+  	<h2 class="border-header">Terms of Service</h2>
+    <p>
+      <%= f.check_box :terms %>
+      <%= f.label :terms, "I have read the terms of service and privacy policy" %>
+    </p>
   </div>
   <% end %>
-  <div class="actions">
-    <%= f.submit "Register" %>
-  </div>
+  <%= f.submit "Register", :class => "button large inline-block" %>
 <% end %>
-</div>

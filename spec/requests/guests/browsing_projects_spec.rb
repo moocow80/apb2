@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "View Projects" do
+describe "Browsing Projects" do
   context "for all users" do
     it "should list all of the approved projects" do
       5.times { create(:project) }

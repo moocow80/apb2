@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Create Project" do
+describe "Posting Projects" do
   let!(:tag1) { create(:skill_tag) }
   let!(:tag2) { create(:skill_tag) }
   let!(:tag3) { create(:cause_tag) }

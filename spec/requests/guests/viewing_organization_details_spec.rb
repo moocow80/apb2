@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "View Organization Details" do
+describe "Viewing Organization Details" do
   let(:project) { Factory(:project) }
   let(:organization) { project.organization }
 

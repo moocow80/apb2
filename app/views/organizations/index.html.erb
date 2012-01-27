@@ -55,9 +55,11 @@
     <div class="image"></div>
     <h3><%= link_to organization.name, organization %></h3>
     <div class="info">
+      <% if !organization.tags.empty? %>
     	<div class="categories">
         (<%= organization.tags.map(&:name).join(", ") %>)
       </div>
+      <% end %>
     	<p><%= organization.details %></p>
     	<h3>Mission Statement</h3>
     	<p><%= organization.mission %></p>

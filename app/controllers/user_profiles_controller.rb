@@ -1,9 +1,10 @@
 class UserProfilesController < ApplicationController
-  before_filter :authenticate, :except => [:show]
+  before_filter :authenticate
   def index
   end
 
   def show
+    @user_profile = current_user.user_profile
   end
 
   def new
@@ -26,14 +27,14 @@ class UserProfilesController < ApplicationController
   end
 
   def edit
-    @user_profile = UserProfile.find(params[:id])
+    @user_profile = current_user.user_profile
   end
 
   def update
-    @user_profile = UserProfile.find(params[:id])
+    @user_profile = current_user.user_profile
     if @user_profile.update_attributes(params[:user_profile])
-      flash[:success] = "Your profile was update"
-      redirect_to root_path
+      flash[:success] = "Your profile has been successfully updated!"
+      redirect_to profile_path
     else
       render 'edit'
     end

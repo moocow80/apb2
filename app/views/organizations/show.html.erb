@@ -1,38 +1,55 @@
-<h1>
-  <%= @organization.name %>
-  <% if @organization.owner == current_user %>
-  <span><%= link_to "New Project", new_organization_project_path(@organization), :class => "button" %></span>
-  <% end %>
-</h1>
-<div class="causes">
-	<ul>
-    <% @organization.tags.each do |tag| %>
-		<li><%= tag.name %></li>
+<div class="content">
+  <h1>
+    <%= @organization.name %>
+    <% if @organization.owner == current_user %>
+    <span><%= link_to "New Project", new_organization_project_path(@organization), :class => "button" %></span>
     <% end %>
-	</ul>
-</div>
-<ul>
-  <li><strong>Contact: </strong><%= @organization.contact %></li>
-  <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
-  <li><strong>Website: </strong><%= @organization.website %></li>
-  <li><strong>Phone: </strong><%= @organization.phone %></li>
-  <li><strong>Mission: </strong><%= @organization.mission %></li>
-  <li><strong>Details: </strong><%= @organization.details %></li>
-</ul>
-<% if @organization.projects %>
-<ul id="projects">
-  <% @organization.projects.each do |project| %>
-    <li>
-      <%= project.name %>
-      <ul>
-        <% project.tags.each do |tag| %>
-      	<li><%= tag.name %></li>
-        <% end %>
-      </ul>
-      <% if @organization.owner == current_user %>
-      <%= link_to "Edit", edit_organization_project_path(@organization, project) %>
+  </h1>
+  <div class="causes">
+    <ul>
+      <% @organization.tags.each do |tag| %>
+      <li><%= tag.name %></li>
       <% end %>
-    </li>
+    </ul>
+  </div>
+  <ul>
+    <li><strong>Contact: </strong><%= @organization.contact %></li>
+    <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
+    <li><strong>Website: </strong><%= @organization.website %></li>
+    <li><strong>Phone: </strong><%= @organization.phone %></li>
+    <li><strong>Mission: </strong><%= @organization.mission %></li>
+    <li><strong>Details: </strong><%= @organization.details %></li>
+  </ul>
+  <% if @organization.projects %>
+
+    <% @organization.projects.each do |project| %>
+      <div class="off-white section project">
+        <h2 class="border-header"><%= project.name %></h2>
+        <div class="image"></div>
+        <div class="column">
+          <h3 class="title">Organization</h3>
+          <div class="definition"><%= project.organization.name %></div>
+          <% if !project.tags.empty? %>
+          <h3 class="title">Project Type</h3>
+          <div class="definition"><%= project.tags.map(&:name).join(", ") %></div>
+          <% end %>
+        </div>
+        <div class="column">
+          <h3 class="title">Contact Person</h3>
+          <div class="definition"><%= project.organization.contact %></div>
+          <h3 class="title">Contact Email</h3>
+          <div class="definition"><%= project.organization.contact_email %></div>
+        </div>
+        <div class="clear"></div>
+        <h3 class="title">Project Goals</h3>
+        <p><%= project.goals %></p>
+        <h3 class="title">Project Details</h3>
+        <p><%= project.details %></p>
+        <% if @organization.owner == current_user %>
+        <%= link_to "Edit", edit_organization_project_path(@organization, project) %>
+        <% end %>
+        <div class="clear"></div>
+      </div>
+    <% end %>
   <% end %>
-</ul>
-<% end %>
+</div>

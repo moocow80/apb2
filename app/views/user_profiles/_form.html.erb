@@ -1,52 +1,71 @@
 <%= form_for @user_profile do |f| %>
   <%= f.error_messages %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="section off-white">
+  	<h2 class="border-header">Basic Contact Information</h2>
+    <p>
+      <%= f.label :name, :class => "block" %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :phone, :class => "block" %>
+      <%= f.text_field :phone %>
+    </p>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
+  <div class="section off-white">
+  	<h2 class="border-header">Cause Interests</h2>
+    <div class="group last">
+      <% tags_by_type("Cause").each do |tag| %>
+        <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+        <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
   </div>
-  <div class="field">
-    <% tags_by_type("Skill").each do |tag| %>
-      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
-      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
-    <% end %>
+  <div class="section off-white">
+  	<h2 class="border-header">Experience</h2>
+    <div class="group last">
+      <% tags_by_type("Skill").each do |tag| %>
+        <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+        <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      <% end %>
+    </div>
+    <div class="clear"></div>
+    <p>
+      <%= f.label :current_employer, "Current Employer", :class => "block" %>
+      <%= f.text_field :current_employer %>
+    </p>
+    <p>
+      <%= f.label :job_title, "Job Title", :class => "block" %>
+      <%= f.text_field :job_title %>
+    </p>
+    <p>
+      <%= f.label :degrees, :class => "block" %>
+      <span class="note">If multiple individuals volunteer, please list certifications for each team member.</span>
+      <%= f.text_area :degrees, :rows => 8 %>
+    </p>
+    <p>
+      <%= f.label :experience, :class => "block" %>
+      <span class="note">Please include any additional information that will communicate your credentials.</span>
+      <%= f.text_area :experience, :rows => 8 %>
+    </p>
+    <p>
+      <%= f.label :website, :class => "block" %>
+      <%= f.text_field :website, :placeholder => "http://" %>
+    </p>
   </div>
-  <div class="field">
-    <% tags_by_type("Cause").each do |tag| %>
-      <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
-      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
-    <% end %>
+  <div class="section off-white">
+  	<h2 class="border-header">Availability</h2>
+    <p>
+      <%= f.radio_button :available, "1" %>
+      <%= f.label :available_1, "I am available" %><br />
+      <%= f.radio_button :available, "0" %>
+      <%= f.label :available_0, "I am not available" %>
+    </p>
+    <div class="clear"></div>
   </div>
-  <div class="field">
-    <%= f.label :current_employer %><br />
-    <%= f.text_field :current_employer %>
-  </div>
-  <div class="field">
-    <%= f.label :job_title %><br />
-    <%= f.text_field :job_title %>
-  </div>
-  <div class="field">
-    <%= f.label :degrees %><br />
-    <%= f.text_area :degrees %>
-  </div>
-  <div class="field">
-    <%= f.label :experience %><br />
-    <%= f.text_area :experience %>
-  </div>
-  <div class="field">
-    <%= f.label :website %><br />
-    <%= f.text_field :website %>
-  </div>
-  <div class="field">
-    <%= f.radio_button :available, "1" %>
-    <%= f.label :available_1, "I am available" %>
-    <%= f.radio_button :available, "0" %>
-    <%= f.label :available_0, "I am not available" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Next Step: Match me up with a project" %>
-  </div>
+  <% if @user_profile.new_record? %>
+    <%= f.submit "Next Step: Match me up with a project", :class => "button large inline-block" %>
+  <% else %>
+    <%= f.submit "Save", :class => "button large inline-block" %>
+  <% end %>
 <% end %>

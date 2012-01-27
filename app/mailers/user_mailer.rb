@@ -32,12 +32,12 @@ class UserMailer < ActionMailer::Base
   def new_project_volunteer(contributor)
     @user = contributor.user
     @project = contributor.project
-    mail :to => @project.organization.owner.email, :subject => "#{@user.email} has volunteered for #{@project.name}!"
+    mail :to => @project.organization.owner.email, :subject => "#{@user.user_profile.name} has volunteered for #{@project.name}!"
   end
 
   def volunteer_status_update(contributor)
     @user = contributor.user
     @project = contributor.project
-    mail :to => @user.email, :subject => "Your status for #{@project.name} is now #{contributor.status}!"
+    mail :to => @user.email, :subject => "You have been #{contributor.status} as a volunteer for #{@project.name}."
   end
 end

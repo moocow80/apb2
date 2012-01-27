@@ -5,9 +5,8 @@ class PagesController < ApplicationController
   end
   def contactus
   end
-  def organizations_testimonials
+  def testimonials
   end
-  def organizations_testimonials
+  def privacypolicy
   end
-
 end

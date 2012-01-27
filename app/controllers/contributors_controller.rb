@@ -1,10 +1,7 @@
 class ContributorsController < ApplicationController
-  def create
-    if current_user.nil?
-      flash[:error] = "You must be logged in to apply for a project"
-      return redirect_to login_path
-    end
+  before_filter :authenticate
 
+  def create
     project = Project.find_by_slug(params[:project_id])
 
     if project.nil?
@@ -26,6 +23,14 @@ class ContributorsController < ApplicationController
   end
 
   def update
+    @project = Project.find_by_slug(params[:project_id])
+    @contributor = Contributor.find(params[:id], :include => [:user, :project])
+    if @contributor.update_attributes(params[:contributor])
+      flash[:success] = "#{@contributor.user.user_profile.name} was #{@contributor.status} as a volunteer."
+    else
+      flash[:error] = "#{@contributor.errors.full_messages.join(".  ")}"
+    end
+    redirect_to organization_project_path(@contributor.project.organization, @contributor.project)
   end
 
 end

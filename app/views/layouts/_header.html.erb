@@ -2,20 +2,21 @@
   <a id="logo" href="#">Austin Pro Bono</a>
 	<ul class="navigation">
 		<li><a href="home">Home</a></li>
-		<li><a href="projects">Projects</a></li>
+		<li><%= link_to "Projects", "/projects" %></li>
 		<li><a href="volunteers">Volunteers</a></li>
-		<li><a href="organizations">Organizations</a></li>
+		<li><%= link_to "Organizations", "/organizations" %></li>
 		<li class="last"><a href="howitworks">How It Works</a></li>
 	</ul>
-  <ul class="login">
+  <div class="login">
     <% if current_user %>
-      <li><strong><%= current_user.email %></strong></li>
-      <li><%= link_to "Log Out", logout_path %></li>
+      <strong><%= current_user.email %></strong> | 
+      <%= link_to "My Profile", profile_path %> | 
+      <%= link_to "Log Out", logout_path %>
     <% else %>
-      <li><%= link_to "Log In", login_path %></li>
-      <li>|</li>
-      <li><%= link_to "Register", register_path %></li>
+      <%= link_to "Log In", login_path %>
+      |
+      <%= link_to "Register", register_path %>
     <% end %>
-  </ul>
+  </div>
   <div class="clear"></div>
 </div>

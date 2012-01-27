@@ -2,6 +2,13 @@
 === Hours per day: 6 hours
 === Total Days: 5.5
 
+=== Mocked Up (George)
+  Home
+  Inner Page
+  Contact Us
+  Organization List
+  Project List
+
 == General Notes
   Add .NeededBy. to Project
   Allow Organizations to set status to .In Progress. or something like that

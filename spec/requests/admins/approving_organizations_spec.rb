@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Organization Verifications" do
+describe "Approving Organizations" do
   let(:organization) { create(:organization) }
   let(:admin) { create(:admin) }
 

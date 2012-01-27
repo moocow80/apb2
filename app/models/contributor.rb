@@ -1,5 +1,5 @@
 class Contributor < ActiveRecord::Base
-  attr_accessible :user_id, :reason, :status
+  attr_accessible :user_id, :project_id, :reason, :status
 
   belongs_to :user
   belongs_to :project
