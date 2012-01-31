@@ -42,5 +42,6 @@
     </p>
     <div class="clear"></div>
   </div>
-  <%= f.submit "Next Step: Create a project", :class => "button large inline-block" %>
+  <% submit_text = @organization.new_record? ? "Next Step: Create a project" : "Update Organization" %>
+  <%= f.submit submit_text, :class => "button large inline-block" %>
 <% end %>

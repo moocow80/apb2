@@ -67,5 +67,11 @@ FactoryGirl.define do
       tag_type "Skill"
     end
   end
+
+  factory :contributor do
+    association :project, :factory => :project, :verified => true
+    association :user, :factory => :volunteer
+    status "pending"
+  end
 end
 

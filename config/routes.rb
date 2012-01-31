@@ -3,11 +3,15 @@ Apb2::Application.routes.draw do
   # Resourceful Routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users do
-    resources :organizations, :controller => "user_organizations", :only => [:index]
+    resources :organizations, :controller => "user_organizations", :only => [:index] do
+      get 'projects', :on => :member
+    end
   end
 
   resources :user_profiles, :only => [:new, :create, :destroy]
-  resource :profile, :controller => "user_profiles", :only => [:show, :edit, :update]
+  resource :profile, :controller => "user_profiles", :only => [:show, :edit, :update] do
+    get 'projects', :on => :member
+  end
 
   resources :organizations do
     resources :projects do

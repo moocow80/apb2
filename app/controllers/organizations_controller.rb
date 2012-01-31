@@ -1,6 +1,7 @@
 class OrganizationsController < ApplicationController
   before_filter :authenticate, :except => [:index, :show, :showall]
   before_filter :is_admin, :only => [:verify]
+  before_filter :correct_user, :only => [:edit, :update, :destroy]
 
   def index
     per_page = params[:per_page] || 20
@@ -38,6 +39,12 @@ class OrganizationsController < ApplicationController
   end
 
   def update
+    if @organization.update_attributes(params[:organization])
+      flash[:success] = "Your organization has been successfully updated!"
+      redirect_to @organization
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -62,6 +69,14 @@ class OrganizationsController < ApplicationController
 
   def has_organization
     redirect_to new_organization_path unless current_user.organizations.count > 0
+  end
+
+  def correct_user
+    @organization = Organization.find_by_slug(params[:id])
+    if @organization.owner != current_user
+      flash[:error] = "You don't have permission to access this organization."
+      redirect_back_or @organization
+    end
   end
 
 end

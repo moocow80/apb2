@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe "Accepting Applicants" do
-  pending "ADD SPECS"
+  it "SEE reviewing_applicants SPEC" do
+  end
 end

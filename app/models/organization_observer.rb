@@ -7,5 +7,9 @@ class OrganizationObserver < ActiveRecord::Observer
     UserMailer.organization_verified(organization).deliver
   end
 
+  def after_update(organization)
+    AdminMailer.organization_updated(organization).deliver
+  end
+
 
 end

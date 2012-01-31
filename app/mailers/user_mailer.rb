@@ -38,6 +38,19 @@ class UserMailer < ActionMailer::Base
   def volunteer_status_update(contributor)
     @user = contributor.user
     @project = contributor.project
-    mail :to => @user.email, :subject => "You have been #{contributor.status} as a volunteer for #{@project.name}."
+    if contributor.status == "quit"
+      mail :to => @project.organization.owner.email, :subject => "#{@user.user_profile.name} has quit #{@project.name}."
+    else
+      mail :to => @user.email, :subject => "You have been #{contributor.status} as a volunteer for #{@project.name}."
+    end
+  end
+
+  def project_updated(project)
+    email_to = []
+    project.contributors.each do |contributor|
+      email_to << contributor.email
+    end
+    @project = project
+    mail :to => email_to, :subject => "#{@project.name_was} has been updated."
   end
 end

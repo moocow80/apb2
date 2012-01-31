@@ -1,0 +1,9 @@
+The organization <%= @organization.name_was %> was updated.
+
+You can view the organizations new details <%= link_to "here", organization_url(@organization) %>.
+
+<% if @organization.name_changed? %>
+Please note, the organization's name has changed.  The new organization name is:
+
+<%= @organization.name %>
+<% end %>

@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_filter :authenticate, :except => [:index, :show]
   before_filter :find_organization, :except => [:index, :matches, :verify]
   before_filter :is_admin, :only => [:verify]
+  before_filter :correct_user, :only => [:edit, :update, :destroy]
 
   def index
     per_page = params[:per_page] || 20
@@ -42,6 +43,12 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    if @project.update_attributes(params[:project])
+      flash[:success] = "Your project was successfully updated!"
+      redirect_to organization_project_path(@project.organization, @project)
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -73,4 +80,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def correct_user
+    @project = Project.find_by_slug(params[:id])
+    unless @project.organization.owner == current_user
+      flash[:error] = "You are not authorized to edit this project."
+      redirect_to organization_project_path(@project.organization, @project)
+    end
+  end
 end

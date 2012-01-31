@@ -6,5 +6,5 @@ class Contributor < ActiveRecord::Base
 
   validates_presence_of :user_id, :project_id, :status
 
-  validates :reason, :presence => true, :if => "status == 'declined'"
+  validates :reason, :presence => true, :if => "status == 'declined' || status == 'quit'"
 end

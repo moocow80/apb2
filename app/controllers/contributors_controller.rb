@@ -26,7 +26,11 @@ class ContributorsController < ApplicationController
     @project = Project.find_by_slug(params[:project_id])
     @contributor = Contributor.find(params[:id], :include => [:user, :project])
     if @contributor.update_attributes(params[:contributor])
-      flash[:success] = "#{@contributor.user.user_profile.name} was #{@contributor.status} as a volunteer."
+      if @contributor.status == "quit"
+        flash[:success] = "You have successfully quit #{@project.name}."
+      else
+        flash[:success] = "#{@contributor.user.user_profile.name} was #{@contributor.status} as a volunteer."
+      end
     else
       flash[:error] = "#{@contributor.errors.full_messages.join(".  ")}"
     end

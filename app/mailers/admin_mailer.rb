@@ -16,4 +16,9 @@ class AdminMailer < ActionMailer::Base
     @project = project
     mail subject: "Please verify #{project.name}"
   end
+
+  def organization_updated(organization)
+    @organization = organization
+    mail subject: "The organization #{@organization.name_was} has been updated."
+  end
 end

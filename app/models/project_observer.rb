@@ -9,4 +9,8 @@ class ProjectObserver < ActiveRecord::Observer
     UserMailer.project_verified(record).deliver
   end
 
+  def after_update(record)
+    UserMailer.project_updated(record).deliver
+  end
+
 end

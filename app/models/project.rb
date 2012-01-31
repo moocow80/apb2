@@ -13,7 +13,7 @@ class Project < ActiveRecord::Base
   validates_presence_of :organization_id, :details, :goals 
   validates :name,
             :length => { :within => 3..100 }
-  validates_inclusion_of :status, :in => %w( open closed )
+  validates_inclusion_of :status, :in => %w( pending open in_progress completed cancelled )
   
   before_create :set_open_status 
   before_create { generate_token(:verification_token) }
@@ -42,7 +42,7 @@ class Project < ActiveRecord::Base
 private
 
   def set_open_status
-    self.status = "open"
+    self.status = "open" if self.status.nil?
   end
 
   def generate_token(column)

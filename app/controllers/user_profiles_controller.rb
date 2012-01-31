@@ -43,4 +43,8 @@ class UserProfilesController < ApplicationController
   def destroy
   end
 
+  def projects
+    @contributors = Contributor.where("user_id", current_user.id).includes(:project)
+  end
+
 end

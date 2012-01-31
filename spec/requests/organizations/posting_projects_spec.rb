@@ -35,6 +35,9 @@ describe "Posting Projects" do
     end
     it "should add the correct tags to the project" do
       fill_in_details_and_submit
+      within "#main" do
+        click_link "Projects"
+      end
       page.should have_content(tag1.name)
       page.should have_content(tag2.name)
       page.should_not have_content(tag3.name)
@@ -60,7 +63,10 @@ describe "Posting Projects" do
   def goto_new_project
     request_login(project.organization.owner)
     visit organization_path(project.organization)
-    click_link "New Project"
+    within "#main" do
+      click_link "Projects"
+    end
+    click_link "+ Create New Project"
   end
 
   def fill_in_details_and_submit(name = nil)

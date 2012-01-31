@@ -1,4 +1,6 @@
 class ContributorObserver < ActiveRecord::Observer
+  observe :contributor
+
   def after_create(contributor)
     UserMailer.thanks_for_volunteering(contributor).deliver
     UserMailer.new_project_volunteer(contributor).deliver

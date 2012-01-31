@@ -1,0 +1,30 @@
+<div class="main">
+	<div class="content">
+    <h1>Your Organizations</h1>
+    <% @organizations.each do |organization| %>
+      <div class="off-white section">
+      	<h3 class="border-header"><%= link_to organization.name, organization %></h3>
+      	<div class="image"></div>
+      	<div class="column">
+      		<h3 class="title">Causes:</h3>
+      		<div class="definition"><%= organization.tags.map(&:name).join(", ") %></div>
+      		<h3 class="title">Contact:</h3>
+      		<div class="definition"><%= organization.contact %></div>
+      		<h3 class="title">Contact Email:</h3>
+      		<div class="definition"><%= organization.contact_email %></div>
+      	</div>
+      	<div class="column">
+      		<h3 class="title">Website:</h3>
+      		<div class="definition"><%= organization.website %></div>
+      		<h3 class="title">Phone:</h3>
+      		<div class="definition"><%= organization.phone %></div>
+      	</div>
+        <div class="clear"></div>
+        <h3 class="title">Mission</h3>
+        <p><%= organization.mission %></p>
+        <h3 class="title">Details</h3>
+        <p><%= organization.details %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
