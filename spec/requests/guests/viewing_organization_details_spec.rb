@@ -54,8 +54,10 @@ describe "Viewing Organization Details" do
       click_button "Log In"
       visit organization_path(organization)    
     end
-    it "should show a new project link" do
-      page.should have_selector("a[href=\"#{new_organization_project_path(organization)}\"]")
+    it "should show a projects link" do
+      within "#main" do
+        page.should have_selector("a", :text => "Projects")
+      end
     end
     it "should show project editing links" do
       page.should have_selector("a[href=\"#{edit_organization_project_path(organization, project)}\"]")

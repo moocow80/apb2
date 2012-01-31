@@ -8,6 +8,8 @@
 <p><%= @project.status.titleize %></p>
 <% if current_user && Contributor.find_by_user_id_and_project_id(current_user.id, @project.id).nil? %>
   <p><%= link_to "Volunteer for this Project", organization_project_contributors_path(@project.organization, @project), :method => :post %></p>
+<% elsif !signed_in? %>
+  <p><%= link_to "Volunteer for this Project", register_path %></p>
 <% end %>
 <% if @project.organization.owner == current_user %>
   <%= link_to "Edit Project", edit_organization_project_path(@project.organization, @project) %>

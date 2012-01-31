@@ -18,7 +18,7 @@ describe "Viewing Project Details" do
       page.should have_content(project.name)
       page.should have_content(project.details)
       page.should have_content(project.goals)
-      page.should have_content(project.status)
+      page.should have_content(project.status.titleize)
     end
     it "should show the project tags" do
       page.should have_content skill1.name 
