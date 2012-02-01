@@ -410,23 +410,8 @@ a {
   <dt id="example_group_15" class="passed">as a visitor</dt>
     <script type="text/javascript">moveProgressBar('35.3');</script>
     <dd class="example passed"><span class="passed_spec_name">should show the organizations details</span></dd>
-    <script type="text/javascript">makeRed('rspec-header');</script>
-    <script type="text/javascript">makeRed('div_group_15');</script>
-    <script type="text/javascript">makeRed('example_group_15');</script>
     <script type="text/javascript">moveProgressBar('36.5');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">should show the organizations projects</span>
-      <div class="failure" id="failure_1">
-        <div class="message"><pre>expected there to be content &quot;Test Project 230&quot; in &quot;Apb2\n\n    \n  Austin Pro Bono\n\tHome\n\t\tProjects\n\t\tVolunteers\n\t\tOrganizations\n\t\tHow It Works\n\t\n      Log In\n      |\n      Register\n  \n  \n\n\n\n    \n      \n  \n    Test Organization 229\n  \n  \n    \n  Contact: Test Contact\n    Contact Email: test@example.com\n    Website: http://www.example.com\n    Phone: 555-555-5555\n    Mission: Our sample mission\n    Details: Our sample details\n  \n\n    \n\n    \n\n    \n\t\t\n\t\t\t\n\t\t\t\t\tVolunteers\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\tBrowse Projects\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tOrganizations\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tHow It Works\n\t\t\t\t\t\tAbout Us\n\t\t\t\t\t\tBlog\n\t\t\t\t\t\tPrivacy Policy\n\t\t\t\t\t\n\t\t\t\tProjects\n\t\t\t\n\t\t\n\n\n&quot;</pre></div>
-        <div class="backtrace"><pre>./spec/requests/guests/viewing_organization_details_spec.rb:21:in `block (3 levels) in <top (required)>'</pre></div>
-    <pre class="ruby"><code><span class="linenum">19</span>    end
-<span class="linenum">20</span>    it "should show the organizations projects" do
-<span class="offending"><span class="linenum">21</span>      page.should have_content(project.name)</span>
-<span class="linenum">22</span>    end
-<span class="linenum">23</span>    it "should not show a new project link" do
-<span class="linenum">24</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">should show the organizations projects</span></dd>
     <script type="text/javascript">moveProgressBar('37.8');</script>
     <dd class="example passed"><span class="passed_spec_name">should not show a new project link</span></dd>
     <script type="text/javascript">moveProgressBar('39.0');</script>
@@ -445,41 +430,16 @@ a {
 <div id="div_group_17" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_17" class="passed">as the organization owner</dt>
-    <script type="text/javascript">makeRed('div_group_17');</script>
-    <script type="text/javascript">makeRed('example_group_17');</script>
     <script type="text/javascript">moveProgressBar('42.6');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">should show a new project link</span>
-      <div class="failure" id="failure_2">
-        <div class="message"><pre>expected css &quot;a[href=\&quot;/organizations/test-organization-234/projects/new\&quot;]&quot; to return something</pre></div>
-        <div class="backtrace"><pre>./spec/requests/guests/viewing_organization_details_spec.rb:58:in `block (3 levels) in <top (required)>'</pre></div>
-    <pre class="ruby"><code><span class="linenum">56</span>    end
-<span class="linenum">57</span>    it "should show a new project link" do
-<span class="offending"><span class="linenum">58</span>      page.should have_selector("a[href=\"#{new_organization_project_path(organization)}\"]")</span>
-<span class="linenum">59</span>    end
-<span class="linenum">60</span>    it "should show project editing links" do
-<span class="linenum">61</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">should show a projects link</span></dd>
     <script type="text/javascript">moveProgressBar('43.9');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">should show project editing links</span>
-      <div class="failure" id="failure_3">
-        <div class="message"><pre>expected css &quot;a[href=\&quot;/organizations/test-organization-235/projects/test-project-236/edit\&quot;]&quot; to return something</pre></div>
-        <div class="backtrace"><pre>./spec/requests/guests/viewing_organization_details_spec.rb:61:in `block (3 levels) in <top (required)>'</pre></div>
-    <pre class="ruby"><code><span class="linenum">59</span>    end
-<span class="linenum">60</span>    it "should show project editing links" do
-<span class="offending"><span class="linenum">61</span>      page.should have_selector("a[href=\"#{edit_organization_project_path(organization, project)}\"]")</span>
-<span class="linenum">62</span>    end
-<span class="linenum">63</span>  end
-<span class="linenum">64</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">should show project editing links</span></dd>
   </dl>
 </div>
 <div id="div_group_18" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_18" class="passed">Social Networking Links</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_18');</script>
     <script type="text/javascript">makeYellow('example_group_18');</script>
     <script type="text/javascript">moveProgressBar('45.1');</script>
@@ -521,6 +481,7 @@ a {
     <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill</span></dd>
     <script type="text/javascript">moveProgressBar('58.5');</script>
     <dd class="example passed"><span class="passed_spec_name">should allow the user to filter by skill or cause</span></dd>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_21');</script>
     <script type="text/javascript">makeYellow('example_group_21');</script>
     <script type="text/javascript">moveProgressBar('59.7');</script>
@@ -596,6 +557,7 @@ a {
 <div id="div_group_30" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_30" class="passed">who is a volunteer</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_30');</script>
     <script type="text/javascript">makeYellow('example_group_30');</script>
     <script type="text/javascript">moveProgressBar('76.8');</script>
@@ -605,6 +567,7 @@ a {
 <div id="div_group_31" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_31" class="passed">who is an organization</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_31');</script>
     <script type="text/javascript">makeYellow('example_group_31');</script>
     <script type="text/javascript">moveProgressBar('78.0');</script>
@@ -626,38 +589,12 @@ a {
 <div id="div_group_34" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_34" class="passed">as a guest</dt>
-    <script type="text/javascript">makeRed('div_group_34');</script>
-    <script type="text/javascript">makeRed('example_group_34');</script>
     <script type="text/javascript">moveProgressBar('80.4');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">should show the project details</span>
-      <div class="failure" id="failure_4">
-        <div class="message"><pre>expected there to be content &quot;open&quot; in &quot;Apb2\n\n    \n  Austin Pro Bono\n\tHome\n\t\tProjects\n\t\tVolunteers\n\t\tOrganizations\n\t\tHow It Works\n\t\n      Log In\n      |\n      Register\n  \n  \n\n\n\n    \n      Test Project 247\nTest Organization 465\n\n  Test Tag 53, Test Tag 54\n\nSample project details\nSample project goals\nOpen\n\n    \n\n    \n\n    \n\t\t\n\t\t\t\n\t\t\t\t\tVolunteers\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\tBrowse Projects\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tOrganizations\n\t\t\t\t\t\tRegister/Login\n\t\t\t\t\t\tRead Testimonials\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tHow It Works\n\t\t\t\t\t\tAbout Us\n\t\t\t\t\t\tBlog\n\t\t\t\t\t\tPrivacy Policy\n\t\t\t\t\t\n\t\t\t\tProjects\n\t\t\t\n\t\t\n\n\n&quot;</pre></div>
-        <div class="backtrace"><pre>./spec/requests/guests/viewing_project_details_spec.rb:21:in `block (3 levels) in <top (required)>'</pre></div>
-    <pre class="ruby"><code><span class="linenum">19</span>      page.should have_content(project.details)
-<span class="linenum">20</span>      page.should have_content(project.goals)
-<span class="offending"><span class="linenum">21</span>      page.should have_content(project.status)</span>
-<span class="linenum">22</span>    end
-<span class="linenum">23</span>    it "should show the project tags" do
-<span class="linenum">24</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">should show the project details</span></dd>
     <script type="text/javascript">moveProgressBar('81.7');</script>
     <dd class="example passed"><span class="passed_spec_name">should show the project tags</span></dd>
     <script type="text/javascript">moveProgressBar('82.9');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">should show an apply link</span>
-      <div class="failure" id="failure_5">
-        <div class="message"><pre>expected css &quot;a&quot; with text &quot;Volunteer for this Project&quot; to return something</pre></div>
-        <div class="backtrace"><pre>./spec/requests/guests/viewing_project_details_spec.rb:28:in `block (3 levels) in <top (required)>'</pre></div>
-    <pre class="ruby"><code><span class="linenum">26</span>    end
-<span class="linenum">27</span>    it "should show an apply link" do
-<span class="offending"><span class="linenum">28</span>      page.should have_selector("a", :text => "Volunteer for this Project")</span>
-<span class="linenum">29</span>    end
-<span class="linenum">30</span>    it "should show the organization" do
-<span class="linenum">31</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">should show an apply link</span></dd>
     <script type="text/javascript">moveProgressBar('84.1');</script>
     <dd class="example passed"><span class="passed_spec_name">should show the organization</span></dd>
     <script type="text/javascript">moveProgressBar('85.3');</script>
@@ -667,19 +604,8 @@ a {
 <div id="div_group_35" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_35" class="passed">who clicks 'Apply'</dt>
-    <script type="text/javascript">makeRed('div_group_35');</script>
-    <script type="text/javascript">makeRed('example_group_35');</script>
     <script type="text/javascript">moveProgressBar('86.5');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">should direct them to the register page</span>
-      <div class="failure" id="failure_6">
-        <div class="message"><pre>no link with title, id or text 'Volunteer for this Project' found</pre></div>
-        <div class="backtrace"><pre>(eval):2:in `click_link'
-./spec/requests/guests/viewing_project_details_spec.rb:39:in `block (4 levels) in <top (required)>'</pre></div>
-    <pre class="ruby"><code><span class="linenum">0</span># Couldn't get snippet for (eval)
-<span class="linenum">1</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">should direct them to the register page</span></dd>
   </dl>
 </div>
 <div id="div_group_36" class="example_group passed">
@@ -690,6 +616,7 @@ a {
 <div id="div_group_37" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_37" class="passed">who clicks 'Apply'</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_37');</script>
     <script type="text/javascript">makeYellow('example_group_37');</script>
     <script type="text/javascript">moveProgressBar('87.8');</script>
@@ -706,6 +633,7 @@ a {
 <div id="div_group_39" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_39" class="passed">View Blog Articles</dt>
+    <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_39');</script>
     <script type="text/javascript">makeYellow('example_group_39');</script>
     <script type="text/javascript">moveProgressBar('90.2');</script>
@@ -748,378 +676,9 @@ a {
     <dd class="example passed"><span class="passed_spec_name">should send the user back to the create organization page</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>89.909289372 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "82 examples, 6 failures, 7 pending";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>84.751520638 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "82 examples, 0 failures, 7 pending";</script>
 </div>
 </div>
 </body>
 </html>
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>RSpec results</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Expires" content="-1" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <style type="text/css">
-  body {
-    margin: 0;
-    padding: 0;
-    background: #fff;
-    font-size: 80%;
-  }
-  </style>
-  <script type="text/javascript">
-    // <![CDATA[
-
-function addClass(element_id, classname) {
-  document.getElementById(element_id).className += (" " + classname);
-}
-
-function removeClass(element_id, classname) {
-  var elem = document.getElementById(element_id);
-  var classlist = elem.className.replace(classname,'');
-  elem.className = classlist;
-}
-
-function moveProgressBar(percentDone) {
-  document.getElementById("rspec-header").style.width = percentDone +"%";
-}
-
-function makeRed(element_id) {
-  removeClass(element_id, 'passed');
-  removeClass(element_id, 'not_implemented');
-  addClass(element_id,'failed');
-}
-
-function makeYellow(element_id) {
-  var elem = document.getElementById(element_id);
-  if (elem.className.indexOf("failed") == -1) {  // class doesn't includes failed
-    if (elem.className.indexOf("not_implemented") == -1) { // class doesn't include not_implemented
-      removeClass(element_id, 'passed');
-      addClass(element_id,'not_implemented');
-    }
-  }
-}
-
-function apply_filters() {
-  var passed_filter = document.getElementById('passed_checkbox').checked;
-  var failed_filter = document.getElementById('failed_checkbox').checked;
-  var pending_filter = document.getElementById('pending_checkbox').checked;
-
-  assign_display_style("example passed", passed_filter);
-  assign_display_style("example failed", failed_filter);
-  assign_display_style("example not_implemented", pending_filter);
-
-  assign_display_style_for_group("example_group passed", passed_filter);
-  assign_display_style_for_group("example_group not_implemented", pending_filter, pending_filter || passed_filter);
-  assign_display_style_for_group("example_group failed", failed_filter, failed_filter || pending_filter || passed_filter);
-}
-
-function get_display_style(display_flag) {
-  var style_mode = 'none';
-  if (display_flag == true) {
-    style_mode = 'block';
-  }
-  return style_mode;
-}
-
-function assign_display_style(classname, display_flag) {
-  var style_mode = get_display_style(display_flag);
-  var elems = document.getElementsByClassName(classname)
-  for (var i=0; i<elems.length;i++) {
-    elems[i].style.display = style_mode;
-  }
-}
-
-function assign_display_style_for_group(classname, display_flag, subgroup_flag) {
-  var display_style_mode = get_display_style(display_flag);
-  var subgroup_style_mode = get_display_style(subgroup_flag);
-  var elems = document.getElementsByClassName(classname)
-  for (var i=0; i<elems.length;i++) {
-    var style_mode = display_style_mode;
-    if ((display_flag != subgroup_flag) && (elems[i].getElementsByTagName('dt')[0].innerHTML.indexOf(", ") != -1)) {
-      elems[i].style.display = subgroup_style_mode;
-    } else {
-      elems[i].style.display = display_style_mode;
-    }
-  }
-}
-
-    // ]]>
-  </script>
-  <style type="text/css">
-#rspec-header {
-  background: #65C400; color: #fff; height: 4em;
-}
-
-.rspec-report h1 {
-  margin: 0px 10px 0px 10px;
-  padding: 10px;
-  font-family: "Lucida Grande", Helvetica, sans-serif;
-  font-size: 1.8em;
-  position: absolute;
-}
-
-#label {
-  float:left;
-}
-
-#display-filters {
-  float:left;
-  padding: 28px 0 0 40%;
-  font-family: "Lucida Grande", Helvetica, sans-serif;
-}
-
-#summary {
-  float:right;
-  padding: 5px 10px;
-  font-family: "Lucida Grande", Helvetica, sans-serif;
-  text-align: right;
-}
-
-#summary p {
-  margin: 0 0 0 2px;
-}
-
-#summary #totals {
-  font-size: 1.2em;
-}
-
-.example_group {
-  margin: 0 10px 5px;
-  background: #fff;
-}
-
-dl {
-  margin: 0; padding: 0 0 5px;
-  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
-}
-
-dt {
-  padding: 3px;
-  background: #65C400;
-  color: #fff;
-  font-weight: bold;
-}
-
-dd {
-  margin: 5px 0 5px 5px;
-  padding: 3px 3px 3px 18px;
-}
-
-
-dd.example.passed {
-  border-left: 5px solid #65C400;
-  border-bottom: 1px solid #65C400;
-  background: #DBFFB4; color: #3D7700;
-}
-
-dd.example.not_implemented {
-  border-left: 5px solid #FAF834;
-  border-bottom: 1px solid #FAF834;
-  background: #FCFB98; color: #131313;
-}
-
-dd.example.pending_fixed {
-  border-left: 5px solid #0000C2;
-  border-bottom: 1px solid #0000C2;
-  color: #0000C2; background: #D3FBFF;
-}
-
-dd.example.failed {
-  border-left: 5px solid #C20000;
-  border-bottom: 1px solid #C20000;
-  color: #C20000; background: #FFFBD3;
-}
-
-
-dt.not_implemented {
-  color: #000000; background: #FAF834;
-}
-
-dt.pending_fixed {
-  color: #FFFFFF; background: #C40D0D;
-}
-
-dt.failed {
-  color: #FFFFFF; background: #C40D0D;
-}
-
-
-#rspec-header.not_implemented {
-  color: #000000; background: #FAF834;
-}
-
-#rspec-header.pending_fixed {
-  color: #FFFFFF; background: #C40D0D;
-}
-
-#rspec-header.failed {
-  color: #FFFFFF; background: #C40D0D;
-}
-
-
-.backtrace {
-  color: #000;
-  font-size: 12px;
-}
-
-a {
-  color: #BE5C00;
-}
-
-/* Ruby code, style similar to vibrant ink */
-.ruby {
-  font-size: 12px;
-  font-family: monospace;
-  color: white;
-  background-color: black;
-  padding: 0.1em 0 0.2em 0;
-}
-
-.ruby .keyword { color: #FF6600; }
-.ruby .constant { color: #339999; }
-.ruby .attribute { color: white; }
-.ruby .global { color: white; }
-.ruby .module { color: white; }
-.ruby .class { color: white; }
-.ruby .string { color: #66FF00; }
-.ruby .ident { color: white; }
-.ruby .method { color: #FFCC00; }
-.ruby .number { color: white; }
-.ruby .char { color: white; }
-.ruby .comment { color: #9933CC; }
-.ruby .symbol { color: white; }
-.ruby .regex { color: #44B4CC; }
-.ruby .punct { color: white; }
-.ruby .escape { color: white; }
-.ruby .interp { color: white; }
-.ruby .expr { color: white; }
-
-.ruby .offending { background-color: gray; }
-.ruby .linenum {
-  width: 75px;
-  padding: 0.1em 1em 0.2em 0;
-  color: #000000;
-  background-color: #FFFBD3;
-}
-
-  </style>
-</head>
-<body>
-<div class="rspec-report">
-
-<div id="rspec-header">
-  <div id="label">
-    <h1>RSpec Code Examples</h1>
-  </div>
-
-  <div id="display-filters">
-    <input id="passed_checkbox" name="passed_checkbox" type="checkbox" checked onchange="apply_filters()" value="1"> <label for="passed_checkbox">Passed</label>
-    <input id="failed_checkbox" name="failed_checkbox" type="checkbox" checked onchange="apply_filters()" value="2"> <label for="failed_checkbox">Failed</label>
-    <input id="pending_checkbox" name="pending_checkbox" type="checkbox" checked onchange="apply_filters()" value="3"> <label for="pending_checkbox">Pending</label>
-  </div>
-
-  <div id="summary">
-    <p id="totals">&nbsp;</p>
-    <p id="duration">&nbsp;</p>
-  </div>
-</div>
-
-
-<div class="results">
-<div id="div_group_1" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_1" class="passed">About Us Page</dt>
-    <script type="text/javascript">moveProgressBar('1.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should have a friendly url</span></dd>
-  </dl>
-</div>
-<div id="div_group_2" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_2" class="passed">Newsletter Signups</dt>
-    <script type="text/javascript">moveProgressBar('2.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">a new subscriber should be created</span></dd>
-    <script type="text/javascript">moveProgressBar('3.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send an email that informs the subscriber that they have now subscribed to the newsletter</span></dd>
-    <script type="text/javascript">moveProgressBar('4.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should display a message that shows the subscriber that they have successfully subscribed to the newsletter</span></dd>
-  </dl>
-</div>
-<div id="div_group_3" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_3" class="passed">How It Works Page</dt>
-    <script type="text/javascript">moveProgressBar('6.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should have a friendly url</span></dd>
-  </dl>
-</div>
-<div id="div_group_4" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_4" class="passed">Privacy Policy Page</dt>
-    <script type="text/javascript">moveProgressBar('7.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should have a friendly url</span></dd>
-  </dl>
-</div>
-<div id="div_group_5" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_5" class="passed">Testimonial Page</dt>
-    <script type="text/javascript">moveProgressBar('8.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should have a friendly url</span></dd>
-  </dl>
-</div>
-<div id="div_group_6" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_6" class="passed">Creating Volunteer Accounts</dt>
-  </dl>
-</div>
-<div id="div_group_7" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_7" class="passed">page elements</dt>
-    <script type="text/javascript">moveProgressBar('9.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Cause' and 'Skill' tags</span></dd>
-  </dl>
-</div>
-<div id="div_group_8" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_8" class="passed">with valid credentials</dt>
-    <script type="text/javascript">moveProgressBar('10.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should create a new user_profile</span></dd>
-    <script type="text/javascript">moveProgressBar('12.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send the user to the project matches page</span></dd>
-    <script type="text/javascript">moveProgressBar('13.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should notify the user that their user_profile was added in a flash message</span></dd>
-    <script type="text/javascript">moveProgressBar('14.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the user_profile</span></dd>
-  </dl>
-</div>
-<div id="div_group_9" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_9" class="passed">with invalid credentials</dt>
-    <script type="text/javascript">moveProgressBar('15.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should not create an user_profile</span></dd>
-    <script type="text/javascript">moveProgressBar('17.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show error messages</span></dd>
-    <script type="text/javascript">moveProgressBar('18.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create user_profile page</span></dd>
-  </dl>
-</div>
-<div id="div_group_10" class="example_group passed">
-  <dl style="margin-left: 0px;">
-  <dt id="example_group_10" class="passed">Browsing Projects</dt>
-  </dl>
-</div>
-<div id="div_group_11" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_11" class="passed">for all users</dt>
-    <script type="text/javascript">moveProgressBar('19.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should list all of the approved projects</span></dd>
-    <script type="text/javascript">moveProgressBar('20.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should have a link to view the project details</span></dd>
-    <script type="text/javascript">moveProgressBar('21.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show the organization assoicated to the listed project</span></dd>
-    <script type="text/javascript">moveProgressBar('23.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should provide a link to view the project details</span></dd>
