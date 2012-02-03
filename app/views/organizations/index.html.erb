@@ -51,29 +51,31 @@
   <h2>Non-Profits</h2>
 
   <% @organizations.each do |organization| %>
-	<div class="project">
-    <div class="image"></div>
-    <h3><%= link_to organization.name, organization %></h3>
-    <div class="info">
-      <% if !organization.tags.empty? %>
-    	<div class="categories">
-        (<%= organization.tags.map(&:name).join(", ") %>)
-      </div>
-      <% end %>
-    	<p><%= organization.details %></p>
-    	<h3>Mission Statement</h3>
-    	<p><%= organization.mission %></p>
-    	<h3>Available Projects</h3>
-    	<ul>
-        <% organization.projects.each do |project| %>
-          <li><%= project.name %> (<%= link_to "project details", organization_project_path(organization, project) %>)</li>
+    <% if organization.verified? %>
+    <div class="project">
+      <div class="image"></div>
+      <h3><%= link_to organization.name, organization %></h3>
+      <div class="info">
+        <% if !organization.tags.empty? %>
+        <div class="categories">
+          (<%= organization.tags.map(&:name).join(", ") %>)
+        </div>
         <% end %>
-      </ul>
-      <a href="#" id="more-info" class="more">More Info &raquo;</a>
+        <p><%= organization.details %></p>
+        <h3>Mission Statement</h3>
+        <p><%= organization.mission %></p>
+        <h3>Available Projects</h3>
+        <ul>
+          <% organization.projects.each do |project| %>
+            <li><%= project.name %> (<%= link_to "project details", organization_project_path(organization, project) %>)</li>
+          <% end %>
+        </ul>
+        <a href="#" id="more-info" class="more">More Info &raquo;</a>
+      </div>
+      <%= link_to "#{organization.projects.count} available projects", "#", :class => "available" %>
+      <div class="clear"></div>
     </div>
-    <%= link_to "#{organization.projects.count} available projects", "#", :class => "available" %>
-    <div class="clear"></div>
-  </div>
+    <% end %>
   <% end %>
 
 	<ul class="pagination controls">

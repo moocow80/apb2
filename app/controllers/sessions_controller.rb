@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       sign_in user
       
       if user.is_admin?
-        redirect_back_or user
+        redirect_to "/admin"
       elsif user.is_organization?
         if user.organizations.empty?
           redirect_to new_organization_path

@@ -1,0 +1,8 @@
+<ul>
+  <% @contributors.each do |contributor| %>
+	<li>
+		<div><%= contributor.user.email %></div>
+		<div><strong>Reason:</strong> <%= contributor.reason %></div>
+	</li>
+  <% end %>
+</ul>

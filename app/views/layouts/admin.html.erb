@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AustinProBono - Admin</title>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+    <h1>
+      Admin Control Panel
+    </h1>
+
+    <div id="nav">
+      <ul>
+      	<li>
+          <%= link_to "Users", admin_users_path %>
+      	</li>
+      	<li>
+          <%= link_to "Organizations", admin_organizations_path %>
+      	</li>
+      	<li>
+          <%= link_to "Projects", admin_projects_path %>
+      	</li>
+      	<li>
+          <%= link_to "Declined Volunteers", admin_declined_volunteers_path %>
+      	</li>
+      </ul>
+    </div>
+    <div id="main">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= yield %>
+    </div>
+
+    <%= debug(params) if Rails.env.development? %>
+
+
+</body>
+</html>

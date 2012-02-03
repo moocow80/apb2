@@ -12,6 +12,7 @@ FactoryGirl.define do
 
     factory :volunteer do
       is_organization false
+      association :user_profile
     end
 
     factory :admin do
@@ -48,7 +49,7 @@ FactoryGirl.define do
   end
 
   factory :project do
-    association :organization
+    association :organization, :verified => true
     sequence(:name) { |n| "Test Project #{n}" }
     details "Sample project details"
     goals "Sample project goals"

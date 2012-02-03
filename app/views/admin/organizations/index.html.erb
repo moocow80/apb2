@@ -1,0 +1,29 @@
+<%= form_tag('', :method => :get, :class => "section") do %>
+	<div class="group">
+    <label class="group-title block">Filter By Type</label>
+    <% tags_by_type("Skill").each do |tag| %>
+      <%= check_box_tag "skill_tag_ids[]", tag.id, params[:skill_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+  </div>
+	<div class="group last">
+    <label class="group-title block">Filter By Cause</label>
+    <% tags_by_type("Cause").each do |tag| %>
+      <%= check_box_tag "cause_tag_ids[]", tag.id, params[:cause_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    <% end %>
+    <div> 
+      <%= submit_tag "Apply", :class => "button" %>
+    </div>
+  </div>
+<% end %>
+
+<ul>
+<% @organizations.each do |organization| %>
+  <li>
+    <div class="project">
+      <%= organization.name %>
+    </div>
+  </li>
+<% end %>
+</ul>

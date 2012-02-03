@@ -1,5 +1,13 @@
 Apb2::Application.routes.draw do
 
+  namespace :admin do
+    match "/" => "dashboard#index"
+    resources :organizations
+    resources :projects
+    resources :users
+    resources :declined_volunteers
+  end
+
   # Resourceful Routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users do

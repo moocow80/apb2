@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
     if params[:cause_tag_ids] && params[:skill_tag_ids]
       sql = Project.with_causes_and_skills_sql(params[:cause_tag_ids].join(","), params[:skill_tag_ids].join(","))
     elsif params[:cause_tag_ids]
-      sql = Project.verified.with_causes_sql(params[:cause_tag_ids].join(","))
+      sql = Project.with_causes_sql(params[:cause_tag_ids].join(","))
     elsif params[:skill_tag_ids]
       sql = Project.with_skills(params[:skill_tag_ids].join(",")).to_sql
     else

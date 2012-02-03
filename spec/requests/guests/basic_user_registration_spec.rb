@@ -94,13 +94,4 @@ describe "Basic User Registration" do
     end
   end
 
-  context "as an existing user" do
-    context "who is a volunteer" do
-      it "should send them to their user profile page"
-    end
-
-    context "who is an organization" do
-      it "should send them to their organization home page"
-    end
-  end
 end

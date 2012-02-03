@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe "Updating Project Status" do
-  pending "ADD SPECS"
+  it "SEE EDITING PROJECTS" do
+  end
 end
