@@ -1,5 +1,10 @@
 source 'http://rubygems.org'
 
+if RUBY_VERSION =~ /1.9/
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
+end
+
 gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
@@ -9,6 +14,7 @@ gem 'mysql2'
 gem 'execjs'
 gem 'therubyracer'
 gem 'will_paginate'
+gem 'paperclip'
 
 # Gems used only for assets and not required
 # in production environments by default.

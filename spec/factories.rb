@@ -4,6 +4,7 @@ FactoryGirl.define do
     password "secret"
     password_confirmation "secret"
     type "volunteer"
+    verified true
 
     factory :owner do
       type "organization"

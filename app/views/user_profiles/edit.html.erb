@@ -1,5 +1,5 @@
 <h1>UserProfiles#edit</h1>
-<%= form_for @user_profile, :url => { :controller => "user_profiles", :action => :update } do |f| %>
+<%= form_for @user_profile, :html => { :multipart => true }, :url => { :controller => "user_profiles", :action => :update } do |f| %>
   <%= f.error_messages %>
   <div class="field">
     <%= f.label :name %><br />
@@ -40,6 +40,15 @@
   <div class="field">
     <%= f.label :website %><br />
     <%= f.text_field :website %>
+  </div>
+  <div>
+    <% if @user_profile.image? %>
+      <%= image_tag @user_profile.image.url %>
+      <br />
+      <%= link_to @user_profile.image.url, @user_profile.image.url %>
+    <% end %>
+    <%= f.label :image %> <br/>
+    <%= f.file_field :image %>
   </div>
   <div class="field">
     <%= f.radio_button :available, "1" %>

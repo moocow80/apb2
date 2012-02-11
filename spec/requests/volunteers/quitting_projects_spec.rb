@@ -27,7 +27,7 @@ describe "Quitting Projects" do
       fill_in "Reason", :with => "Too much work"
       click_button "Quit"
       last_email.to.should eq [accepted.project.organization.owner.email]
-      last_email.subject.should eq "#{user.user_profile.name} has quit #{accepted.project.name}."
+      last_email.subject.should eq "#{user_profile.name} has quit #{accepted.project.name}."
     end
     it "should require the user to enter a reason when quitting" do
       click_button "Quit"

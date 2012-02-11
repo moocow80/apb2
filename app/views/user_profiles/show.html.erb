@@ -12,6 +12,11 @@
     <li><%= @user_profile.degrees %></li>
     <li><%= @user_profile.experience %></li>
     <li><%= @user_profile.website %></li>
+    <% if @user_profile.image? %>
+    <li><%= image_tag @user_profile.image.url %></li>
+      <br />
+    <li><%= link_to @user_profile.image.url, @user_profile.image.url %></li>
+    <% end %>
     <li>Causes: <%= @user_profile.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
     <li>Skills: <%= @user_profile.tags.where(:tag_type => "skill").map(&:name).join(", ") %></li>
   </ul>

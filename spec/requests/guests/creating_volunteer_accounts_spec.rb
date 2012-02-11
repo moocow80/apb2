@@ -30,7 +30,6 @@ describe "Creating Volunteer Accounts" do
       end.should change(UserProfile, :count).by(1)
     end
     it "should send the user to the project matches page" do
-      user_profile.user.toggle!(:verified)
       fill_in_details_and_submit
       current_path.should eq(project_matches_path)
     end

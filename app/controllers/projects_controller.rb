@@ -19,7 +19,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find_by_slug(params[:id])
+    @project = Project.find_by_slug!(params[:id])
+    not_found unless @project.verified? && @project.organization.verified? && @project.organization.owner.verified? || current_user == @project.organization.owner
   end
 
   def new
@@ -85,6 +86,13 @@ class ProjectsController < ApplicationController
     unless @project.organization.owner == current_user
       flash[:error] = "You are not authorized to edit this project."
       redirect_to organization_project_path(@project.organization, @project)
+    end
+  end
+
+  def is_verified
+    @project = Project.find_by_slug(params[:id])
+    unless current_user == @project.organization.owner
+      not_found unless @project.verified? && @project.organization.verified? && @project.organization.owner.verified?
     end
   end
 end

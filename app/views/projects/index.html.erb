@@ -51,7 +51,7 @@
   <h2>Projects</h2>
 
   <% @projects.each do |project| %>
-    <% if project.verified? && project.organization.verified? %>
+    <% if project.verified? && project.organization.verified? && project.organization.owner.verified? %>
       <div class="project">
         <div class="image"></div>
         <h3><%= link_to "#{project.name} for #{project.organization.name}", organization_project_path(project.organization, project) %></h3>

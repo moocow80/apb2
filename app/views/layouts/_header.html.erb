@@ -12,8 +12,9 @@
       <strong><%= current_user.email %></strong> | 
       <% if current_user.is_organization %>
         <%= link_to "My Organizations", user_organizations_path(current_user) %> |
+      <% elsif !current_user.is_organization %>
+        <%= link_to "My Profile", profile_path %> | 
       <% end %>
-      <%= link_to "My Profile", profile_path %> | 
       <%= link_to "Log Out", logout_path %>
     <% else %>
       <%= link_to "Log In", login_path %>

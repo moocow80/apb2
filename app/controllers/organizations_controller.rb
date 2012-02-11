@@ -2,6 +2,7 @@ class OrganizationsController < ApplicationController
   before_filter :authenticate, :except => [:index, :show, :showall]
   before_filter :is_admin, :only => [:verify]
   before_filter :correct_user, :only => [:edit, :update, :destroy]
+  before_filter :is_verified, :only => [:show]
 
   def index
     per_page = params[:per_page] || 20
@@ -18,7 +19,6 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = Organization.find_by_slug(params[:id])
   end
 
   def new
@@ -76,6 +76,13 @@ class OrganizationsController < ApplicationController
     if @organization.owner != current_user
       flash[:error] = "You don't have permission to access this organization."
       redirect_back_or @organization
+    end
+  end
+
+  def is_verified
+    @organization = Organization.find_by_slug(params[:id])
+    unless current_user == @organization.owner
+      not_found unless @organization.verified? && @organization.owner.verified?
     end
   end
 

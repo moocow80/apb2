@@ -22,7 +22,13 @@ class UserMailer < ActionMailer::Base
     @user = project.organization.owner
     mail :to => @user.email, :subject => "#{project.name} has been verified!"
   end
-
+  
+  def notify_subscribers(project, user)
+    @project = project
+    @user = user 
+    mail :to => @user.email, :subject => "We thought you might be interested in . . . "
+  end
+  
   def thanks_for_volunteering(contributor)
     @user = contributor.user
     @project = contributor.project
