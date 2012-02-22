@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206010437) do
+ActiveRecord::Schema.define(:version => 20120214024013) do
 
   create_table "contributors", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(:version => 20120206010437) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "contributors", ["user_id", "project_id"], :name => "index_contributors_on_user_id_and_project_id", :unique => true
 
   create_table "newsletter_subscribers", :force => true do |t|
     t.string   "email"
@@ -94,10 +96,14 @@ ActiveRecord::Schema.define(:version => 20120206010437) do
     t.boolean  "available"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "resume_file_name"
+    t.string   "resume_content_type"
+    t.integer  "resume_file_size"
+    t.datetime "resume_updated_at"
   end
 
   add_index "user_profiles", ["name"], :name => "index_user_profiles_on_name"

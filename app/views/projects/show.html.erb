@@ -16,25 +16,27 @@
   <% if @project.contributions %>
     <ul class="contributors">
     <% @project.contributions.each do |contribution| %>
-      <li>
-        <div class="user"><%= contribution.user.user_profile.name %></div>
-        <div class="contribution-actions">
-          <%= form_for contribution, :url => organization_project_contributor_path(@project.organization, @project, contribution) do |f| %>
-            <%= error_messages_for(contribution) %>
-            <div class="field">
-              <%= f.label :status %>
-              <%= f.select(:status, [["Pending", "pending"], ["Accepted", "accepted"], ["Declined", "declined"]]) %>
-            </div>
-            <div class="field">
-              <%= f.label :reason %>
-              <%= f.text_area :reason, :placeholder => "Reason (if declined)" %>
-            </div>
-            <div class="actions">
-              <%= f.submit "Save" %>
-            </div>
-          <% end %>
-        </div>
-      </li>
+      <% unless contribution.status == "quit" %>
+        <li>
+          <div class="user"><%= contribution.user.user_profile.name %></div>
+          <div class="contribution-actions">
+            <%= form_for contribution, :url => organization_project_contributor_path(@project.organization, @project, contribution) do |f| %>
+              <%= error_messages_for(contribution) %>
+              <div class="field">
+                <%= f.label :status %>
+                <%= f.select(:status, [["Pending", "pending"], ["Accepted", "accepted"], ["Declined", "declined"]]) %>
+              </div>
+              <div class="field">
+                <%= f.label :reason %>
+                <%= f.text_area :reason, :placeholder => "Reason (if declined)" %>
+              </div>
+              <div class="actions">
+                <%= f.submit "Save" %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
     <% end %>
     </ul>
   <% end %>

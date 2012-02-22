@@ -34,4 +34,21 @@ describe "Quitting Projects" do
       page.should have_content("Reason can't be blank")
     end
   end
+
+  context "as the organization who the volunteer quit" do
+    let(:organization) { accepted.project.organization.owner }
+    before(:each) do
+      fill_in "Reason", :with => "Too much work"
+      click_button "Quit"
+      click_link "Log Out"
+      request_login(organization)
+      click_link "My Organizations"
+      click_link accepted.project.organization.name
+      click_link accepted.project.name
+    end
+
+    it "should not show the user that quit" do
+      page.should_not have_content user_profile.name
+    end
+  end
 end

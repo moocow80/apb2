@@ -1,23 +1,29 @@
 <div class="content">
-  <%= link_to "Edit", edit_profile_path, :class => "forward right" %>
+  <div class="forward right">
+    <%= link_to "Edit", edit_profile_path, :class => "forward right" %>
+  </div>
   <div class="segment-controller">
-    <%= link_to "Profile Info", profile_path, :class => "segment" %>
+    <%= link_to "Profile Info", profile_path, :class => "segment active" %>
     <%= link_to "Projects", projects_profile_path, :class => "segment" %>
+    <div class="clear"></div>
   </div>
   <ul>
-    <li><%= @user_profile.name %></li>
-    <li><%= @user_profile.phone %></li>
-    <li><%= @user_profile.current_employer %></li>
-    <li><%= @user_profile.job_title %></li>
-    <li><%= @user_profile.degrees %></li>
-    <li><%= @user_profile.experience %></li>
-    <li><%= @user_profile.website %></li>
-    <% if @user_profile.image? %>
-    <li><%= image_tag @user_profile.image.url %></li>
-      <br />
-    <li><%= link_to @user_profile.image.url, @user_profile.image.url %></li>
+    <% if @user_profile.avatar? %>
+      <ul>
+        <li> <%= link_to(image_tag(@user_profile.avatar.url(:thumb)), @user_profile.avatar.url) %></li>
+      </ul>
     <% end %>
-    <li>Causes: <%= @user_profile.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
-    <li>Skills: <%= @user_profile.tags.where(:tag_type => "skill").map(&:name).join(", ") %></li>
+    <li><strong>Name: </strong><%= @user_profile.name %></li>
+    <li><strong>Phone #: </strong><%= @user_profile.phone %></li>
+    <li><strong>Current Employer: </strong><%= @user_profile.current_employer %></li>
+    <li><strong>Job Title: </strong><%= @user_profile.job_title %></li>
+    <li><strong>Degrees: </strong><%= @user_profile.degrees %></li>
+    <li><strong>Experience: </strong><%= @user_profile.experience %></li>
+    <li><strong>Website: </strong><%= @user_profile.website %></li>
+    <li><strong>Causes: </strong><%= @user_profile.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
+    <li><strong>Skills: </strong><%= @user_profile.tags.where(:tag_type => "skill").map(&:name).join(", ") %></li>
+    <% if @user_profile.resume? %>
+      <li><%= link_to "View Resume", @user_profile.resume.url, :target => "_blank" %></li>
+    <% end %>
   </ul>
 </div>

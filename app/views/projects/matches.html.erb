@@ -1,2 +1,10 @@
-<h1>Projects#matches</h1>
-<p>Find me in app/views/projects/matches.html.erb</p>
+<div class="content">
+<h2>Your Matches</h2>
+<% if @projects %>
+ <% @projects.each do |project| %>
+  <% if project.verified? && project.organization.verified? && project.organization.owner.verified? %>
+    <%= render project %>
+  <% end %>
+ <% end %>
+<% end %>
+</div>

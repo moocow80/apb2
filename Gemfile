@@ -15,6 +15,8 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'will_paginate'
 gem 'paperclip'
+# gem 'aws-s3', :require => 'aws/s3'
+gem 'aws-sdk'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,7 +42,6 @@ gem 'jquery-rails'
 # gem 'bj'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

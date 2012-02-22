@@ -1,6 +1,6 @@
 <h1>UserProfiles#edit</h1>
-<%= form_for @user_profile, :html => { :multipart => true }, :url => { :controller => "user_profiles", :action => :update } do |f| %>
-  <%= f.error_messages %>
+  <%= form_for @user_profile, :html => { :multipart => true }, :url => { :controller => "user_profiles", :action => :update } do |f| %>
+    <%= f.error_messages %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -42,13 +42,20 @@
     <%= f.text_field :website %>
   </div>
   <div>
-    <% if @user_profile.image? %>
-      <%= image_tag @user_profile.image.url %>
+    <%= f.label :avatar %> <br/>
+    <% if @user_profile.avatar? %>
+      <%= image_tag @user_profile.avatar.url(:thumb) %>
       <br />
-      <%= link_to @user_profile.image.url, @user_profile.image.url %>
     <% end %>
-    <%= f.label :image %> <br/>
-    <%= f.file_field :image %>
+    <%= f.file_field :avatar %>
+  </div>
+  <div>
+    <%= f.label :resume %> <br/>
+    <% if @user_profile.resume? %>
+      <%= link_to @user_profile.resume_file_name, @user_profile.resume.url %>
+      <br />
+    <% end %>
+    <%= f.file_field :resume %>
   </div>
   <div class="field">
     <%= f.radio_button :available, "1" %>
@@ -59,7 +66,7 @@
   <div class="actions">
     <% if @user_profile.new_record? %>
     <%= f.submit "Next Step: Match me up with a project" %>
-    <% else %>
+  <% else %>
     <%= f.submit "Save" %>
     <% end %>
   </div>

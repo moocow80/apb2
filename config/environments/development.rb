@@ -32,6 +32,6 @@ Apb2::Application.configure do
   config.action_mailer.default_url_options = { :host => "austinprobono.org:3000" }
 
   # Don't send emails to Lisa =)
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
 end
 

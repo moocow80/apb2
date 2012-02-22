@@ -155,6 +155,12 @@ dd {
   padding: 3px 3px 3px 18px;
 }
 
+dd .duration {
+  padding-left: 5px;
+  text-align: right;
+  right: 0px;
+  float:right;
+}
 
 dd.example.passed {
   border-left: 5px solid #65C400;
@@ -285,29 +291,29 @@ a {
   <dl style="margin-left: 15px;">
   <dt id="example_group_2" class="passed">as an organization</dt>
     <script type="text/javascript">moveProgressBar('2.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show the organization an edit form</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show the organization an edit form</span><span class='duration'>3.67970s</span></dd>
     <script type="text/javascript">moveProgressBar('5.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should not allow users who don't own the project to edit it</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should not allow users who don't own the project to edit it</span><span class='duration'>0.63233s</span></dd>
   </dl>
 </div>
 <div id="div_group_3" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_3" class="passed">with valid credentials</dt>
     <script type="text/javascript">moveProgressBar('7.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should allow the organization to edit the project</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should allow the organization to edit the project</span><span class='duration'>0.73116s</span></dd>
     <script type="text/javascript">moveProgressBar('10.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should inform the organization that the project has been updated</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should inform the organization that the project has been updated</span><span class='duration'>0.51876s</span></dd>
     <script type="text/javascript">moveProgressBar('12.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should notify project applicants of the updates via email</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should notify project applicants of the updates via email</span><span class='duration'>0.59241s</span></dd>
     <script type="text/javascript">moveProgressBar('15.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should redirect to the project details</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should redirect to the project details</span><span class='duration'>0.61151s</span></dd>
   </dl>
 </div>
 <div id="div_group_4" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_4" class="passed">with invalid credentials</dt>
     <script type="text/javascript">moveProgressBar('17.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show the organization the errors</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show the organization the errors</span><span class='duration'>0.52279s</span></dd>
   </dl>
 </div>
 <div id="div_group_5" class="example_group passed">
@@ -317,34 +323,28 @@ a {
     <script type="text/javascript">makeYellow('div_group_5');</script>
     <script type="text/javascript">makeYellow('example_group_5');</script>
     <script type="text/javascript">moveProgressBar('20.5');</script>
-    <dd class="example not_implemented"><span class="not_implemented_spec_name">ADD SPECS (PENDING: Not Yet Implemented)</span></dd>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">ADD SPECS (PENDING: No reason given)</span></dd>
   </dl>
 </div>
 <div id="div_group_6" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_6" class="passed">Accepting Applicants</dt>
     <script type="text/javascript">moveProgressBar('23.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">SEE reviewing_applicants SPEC</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">SEE reviewing_applicants SPEC</span><span class='duration'>0.00121s</span></dd>
   </dl>
 </div>
 <div id="div_group_7" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_7" class="passed">Completing Projects</dt>
-    <script type="text/javascript">makeYellow('rspec-header');</script>
-    <script type="text/javascript">makeYellow('div_group_7');</script>
-    <script type="text/javascript">makeYellow('example_group_7');</script>
     <script type="text/javascript">moveProgressBar('25.6');</script>
-    <dd class="example not_implemented"><span class="not_implemented_spec_name">ADD SPECS (PENDING: Not Yet Implemented)</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">SEE editing_projects_spec</span><span class='duration'>0.00095s</span></dd>
   </dl>
 </div>
 <div id="div_group_8" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_8" class="passed">Reopening Projects</dt>
-    <script type="text/javascript">makeYellow('rspec-header');</script>
-    <script type="text/javascript">makeYellow('div_group_8');</script>
-    <script type="text/javascript">makeYellow('example_group_8');</script>
     <script type="text/javascript">moveProgressBar('28.2');</script>
-    <dd class="example not_implemented"><span class="not_implemented_spec_name">ADD SPECS (PENDING: Not Yet Implemented)</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">SEE editing_projects_spec</span><span class='duration'>0.00090s</span></dd>
   </dl>
 </div>
 <div id="div_group_9" class="example_group passed">
@@ -356,11 +356,11 @@ a {
   <dl style="margin-left: 15px;">
   <dt id="example_group_10" class="passed">as an organization</dt>
     <script type="text/javascript">moveProgressBar('30.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show a list of the organizations projects</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show a list of the organizations projects</span><span class='duration'>0.46937s</span></dd>
     <script type="text/javascript">moveProgressBar('33.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show edit links for each project</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show edit links for each project</span><span class='duration'>0.56916s</span></dd>
     <script type="text/javascript">moveProgressBar('35.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show the status of each project</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show the status of each project</span><span class='duration'>0.61900s</span></dd>
   </dl>
 </div>
 <div id="div_group_11" class="example_group passed">
@@ -372,45 +372,45 @@ a {
   <dl style="margin-left: 15px;">
   <dt id="example_group_12" class="passed">as an organization</dt>
     <script type="text/javascript">moveProgressBar('38.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show a form for editing the organization details</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show a form for editing the organization details</span><span class='duration'>0.24067s</span></dd>
     <script type="text/javascript">moveProgressBar('41.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should only allow owners to access the edit action</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should only allow owners to access the edit action</span><span class='duration'>0.35147s</span></dd>
   </dl>
 </div>
 <div id="div_group_13" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_13" class="passed">with valid credentials</dt>
     <script type="text/javascript">moveProgressBar('43.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should update the organization details</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should update the organization details</span><span class='duration'>0.41440s</span></dd>
     <script type="text/javascript">moveProgressBar('46.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should inform the user that the organization has been updated</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should inform the user that the organization has been updated</span><span class='duration'>0.29108s</span></dd>
     <script type="text/javascript">moveProgressBar('48.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send the user back to the organization profile page</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should send the user back to the organization profile page</span><span class='duration'>0.29530s</span></dd>
     <script type="text/javascript">moveProgressBar('51.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send an email to admin</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should send an email to admin</span><span class='duration'>0.31217s</span></dd>
   </dl>
 </div>
 <div id="div_group_14" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_14" class="passed">with invalid credentials</dt>
     <script type="text/javascript">moveProgressBar('53.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show the user the error messages</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show the user the error messages</span><span class='duration'>0.25660s</span></dd>
     <script type="text/javascript">moveProgressBar('56.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send them back to the form</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should send them back to the form</span><span class='duration'>0.25898s</span></dd>
   </dl>
 </div>
 <div id="div_group_15" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_15" class="passed">Updating Project Status</dt>
     <script type="text/javascript">moveProgressBar('58.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">SEE EDITING PROJECTS</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">SEE EDITING PROJECTS</span><span class='duration'>0.00097s</span></dd>
   </dl>
 </div>
 <div id="div_group_16" class="example_group passed">
   <dl style="margin-left: 0px;">
   <dt id="example_group_16" class="passed">Declining Applicants</dt>
     <script type="text/javascript">moveProgressBar('61.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">SEE reviewing_applicants SPEC</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">SEE reviewing_applicants SPEC</span><span class='duration'>0.00133s</span></dd>
   </dl>
 </div>
 <div id="div_group_17" class="example_group passed">
@@ -422,32 +422,32 @@ a {
   <dl style="margin-left: 15px;">
   <dt id="example_group_18" class="passed">as the receiving organization</dt>
     <script type="text/javascript">moveProgressBar('64.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send the organization an email with the volunteers information</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should send the organization an email with the volunteers information</span><span class='duration'>0.42044s</span></dd>
     <script type="text/javascript">makeYellow('rspec-header');</script>
     <script type="text/javascript">makeYellow('div_group_18');</script>
     <script type="text/javascript">makeYellow('example_group_18');</script>
     <script type="text/javascript">moveProgressBar('66.6');</script>
-    <dd class="example not_implemented"><span class="not_implemented_spec_name">should suggest the next steps an organization should take in the email (PENDING: Not Yet Implemented)</span></dd>
+    <dd class="example not_implemented"><span class="not_implemented_spec_name">should suggest the next steps an organization should take in the email (PENDING: Not yet implemented)</span></dd>
   </dl>
 </div>
 <div id="div_group_19" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_19" class="passed">who accepts the volunteer</dt>
     <script type="text/javascript">moveProgressBar('69.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should allow the organization to accept the volunteer</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should allow the organization to accept the volunteer</span><span class='duration'>0.64883s</span></dd>
     <script type="text/javascript">moveProgressBar('71.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should email the volunteer with the status 'accepted'</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should email the volunteer with the status 'accepted'</span><span class='duration'>0.44963s</span></dd>
   </dl>
 </div>
 <div id="div_group_20" class="example_group passed">
   <dl style="margin-left: 30px;">
   <dt id="example_group_20" class="passed">who declines the volunteer</dt>
     <script type="text/javascript">moveProgressBar('74.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should allow the organization to decline the volunteer</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should allow the organization to decline the volunteer</span><span class='duration'>0.52745s</span></dd>
     <script type="text/javascript">moveProgressBar('76.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should require the organization to say why they declined the volunteer</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should require the organization to say why they declined the volunteer</span><span class='duration'>0.43546s</span></dd>
     <script type="text/javascript">moveProgressBar('79.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should email the volunteer with the status declined</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should email the volunteer with the status declined</span><span class='duration'>0.55167s</span></dd>
   </dl>
 </div>
 <div id="div_group_21" class="example_group passed">
@@ -459,35 +459,35 @@ a {
   <dl style="margin-left: 15px;">
   <dt id="example_group_22" class="passed">page elements</dt>
     <script type="text/javascript">moveProgressBar('82.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Skill' tags</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should only show the user 'Skill' tags</span><span class='duration'>0.26226s</span></dd>
   </dl>
 </div>
 <div id="div_group_23" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_23" class="passed">with valid credentials</dt>
     <script type="text/javascript">moveProgressBar('84.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should create a new project</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should create a new project</span><span class='duration'>0.32615s</span></dd>
     <script type="text/javascript">moveProgressBar('87.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send the user to organization details page</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should send the user to organization details page</span><span class='duration'>0.32943s</span></dd>
     <script type="text/javascript">moveProgressBar('89.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should notify the user that their project was added in a flash message</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should notify the user that their project was added in a flash message</span><span class='duration'>0.32498s</span></dd>
     <script type="text/javascript">moveProgressBar('92.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the project</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should add the correct tags to the project</span><span class='duration'>0.34819s</span></dd>
   </dl>
 </div>
 <div id="div_group_24" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_24" class="passed">with invalid credentials</dt>
     <script type="text/javascript">moveProgressBar('94.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should not create a project</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should not create a project</span><span class='duration'>0.27300s</span></dd>
     <script type="text/javascript">moveProgressBar('97.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should show error messages</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should show error messages</span><span class='duration'>0.28351s</span></dd>
     <script type="text/javascript">moveProgressBar('100.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create project page</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should send the user back to the create project page</span><span class='duration'>0.28086s</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>39.237436439 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "39 examples, 0 failures, 4 pending";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>16.86208 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "39 examples, 0 failures, 2 pending";</script>
 </div>
 </div>
 </body>

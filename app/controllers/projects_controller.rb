@@ -4,6 +4,10 @@ class ProjectsController < ApplicationController
   before_filter :is_admin, :only => [:verify]
   before_filter :correct_user, :only => [:edit, :update, :destroy]
 
+  before_filter :is_volunteer, :only => [:matches]
+  before_filter :verified_user, :only => [:matches]
+  before_filter :user_has_tags, :only => [:matches]
+
   def index
     per_page = params[:per_page] || 20
     if params[:cause_tag_ids] && params[:skill_tag_ids]
@@ -56,9 +60,14 @@ class ProjectsController < ApplicationController
   end
 
   def matches
-    if !current_user.verified?
-      flash[:error] = "Sorry, you can't see your matches until your email address has been verified."
-      redirect_to user_path(current_user)
+    causes = current_user.user_profile.tags.where(:tag_type => "cause").map(&:id).join(",")
+    skills = current_user.user_profile.tags.where(:tag_type => "skill").map(&:id).join(",")
+    if !causes.blank? && !skills.blank?
+      @projects = Project.find_by_sql(Project.with_causes_and_skills_sql(causes, skills))
+    elsif !causes.blank?
+      @projects = Project.find_by_sql(Project.with_causes_sql(causes))
+    else
+      @projects = Project.find_by_sql(Project.with_skills_sql(skills))
     end
   end
 
@@ -73,6 +82,27 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def user_has_tags
+    if current_user.user_profile.tags.empty?
+      flash[:error] = "You need to pick a cause or skill to see your matches"
+      redirect_to profile_path
+    end
+  end
+
+  def is_volunteer
+    if current_user.user_profile.blank?
+      flash[:error] = "Sorry, you need to be a volunteer to see matches."
+      redirect_back_or root_path
+    end
+  end
+
+  def verified_user
+    if !current_user.verified?
+      flash[:error] = "Sorry, you can't see your matches until your email address has been verified."
+      redirect_to user_path(current_user)
+    end
+  end
 
   def find_organization
     unless Organization.find_by_slug(params[:organization_id])

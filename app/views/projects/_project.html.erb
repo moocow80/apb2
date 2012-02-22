@@ -4,6 +4,10 @@
         <div class="column">
           <h3 class="title">Organization</h3>
           <div class="definition"><%= project.organization.name %></div>
+          <% if !project.organization.tags.empty? %>
+          <h3 class="title">Organization Causes</h3>
+          <div class="definition"><%= project.organization.tags.map(&:name).join(", ") %></div>
+          <% end %>
           <% if !project.tags.empty? %>
           <h3 class="title">Project Type</h3>
           <div class="definition"><%= project.tags.map(&:name).join(", ") %></div>

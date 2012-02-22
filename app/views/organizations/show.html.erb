@@ -12,14 +12,8 @@
   <h1>
     <%= @organization.name %>
   </h1>
-  <div class="causes">
-    <ul>
-      <% @organization.tags.each do |tag| %>
-      <li><%= tag.name %></li>
-      <% end %>
-    </ul>
-  </div>
   <ul>
+    <li><strong>Causes: </strong><%= @organization.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
     <li><strong>Contact: </strong><%= @organization.contact %></li>
     <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
     <li><strong>Website: </strong><%= @organization.website %></li>
@@ -27,6 +21,7 @@
     <li><strong>Mission: </strong><%= @organization.mission %></li>
     <li><strong>Details: </strong><%= @organization.details %></li>
   </ul>
+  </br>
   <% if @organization.projects %>
     <%= render @organization.projects %>
   <% end %>
