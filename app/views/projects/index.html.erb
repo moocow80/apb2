@@ -1,7 +1,12 @@
-<form id="search-form" action="#">
+<!--<form id="search-form" action="#">
   <input id="search" type="text" placeholder="Search for projects by type or cause." />
   <button class="button">Search</button>
 </form>
+-->
+<%= form_tag('', :method => :get,'id' => 'search-form') do %>
+  <%= text_field_tag :search, params[:search], :placeholder => "Search by name, type or cause." %>
+  <button class="button">Search</button>
+<% end %>
 
 <div class="clear"></div>
 

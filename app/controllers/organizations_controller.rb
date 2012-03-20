@@ -12,6 +12,8 @@ class OrganizationsController < ApplicationController
       sql = Organization.verified.with_causes(params[:cause_tag_ids].join(",")).to_sql
     elsif params[:skill_tag_ids]
       sql = Organization.verified.with_skills_sql(params[:skill_tag_ids].join(","))
+    elsif params[:search]
+      sql = Organization.search(params[:search])
     else
       sql = Organization.verified.to_sql
     end

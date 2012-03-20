@@ -1,8 +1,24 @@
-<ul>
+<div class="page-header">
+	<h1>Declined Volunteers</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  	<tr>
+  		<th>Email</th>
+  		<th>Organization</th>
+  		<th>Project</th>
+  		<th>Reason</th>
+  	</tr>
+  </thead>
+  <tbody>
   <% @contributors.each do |contributor| %>
-	<li>
-		<div><%= contributor.user.email %></div>
-		<div><strong>Reason:</strong> <%= contributor.reason %></div>
-	</li>
+    <tr>
+      <td><%= contributor.user.email %></td>
+      <td><%= contributor.project.organization.name %></td>
+      <td><%= contributor.project.name %></td>
+      <td><%= contributor.reason %></td>
+    </tr>
   <% end %>
-</ul>
+  </tbody>
+</table>

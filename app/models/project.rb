@@ -22,6 +22,18 @@ class Project < ActiveRecord::Base
   scope :verified, where(:verified => true)
   scope :with_skills, lambda { |*tag_ids| joins(:tags).where("tags.id IN (?)", tag_ids).group("projects.id") }
 
+  def self.search(search)
+    escaped_search = search.gsub('%','\%').gsub('_','\_').gsub(/\\/, '\&\&').gsub(/'/, "''")
+    statement =   "SELECT projects.* "
+    statement +=  "FROM taggeds, tags, projects "
+    statement +=  "INNER JOIN organizations ON organizations.id = projects.organization_id " 
+    statement +=  "WHERE (taggeds.taggable_id = organizations.id AND taggeds.taggable_type = 'Organization' AND tags.id = taggeds.tag_id AND tags.name LIKE \"%#{escaped_search}%\") " 
+    statement +=  "OR (taggeds.taggable_id = projects.id AND taggeds.taggable_type = 'Project' AND tags.id = taggeds.tag_id AND tags.name LIKE \"%#{escaped_search}%\") "
+    statement +=  "OR projects.name LIKE \"%#{escaped_search}%\" "
+    statement +=  "GROUP BY projects.id"
+    statement
+  end  
+
   def self.with_causes_sql(*tag_ids)
     statement =   "SELECT `projects`.* FROM projects "
     statement +=  "INNER JOIN organizations ON projects.organization_id = organizations.id "

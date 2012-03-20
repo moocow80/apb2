@@ -9,4 +9,6 @@ class PagesController < ApplicationController
   end
   def privacypolicy
   end
+  def howitworks
+  end
 end

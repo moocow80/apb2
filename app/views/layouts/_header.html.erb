@@ -1,11 +1,10 @@
 <div id="header">
   <%= link_to "Austin Pro Bono", root_path, :id => "logo" %>
 	<ul class="navigation">
-		<li><a href="home">Home</a></li>
+		<li><%= link_to "Home", root_path %></li>
 		<li><%= link_to "Projects", "/projects" %></li>
-		<li><a href="volunteers">Volunteers</a></li>
 		<li><%= link_to "Organizations", "/organizations" %></li>
-		<li class="last"><a href="howitworks">How It Works</a></li>
+		<li><%= link_to "How It Works", "/how-it-works" %></li>
 	</ul>
   <div class="login">
     <% if current_user %>

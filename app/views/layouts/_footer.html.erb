@@ -4,27 +4,27 @@
 				<li>
 					<ul>
 						<li class="featured"><a href="volunteers">Volunteers</a></li>
-						<li><a href="#">Register/Login</a></li>
-						<li><a href="volunteer_testimonials">Read Testimonials</a></li>
-						<li><a href="#">Browse Projects</a></li>
+            <li><%= link_to "Register/Login", login_path %></li>
+		        <li><%= link_to "Read Testimonials", "/volunteer_testimonials" %></li>
+		        <li><%= link_to "Projects", "/projects" %></li>
 					</ul>
 				</li>
 				<li>
 					<ul>
-						<li class="featured"><a href="organizations">Organizations</a></li>
-						<li><a href="#">Register/Login</a></li>
-						<li><a href="non-profit_testimonials">Read Testimonials</a></li>
+		        <li class="featured"><%= link_to "Organizations", "/organizations" %></li>
+            <li><%= link_to "Register/Login", login_path %></li>
+		        <li><%= link_to "Read Testimonials", "/non-profit_testimonials" %></li>
 					</ul>
 				</li>
 				<li>
 					<ul>
-						<li class="featured"><a href="how-it-works">How It Works</a></li>
-						<li><a href="aboutus">About Us</a></li>
+		        <li><%= link_to "How It Works", "/how-it-works" %></li>
+		        <li><%= link_to "About Us", "/about-us" %></li>
 						<li><a href="#">Blog</a></li>
-						<li><a href="#">Privacy Policy</a></li>
+		        <li><%= link_to "Privacy Policy", "/privacy-policy" %></li>
 					</ul>
 				</li>
-				<li class="last"><a href="projects">Projects</a></li>
+		    <li class="last"><%= link_to "Projects", "/projects" %></li>
 			</ul>
 			<div class="clear"></div>
 		</div>

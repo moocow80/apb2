@@ -16,6 +16,8 @@ class ProjectsController < ApplicationController
       sql = Project.with_causes_sql(params[:cause_tag_ids].join(","))
     elsif params[:skill_tag_ids]
       sql = Project.with_skills(params[:skill_tag_ids].join(",")).to_sql
+    elsif params[:search]
+      sql = Project.search(params[:search])
     else
       sql = Project.verified.to_sql
     end
