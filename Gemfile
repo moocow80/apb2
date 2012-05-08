@@ -59,5 +59,5 @@ end
 
 group :development do
     gem "rspec-rails"
-    gem "faker"
 end
+gem "faker"
