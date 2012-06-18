@@ -1,0 +1,253 @@
+body {
+  margin: 0px;
+  font-family: Helvetica;
+  font-size: 14px;
+  position: relative;
+  background: url(../images/bg-arrows.png) -230px bottom no-repeat; }
+
+h1, h2, h3, h4, h5, ul {
+  margin: 0px;
+  padding: 0px; }
+
+a {
+  text-decoration: none;
+  color: #0090bf; }
+
+p {
+  line-height: 1.3em; }
+
+p.seo {
+  margin-bottom: 40px; }
+
+li {
+  list-style: none; }
+
+.clear {
+  clear: both;
+  height: 0px; }
+
+button, .button {
+  display: block;
+  vertical-align: middle;
+  background: -webkit-linear-gradient(#00b1d5, #00b1d5, #0090bf, #0090bf);
+  padding: 6px 20px;
+  border: 0px;
+  color: #FFF;
+  font-family: Helvetica;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 1em;
+  border-radius: 5px;
+  cursor: pointer; }
+
+#header {
+  position: relative;
+  width: 960px;
+  margin: 0px auto;
+  margin-bottom: 35px;
+  padding-top: 40px; }
+  #header #logo {
+    display: block;
+    float: left;
+    background-image: url(../images/logo.png);
+    text-indent: -9999px;
+    width: 354px;
+    height: 60px; }
+  #header .navigation {
+    float: right;
+    margin-top: 47px; }
+    #header .navigation li {
+      display: block;
+      font-weight: normal;
+      text-transform: uppercase;
+      padding: 0px 10px;
+      float: left;
+      border-right: 1px solid #000; }
+      #header .navigation li.last {
+        border: 0px;
+        padding-right: 0px; }
+      #header .navigation li a {
+        color: #000; }
+        #header .navigation li a:hover {
+          color: #0090bf; }
+  #header .login {
+    display: block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 20px 18px;
+    font-size: 16px;
+    background: -webkit-linear-gradient(#00b1d5, #0090bf);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    color: #FFF; }
+
+#main {
+  width: 960px;
+  margin: 0px auto; }
+
+.banner {
+  width: 100%;
+  width: 960px;
+  overflow: hidden;
+  padding: 10px 0px;
+  background-color: #0090bf;
+  margin-bottom: 45px; }
+
+.section.three {
+  position: relative;
+  display: block;
+  float: left;
+  margin-bottom: 40px;
+  width: 245px;
+  margin-right: 37.5px;
+  height: 250px;
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eeeeee;
+  padding: 25px; }
+  .section.three.organizations {
+    background: url(../images/arrows-organizations.png) -10px 145px no-repeat; }
+  .section.three.last {
+    margin-right: 0px;
+    border: 0px;
+    padding: 0px;
+    box-shadow: none;
+    width: 290px; }
+  .section.three .dark-section {
+    padding: 15px 20px 5px 20px; }
+    .section.three .dark-section h2 {
+      margin-bottom: 5px; }
+    .section.three .dark-section .note {
+      font-size: 12px;
+      line-height: 1em;
+      margin-top: 0px; }
+    .section.three .dark-section input {
+      width: 100%;
+      border: 1px solid #b4b4b2;
+      font-size: 13px;
+      padding: 4px;
+      margin-bottom: 5px; }
+    .section.three .dark-section button {
+      margin-top: 5px; }
+  .section.three .browse-projects {
+    display: block;
+    background: #008bc2 url(../images/button-browse.png) center center no-repeat;
+    border-radius: 5px;
+    margin-top: 37px;
+    width: 100%;
+    height: 93px; }
+
+.dark-section {
+  background-color: #f1f0eb;
+  border-top: 7px solid #e1dfcc; }
+  .dark-section h2 {
+    text-transform: uppercase;
+    color: #273d3e;
+    border-bottom: 1px solid #c6c5c1;
+    padding-bottom: 5px;
+    margin-bottom: 15px; }
+    .dark-section h2 span {
+      color: #0090bf;
+      font-weight: normal; }
+
+.latest {
+  margin-bottom: 40px; }
+  .latest .section {
+    display: block;
+    float: left;
+    width: 268px;
+    padding: 0px 25px 0px 25px;
+    margin: 20px 0px;
+    border-right: 1px solid #FFF;
+    border-left: 1px solid #e3e3e3; }
+    .latest .section.last {
+      margin-right: 0px;
+      border-right: 0px; }
+    .latest .section.first {
+      border-left: 0px; }
+    .latest .section .img {
+      display: block;
+      float: left;
+      background-color: #333;
+      margin-right: 15px;
+      width: 75px;
+      height: 75px; }
+    .latest .section .title {
+      font-weight: bold;
+      text-transform: uppercase; }
+      .latest .section .title a {
+        color: #000; }
+        .latest .section .title a:hover {
+          color: #0090bf; }
+    .latest .section p {
+      margin: 5px 0px; }
+
+.social a {
+  display: block;
+  float: left;
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  width: 400px;
+  padding: 30px 30px;
+  margin-bottom: 40px; }
+  .social a span.title {
+    display: block;
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1.3em;
+    text-transform: uppercase; }
+  .social a span.tag {
+    font-size: 16px; }
+  .social a .text {
+    display: block;
+    padding: 10px 0px 10px 70px; }
+  .social a.facebook {
+    background: white url(../images/facebook-like.png) -80px -72px no-repeat; }
+    .social a.facebook .text {
+      background: url(../images/icon-facbook.png) left center no-repeat; }
+  .social a.twitter {
+    background: white url(../images/twitter-bird.png) -210px -65px no-repeat; }
+    .social a.twitter .text {
+      background: url(../images/icon-twitter.png) left center no-repeat; }
+  .social a.last {
+    float: right; }
+
+#footer {
+  background: #008ac0 url(../images/arrows-footer.png) center center no-repeat;
+  background-color: #0090bf;
+  padding: 45px 0px;
+  margin: 0px auto; }
+  #footer a {
+    color: #FFF; }
+  #footer .navigation {
+    margin: 0px auto;
+    width: 960px;
+    padding: 0px; }
+  #footer .navigation ul {
+    margin-right: 30px; }
+  #footer .navigation > li {
+    display: block;
+    float: left; }
+    #footer .navigation > li ul li {
+      padding-left: 10px;
+      margin-bottom: 5px; }
+      #footer .navigation > li ul li a:hover {
+        border-bottom: 1px solid #FFF; }
+    #footer .navigation > li .featured {
+      display: block;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      background-color: #006487; }
+      #footer .navigation > li .featured a:hover {
+        border-bottom: 0px; }
+    #footer .navigation > li.last a {
+      display: block;
+      background: url(../images/button-browse-large.png) left top no-repeat;
+      width: 218px;
+      height: 82px;
+      margin-top: 5px;
+      margin-left: 130px;
+      text-indent: -9999px; }

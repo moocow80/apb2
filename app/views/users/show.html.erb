@@ -1,7 +1,10 @@
 
 <% if @user.profile %>
-<div class="user">
+<div class="user content show-profile">
 	<ul>
+    <% if @user.profile.avatar? %>
+        <li> <%= link_to(image_tag(@user.profile.avatar.url(:thumb)), @user.profile.avatar.url) %></li>
+    <% end %>
 		<li>
 			<strong>Name</strong>
       <%= @user.profile.name %>
@@ -39,5 +42,6 @@
       <%= @user.profile.tags.where(:tag_type => "Cause").map { |t| t.name }.to_sentence %>
 		</li>
 	</ul>
+  <%= link_to "Next", project_matches_path(@user), :class => "button large inline-block" %>
 </div>
 <% end %>

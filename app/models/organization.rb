@@ -4,7 +4,7 @@ class Organization < ActiveRecord::Base
 
   sluggable
 
-  attr_accessible :name, :contact, :contact_email, :website, :phone, :mission, :details, :slug
+  attr_accessible :name, :contact, :contact_email, :website, :phone, :mission, :details, :slug, :logo
 
   belongs_to  :owner, :class_name => "User", :foreign_key => "user_id"
   has_many    :projects
@@ -15,6 +15,13 @@ class Organization < ActiveRecord::Base
   validates   :contact, :length => { :within => 4..50 }
   validates   :mission, :length => { :within => 5..1000 }
   validates   :details, :length => { :within => 5..1000 }
+
+  has_attached_file :logo,
+    :styles => { :thumb => "60x60#", :normal => "100x100#" },
+    :default_url => "default_logo.png",
+    :storage => :s3,
+    :s3_credentials => "#{Rails.root}/config/s3.yml", 
+    :path => "organizations/:id/logo/:style.:filename"
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   phone_regex = /^[\(\)0-9\- \+\.]{10,20} *[extension\.]{0,9} *[0-9]{0,5}$/i
@@ -41,7 +48,7 @@ class Organization < ActiveRecord::Base
     statement +=  "WHERE (taggeds.taggable_id = organizations.id AND taggeds.taggable_type = 'Organization' AND taggeds.tag_id = tags.id AND tags.name LIKE \"%#{escaped_search}%\") " 
     statement +=  "OR (taggeds.taggable_id = projects.id AND taggeds.taggable_type = 'Project' AND taggeds.tag_id = tags.id AND tags.name LIKE \"%#{escaped_search}%\") "
     statement +=  "OR organizations.name LIKE \"%#{escaped_search}%\" "
-    statement +=  "GROUP BY organizations.id"
+    statement +=  "GROUP BY organizations.id ORDER BY organizations.name"
     statement
   end  
 
@@ -49,7 +56,7 @@ class Organization < ActiveRecord::Base
     statement =   "SELECT `organizations`.* FROM organizations "
     statement +=  "LEFT JOIN projects ON projects.organization_id = organizations.id "
     statement +=  "INNER JOIN taggeds ON taggeds.taggable_type = 'Project' AND taggeds.taggable_id = projects.id "
-    statement +=  "INNER JOIN tags ON tags.id = taggeds.tag_id WHERE tags.id IN (#{tag_ids.join(",")}) GROUP BY organizations.id"
+    statement +=  "INNER JOIN tags ON tags.id = taggeds.tag_id WHERE tags.id IN (#{tag_ids.join(",")}) GROUP BY organizations.id ORDER BY organizations.name"
     statement
   end
 

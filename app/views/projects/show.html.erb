@@ -1,4 +1,5 @@
 <h1><%= @project.name %></h1>
+<div class="project details">
 <p><%= @project.organization.name %></p>
 <p>
   <%= @project.tags.map(&:name).join(", ") %>
@@ -11,6 +12,7 @@
 <% elsif !signed_in? %>
   <p><%= link_to "Volunteer for this Project", register_path %></p>
 <% end %>
+</div>
 <% if @project.organization.owner == current_user %>
   <%= link_to "Edit Project", edit_organization_project_path(@project.organization, @project) %>
   <% if @project.contributions %>

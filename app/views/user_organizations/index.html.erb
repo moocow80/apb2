@@ -4,7 +4,11 @@
     <% @organizations.each do |organization| %>
       <div class="off-white section">
       	<h3 class="border-header"><%= link_to organization.name, organization %></h3>
-      	<div class="image"></div>
+      	<div class="image">
+          <% if organization.logo? %>
+              <%= link_to(image_tag(organization.logo.url(:normal)), organization.logo.url) %>
+          <% end %>
+        </div>
       	<div class="column">
       		<h3 class="title">Causes:</h3>
       		<div class="definition"><%= organization.tags.map(&:name).join(", ") %></div>

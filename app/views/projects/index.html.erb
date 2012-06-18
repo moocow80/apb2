@@ -3,33 +3,79 @@
   <button class="button">Search</button>
 </form>
 -->
+
 <%= form_tag('', :method => :get,'id' => 'search-form') do %>
   <%= text_field_tag :search, params[:search], :placeholder => "Search by name, type or cause." %>
   <button class="button">Search</button>
 <% end %>
 
+<style>
+/* Added 20120610 JG */
+div.sidebar {
+  float: left;
+  width: 220px;
+}
+div.sidebar .section {
+  padding: 20px 10px;
+}
+div.sidebar label {
+    margin-bottom: 6px;
+    padding-top: 4px;
+}
+div.sidebar .section .group {
+  border: none;
+  border-bottom: 1px solid #F0F0F0;
+  border-top: 1px solid #F0F0F0;
+  margin: 10px 0 20px 0;
+  padding: 16px 0 20px 0;
+}
+div.sidebar .section .group.last {
+  border-bottom: none;
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.sidebar label.group-title {
+    font-weight: bold;
+}
+div.content {
+  float: right;
+  width: 680px;
+}
+</style>
+
 <div class="clear"></div>
 
+<div class="sidebar">
+
 <%= form_tag('', :method => :get, :class => "section") do %>
+  <div> 
+    <%= submit_tag "Apply", :class => "button" %>
+  </div>
 	<div class="group">
     <label class="group-title block">Filter By Type</label>
-    <% tags_by_type("Skill").each do |tag| %>
+    <ul>
+      <% tags_by_type("Skill").each do |tag| %>
+      <li>
       <%= check_box_tag "skill_tag_ids[]", tag.id, params[:skill_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
       <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      </li>
     <% end %>
+  </ul>
   </div>
 	<div class="group last">
     <label class="group-title block">Filter By Cause</label>
+    <ul>
     <% tags_by_type("Cause").each do |tag| %>
+      <li>
       <%= check_box_tag "cause_tag_ids[]", tag.id, params[:cause_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
       <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      </li>
     <% end %>
-    <div> 
-      <%= submit_tag "Apply", :class => "button" %>
-    </div>
   </div>
 <% end %>
-<div class="clear"></div>
+</div>
 
 
 <div class="content">
@@ -58,8 +104,7 @@
   <% @projects.each do |project| %>
     <% if project.verified? && project.organization.verified? && project.organization.owner.verified? %>
       <div class="project">
-        <div class="image"></div>
-        <h3><%= link_to "#{project.name} for #{project.organization.name}", organization_project_path(project.organization, project) %></h3>
+        <h3><%= link_to "#{project.name} for #{project.organization.name}" , organization_project_path(project.organization, project) %></h3>
         <% if !project.tags.empty? %>
         <div class="categories">
           <%= project.tags.map(&:name).join(", ") %>
@@ -68,8 +113,8 @@
         <p><%= project.details %></p>
         <h3>Project Goals</h3>
         <p>
-          <%= project.goals %>
-          <a href="#" id="more-info" class="more">More Info &raquo;</a>
+          <%= project.goals %></br>
+          <%= link_to "More info &raquo;".html_safe, organization_project_path(project.organization, project) %>
         </p>
         <% if current_user && Contributor.find_by_user_id_and_project_id(current_user.id, project.id).nil? %>
           <%= link_to "Volunteer for this Project", organization_project_contributors_path(project.organization, project), :method => :post, :class => "button" %>

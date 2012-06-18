@@ -9,28 +9,70 @@
   <button class="button">Search</button>
 <% end %>
 
+<style>
+/* Added 20120610 JG */
+div.sidebar {
+  float: left;
+  width: 220px;
+}
+div.sidebar .section {
+  padding: 20px 10px;
+}
+div.sidebar label {
+    margin-bottom: 6px;
+    padding-top: 4px;
+}
+div.sidebar .section .group {
+  border: none;
+  border-bottom: 1px solid #F0F0F0;
+  border-top: 1px solid #F0F0F0;
+  margin: 10px 0 20px 0;
+  padding: 16px 0 20px 0;
+}
+div.sidebar .section .group.last {
+  border-bottom: none;
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.sidebar label.group-title {font-weight: bold;}
+div.content {
+  float: right;
+  width: 680px;
+}
+</style>
+
 <div class="clear"></div>
 
+<div class="sidebar">
+
 <%= form_tag('', :method => :get, :class => "section") do %>
-	<div class="group">
-    <label class="group-title block">Filter By Type</label>
-    <% tags_by_type("Skill").each do |tag| %>
-      <%= check_box_tag "skill_tag_ids[]", tag.id, params[:skill_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
-      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
-    <% end %>
-  </div>
-	<div class="group last">
-    <label class="group-title block">Filter By Cause</label>
-    <% tags_by_type("Cause").each do |tag| %>
-      <%= check_box_tag "cause_tag_ids[]", tag.id, params[:cause_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
-      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
-    <% end %>
     <div> 
       <%= submit_tag "Apply", :class => "button" %>
     </div>
+	<div class="group">
+    <ul>
+    <label class="group-title block">Filter By Type</label>
+      <% tags_by_type("Skill").each do |tag| %>
+      <li><%= check_box_tag "skill_tag_ids[]", tag.id, params[:skill_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    </li>
+    <% end %>
+  </ul>
+  </div>
+	<div class="group last">
+    <ul>
+    <label class="group-title block">Filter By Cause</label>
+    <% tags_by_type("Cause").each do |tag| %>
+      <li><%= check_box_tag "cause_tag_ids[]", tag.id, params[:cause_tag_ids].to_s.include?(tag.id.to_s), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+    </li>
+    <% end %>
+  </ul>
   </div>
 <% end %>
-<div class="clear"></div>
+</div>
 
 
 <div class="content">
@@ -59,7 +101,11 @@
   <% @organizations.each do |organization| %>
     <% if organization.verified? %>
     <div class="project">
-      <div class="image"></div>
+      <div class="image">
+        <% if organization.logo? %>
+           <%= link_to(image_tag(organization.logo.url(:normal)), organization.logo.url) %>
+        <% end %>
+      </div>
       <h3><%= link_to organization.name, organization %></h3>
       <div class="info">
         <% if !organization.tags.empty? %>
@@ -76,7 +122,7 @@
             <li><%= project.name %> (<%= link_to "project details", organization_project_path(organization, project) %>)</li>
           <% end %>
         </ul>
-        <a href="#" id="more-info" class="more">More Info &raquo;</a>
+        <%= link_to "More Info &raquo;".html_safe, organization %>
       </div>
       <%= link_to "#{organization.projects.count} available projects", "#", :class => "available" %>
       <div class="clear"></div>

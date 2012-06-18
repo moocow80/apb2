@@ -40,10 +40,14 @@ class UsersController < ApplicationController
     if user
       user.toggle!(:verified)
       flash[:success] = "Congratulations, your email address has been verified!"
-      if !user.user_profiles.empty?
-        redirect_to project_matches_path(user)
+      if !user.is_organization
+        if !user.user_profiles.empty? 
+          redirect_to project_matches_path(user)
+        else
+          redirect_to new_volunteer_path
+        end
       else
-        redirect_to new_volunteer_path
+          redirect_to new_organization_path
       end
     else
       flash[:error] = "Sorry, we couldn't find that email address in our system"

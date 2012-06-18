@@ -1,5 +1,18 @@
 <%= form_for @user_profile do |f| %>
   <%= f.error_messages %>
+<style>
+div.section.off-white input#user_profile_name,
+div.section.off-white input#user_profile_phone {
+  width: 200px;
+}
+div.group.last li label,
+div.group.last li input {
+  display: inline;
+  float: none;
+  margin-bottom: 10px;
+}
+
+</style>
   <div class="section off-white">
   	<h2 class="border-header">Basic Contact Information</h2>
     <p>
@@ -14,20 +27,27 @@
   <div class="section off-white">
   	<h2 class="border-header">Cause Interests</h2>
     <div class="group last">
+      <ul>
       <% tags_by_type("Cause").each do |tag| %>
-        <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
+      <li><%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
         <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+      </li>
       <% end %>
+    </ul>
     </div>
     <div class="clear"></div>
   </div>
   <div class="section off-white">
   	<h2 class="border-header">Experience</h2>
     <div class="group last">
+      <ul>
       <% tags_by_type("Skill").each do |tag| %>
+      <li>
         <%= check_box_tag "user_profile[tag_ids][]", tag.id, @user_profile.tags.include?(tag), { :id => "#{tag.tag_type.downcase}_#{tag.id}" } %>
         <%= label_tag "#{tag.tag_type.downcase}_#{tag.id}", tag.name.titleize %>
+        </li>
       <% end %>
+    </ul>
     </div>
     <div class="clear"></div>
     <p>
@@ -53,6 +73,16 @@
       <%= f.text_field :website, :placeholder => "http://" %>
     </p>
   </div>
+  <div class="section off-white">
+  	<h2 class="border-header">Avatar</h2>
+    <p><%= f.file_field :avatar %></p>
+    <p>
+      <div class="image">
+        <%= image_tag @user_profile.avatar.url(:normal) %>
+      </div>
+    </p>
+  </div>
+  <div class="clear"></div>
   <div class="section off-white">
   	<h2 class="border-header">Availability</h2>
     <p>

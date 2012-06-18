@@ -29,7 +29,7 @@ Apb2::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.action_mailer.default_url_options = { :host => "austinprobono.org:3000" }
+  config.action_mailer.default_url_options = { :host => "austinprobono.org:3001" }
 
   # Don't send emails to Lisa =)
   config.action_mailer.perform_deliveries = true

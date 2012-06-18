@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
     statement +=  "WHERE (taggeds.taggable_id = organizations.id AND taggeds.taggable_type = 'Organization' AND tags.id = taggeds.tag_id AND tags.name LIKE \"%#{escaped_search}%\") " 
     statement +=  "OR (taggeds.taggable_id = projects.id AND taggeds.taggable_type = 'Project' AND tags.id = taggeds.tag_id AND tags.name LIKE \"%#{escaped_search}%\") "
     statement +=  "OR projects.name LIKE \"%#{escaped_search}%\" "
-    statement +=  "GROUP BY projects.id"
+    statement +=  "GROUP BY projects.id ORDER BY projects.name"
     statement
   end  
 
@@ -38,7 +38,7 @@ class Project < ActiveRecord::Base
     statement =   "SELECT `projects`.* FROM projects "
     statement +=  "INNER JOIN organizations ON projects.organization_id = organizations.id "
     statement +=  "INNER JOIN taggeds ON taggeds.taggable_type = 'Organization' AND taggeds.taggable_id = organizations.id "
-    statement +=  "INNER JOIN tags ON tags.id = taggeds.tag_id WHERE tags.id IN (#{tag_ids.join(",")}) GROUP BY projects.id"
+    statement +=  "INNER JOIN tags ON tags.id = taggeds.tag_id WHERE tags.id IN (#{tag_ids.join(",")}) GROUP BY projects.id ORDER BY projects.name"
     statement
   end
 

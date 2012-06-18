@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content show-profile">
   <div class="forward right">
     <%= link_to "Edit", edit_profile_path, :class => "forward right" %>
   </div>
@@ -8,11 +8,13 @@
     <div class="clear"></div>
   </div>
   <ul>
-    <% if @user_profile.avatar? %>
-      <ul>
-        <li> <%= link_to(image_tag(@user_profile.avatar.url(:thumb)), @user_profile.avatar.url) %></li>
-      </ul>
-    <% end %>
+    <p>
+      <div class="image">
+        <% if @user_profile.avatar? %>
+            <%= link_to(image_tag(@user_profile.avatar.url(:normal)), @user_profile.avatar.url) %>
+        <% end %>
+      </div>
+    </p>
     <li><strong>Name: </strong><%= @user_profile.name %></li>
     <li><strong>Phone #: </strong><%= @user_profile.phone %></li>
     <li><strong>Current Employer: </strong><%= @user_profile.current_employer %></li>

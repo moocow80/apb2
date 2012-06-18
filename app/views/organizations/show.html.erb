@@ -12,16 +12,22 @@
   <h1>
     <%= @organization.name %>
   </h1>
-  <ul>
-    <li><strong>Causes: </strong><%= @organization.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
-    <li><strong>Contact: </strong><%= @organization.contact %></li>
-    <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
-    <li><strong>Website: </strong><%= @organization.website %></li>
-    <li><strong>Phone: </strong><%= @organization.phone %></li>
-    <li><strong>Mission: </strong><%= @organization.mission %></li>
-    <li><strong>Details: </strong><%= @organization.details %></li>
-  </ul>
-  </br>
+  <div class="off-white section organization new">
+    <ul>
+      <div class="image">
+        <% if @organization.logo? %>
+            <%= link_to(image_tag(@organization.logo.url(:normal)), @organization.logo.url) %>
+        <% end %>
+      </div>
+      <li><strong>Causes: </strong><%= @organization.tags.where(:tag_type => "cause").map(&:name).join(", ") %></li>
+      <li><strong>Contact: </strong><%= @organization.contact %></li>
+      <li><strong>Contact Email: </strong><%= @organization.contact_email %></li>
+      <li><strong>Website: </strong><%= @organization.website %></li>
+      <li><strong>Phone: </strong><%= @organization.phone %></li>
+      <li><strong>Mission: </strong><%= @organization.mission %></li>
+      <li><strong>Details: </strong><%= @organization.details %></li>
+    </ul>
+  </div>
   <% if @organization.projects %>
     <%= render @organization.projects %>
   <% end %>

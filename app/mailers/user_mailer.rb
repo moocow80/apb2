@@ -24,9 +24,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def notify_subscribers(project, user)
-    @project = project
-    @user = user 
-    mail :to => @user.email, :subject => "We thought you might be interested in . . . "
+    mail :to => user.email, :subject => "We thought you might be interested in . . . "
   end
   
   def thanks_for_volunteering(contributor)

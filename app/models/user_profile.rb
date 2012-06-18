@@ -10,7 +10,8 @@ class UserProfile < ActiveRecord::Base
   validates_presence_of :user_id, :name, :phone
 
   has_attached_file :avatar,
-    :styles => { :thumb => "60x60" },
+    :styles => { :thumb => "60x60#", :normal => "100x100#" },
+    :default_url =>"default_avatar.png",
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml", 
     :path => "user_profiles/:id/avatar/:style.:filename"

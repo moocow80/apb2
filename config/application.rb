@@ -50,5 +50,6 @@ module Apb2
 
     # Register observers
     config.active_record.observers = :user_observer, :organization_observer, :project_observer, :contributor_observer
+
   end
 end

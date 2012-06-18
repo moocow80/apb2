@@ -12,7 +12,11 @@
       <% if current_user.is_organization %>
         <%= link_to "My Organizations", user_organizations_path(current_user) %> |
       <% elsif !current_user.is_organization %>
-        <%= link_to "My Profile", profile_path %> | 
+        <% if UserProfile.find_by_user_id(current_user.id).nil? %>
+          <%= link_to "My Profile", new_volunteer_path %> | 
+        <% else %>
+          <%= link_to "My Profile", profile_path %> | 
+        <% end %>
       <% end %>
       <%= link_to "Log Out", logout_path %>
     <% else %>
