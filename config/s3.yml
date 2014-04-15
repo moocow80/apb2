@@ -1,13 +1,13 @@
 development:
   bucket: austinprobono-dev
-  access_key_id: 'AKIAJ32YXDMUGYRD2EEA'
-  secret_access_key: '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'
+  access_key_id: 'XXX'
+  secret_access_key: 'XXX'
 test:
   bucket: austinprobono-test
-  access_key_id: 'AKIAJ32YXDMUGYRD2EEA'
-  secret_access_key: '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'
+  access_key_id: 'XXX'
+  secret_access_key: 'XXX'
 production:
   bucket: austinprobono
-  access_key_id: 'AKIAJ32YXDMUGYRD2EEA'
-  secret_access_key: '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'
+  access_key_id: 'XXX'
+  secret_access_key: 'XXX'
 
